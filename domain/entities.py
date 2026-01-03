@@ -13,6 +13,8 @@ class PIIToken:
     type: PIIType
     original_value: str
     token_str: str
+    start: int
+    end: int
 
 @dataclass
 class Message:
