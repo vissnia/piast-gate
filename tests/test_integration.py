@@ -1,6 +1,5 @@
 from fastapi.testclient import TestClient
 from infrastructure.api.main import create_app
-from domain.services import AnonymizerService
 
 app = create_app()
 client = TestClient(app)

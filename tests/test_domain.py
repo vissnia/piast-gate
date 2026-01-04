@@ -1,6 +1,5 @@
 import pytest
-from domain.entities import PIIToken, PIIType, PIIToken
-from domain.services import AnonymizerService
+from domain.services.anonymizer_service import AnonymizerService
 from infrastructure.detectors.regex_detector import RegexPIIDetector
 
 @pytest.fixture

@@ -1,8 +1,8 @@
 import logging
 import uuid
 from typing import List, Tuple, Dict
-from domain.entities import PIIToken, PIIType
-from domain.interfaces import PIIDetector
+from domain.entities.pii_token import PIIToken
+from domain.interfaces.pii_detector import PIIDetector
 
 logger = logging.getLogger(__name__)
 
