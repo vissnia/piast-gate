@@ -1,6 +1,7 @@
-from domain.interfaces import LLMProvider
-from domain.services import AnonymizerService
-from application.dtos import ChatRequest, ChatResponse
+from domain.interfaces.llm_provider import LLMProvider
+from domain.services.anonymizer_service import AnonymizerService
+from application.dtos.chat_request import ChatRequest
+from application.dtos.chat_response import ChatResponse
 
 class ChatUseCase:
     """Orchestrates the chat flow with anonymization."""

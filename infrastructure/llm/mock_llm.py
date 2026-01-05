@@ -1,5 +1,5 @@
 import asyncio
-from domain.interfaces import LLMProvider
+from domain.interfaces.llm_provider import LLMProvider
 
 class MockLLM(LLMProvider):
     """Mock implementation of an LLM provider."""

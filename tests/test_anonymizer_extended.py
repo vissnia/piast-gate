@@ -1,6 +1,7 @@
+from domain.enums.pii_type import PIIType
 import pytest
-from domain.services import AnonymizerService
-from domain.entities import PIIToken, PIIType
+from domain.services.anonymizer_service import AnonymizerService
+from domain.entities.pii_token import PIIToken
 from infrastructure.detectors.regex_detector import RegexPIIDetector
 
 @pytest.fixture

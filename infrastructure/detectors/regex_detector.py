@@ -1,9 +1,10 @@
 import re
 from typing import List
-from domain.entities import PIIToken, PIIType
-from domain.interfaces import PIIDetector
+from domain.entities.pii_token import PIIToken
+from domain.enums.pii_type import PIIType
+from domain.interfaces.pii_detector import PIIDetector
 
-class RegexPIIDetector:
+class RegexPIIDetector(PIIDetector):
     """Detects PII using regular expressions."""
 
     # Simplified patterns for MVP

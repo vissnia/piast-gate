@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException
-from application.dtos import ChatRequest, ChatResponse
-from application.use_cases import ChatUseCase
+from application.dtos.chat_request import ChatRequest
+from application.dtos.chat_response import ChatResponse
+from application.use_cases.chat_use_case import ChatUseCase
 from infrastructure.detectors.regex_detector import RegexPIIDetector
 from infrastructure.llm.mock_llm import MockLLM
-from domain.services import AnonymizerService
+from domain.services.anonymizer_service import AnonymizerService
 
 router = APIRouter()
 

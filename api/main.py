@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from infrastructure.api.routers import router
+from api.routers import router
 
 def create_app() -> FastAPI:
     app = FastAPI(title="LLM PII Gateway", version="0.1.0")

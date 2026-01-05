@@ -1,4 +1,4 @@
-# LLM PII Gateway
+# Prompt Inspection & Anonymization Security Tunnel (PIAST)
 
 A secure gateway to anonymize PII before sending prompts to LLMs.
 
