@@ -32,41 +32,46 @@ class AnonymizerService:
         for detector in self.detectors:
             all_tokens.extend(detector.detect(text))
 
-        # Sort tokens by length descending to avoid partial replacements (naive approach)
-        # Ideally, we should handle overlapping matches, but for MVP strict replacement is fine.
-        all_tokens.sort(key=lambda t: len(t.original_value), reverse=True)
+        # Sort by start position (asc) and length (desc) to prioritize longer matches at same position
+        all_tokens.sort(key=lambda t: (t.start, -len(t.original_value)))
 
-        anonymized_text = text
-        mapping: Dict[str, PIIToken] = {}
+        non_overlapping_tokens: List[PIIToken] = []
+        last_end = 0
 
         for token in all_tokens:
-            # Check if this specific instance is still in the text (to avoid double replacement issues if needed)
-            # For MVP regex, simple replace is okay if patterns are distinct.
-            
-            # Generate a consistent token string if not already provided by detector
-            # logic: <PII:TYPE:VALUE_HASH> or just a unique ID for this request?
-            # The prompt says: <PII:TYPE:ID>
-            # We'll generate a unique ID for this specific occurrence or value.
-            # To preserve consistent mapping for the same value in one request:
-            
-            if token.original_value not in [t.original_value for t in mapping.values()]:
-                # New unique value found
+            if token.start >= last_end:
+                non_overlapping_tokens.append(token)
+                last_end = token.end
+        
+        # Build result and generate tokens
+        result_parts = []
+        last_idx = 0
+        mapping: Dict[str, PIIToken] = {}
+        # Keep track of value -> token_str for consistency within this request
+        value_to_token_str: Dict[str, str] = {}
+
+        for token in non_overlapping_tokens:
+            # Append text before this token
+            result_parts.append(text[last_idx:token.start])
+
+            # consistency check
+            if token.original_value in value_to_token_str:
+                token_str = value_to_token_str[token.original_value]
+            else:
                 unique_id = str(uuid.uuid4())[:8]
                 token_str = f"<PII:{token.type.name}:{unique_id}>"
-                token.token_str = token_str # update token with generated string
-                mapping[token_str] = token
-            else:
-                # Existing value, reuse the token string
-                existing_token = next(t for t in mapping.values() if t.original_value == token.original_value)
-                token.token_str = existing_token.token_str
+                value_to_token_str[token.original_value] = token_str
+            
+            token.token_str = token_str
+            mapping[token_str] = token
+            result_parts.append(token_str)
+            
+            last_idx = token.end
 
-            # Replace in text
-            # Note: This simple replace might replace partial matches if not careful.
-            # Ideally we replace by index, but string immutability makes that tricky without reconstruction.
-            # For MVP, string.replace is acceptable if assumes unique context or comprehensive regex.
-            anonymized_text = anonymized_text.replace(token.original_value, token.token_str)
+        # Append remaining text
+        result_parts.append(text[last_idx:])
 
-        return anonymized_text, mapping
+        return "".join(result_parts), mapping
 
     def deanonymize(self, text: str, mapping: Dict[str, PIIToken]) -> str:
         """
