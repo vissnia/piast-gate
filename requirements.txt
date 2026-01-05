@@ -3,3 +3,6 @@ uvicorn[standard]>=0.20.0
 pydantic>=2.0.0
 pytest>=9.0.2
 httpx>=0.28.1
+google-genai>=1.56.0
+python-dotenv>=1.0.0
+pytest-asyncio>=0.23.0

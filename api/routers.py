@@ -3,7 +3,7 @@ from application.dtos.chat_request import ChatRequest
 from application.dtos.chat_response import ChatResponse
 from application.use_cases.chat_use_case import ChatUseCase
 from infrastructure.detectors.regex_detector import RegexPIIDetector
-from infrastructure.llm.mock_llm import MockLLM
+from infrastructure.llm.llm_factory import create_llm_provider
 from domain.services.anonymizer_service import AnonymizerService
 
 router = APIRouter()
@@ -16,7 +16,7 @@ router = APIRouter()
 def get_chat_use_case() -> ChatUseCase:
     detectors = [RegexPIIDetector()]
     anonymizer = AnonymizerService(detectors)
-    llm = MockLLM()
+    llm = create_llm_provider()
     return ChatUseCase(anonymizer, llm)
 
 @router.post("/chat", response_model=ChatResponse)
