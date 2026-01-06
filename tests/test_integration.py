@@ -1,5 +1,9 @@
 from fastapi.testclient import TestClient
 from api.main import create_app
+import os
+
+# Ensure we use MockLLM for tests
+os.environ["LLM_PROVIDER"] = "mock"
 
 app = create_app()
 client = TestClient(app)

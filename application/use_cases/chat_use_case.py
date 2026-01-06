@@ -20,10 +20,11 @@ class ChatUseCase:
         """
         # 1. Anonymize
         anon_prompt, mapping = self.anonymizer.anonymize(request.prompt)
+        print("Anonymized prompt:", anon_prompt)
 
-        print(anon_prompt)
         # 2. Call LLM
         llm_response_text = await self.llm.chat(anon_prompt)
+        print("LLM response:", llm_response_text)
         
         # 3. Deanonymize
         final_response_text = self.anonymizer.deanonymize(llm_response_text, mapping)
