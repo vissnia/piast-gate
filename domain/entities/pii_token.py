@@ -1,3 +1,4 @@
+from domain.enums.pii_type import PIIType
 from dataclasses import dataclass
 
 @dataclass

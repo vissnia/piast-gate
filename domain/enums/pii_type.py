@@ -5,4 +5,7 @@ class PIIType(Enum):
     EMAIL = auto()
     PHONE = auto()
     PESEL = auto()
+    PERSON = auto()
+    LOCATION = auto()
+    ORGANIZATION = auto()
     
