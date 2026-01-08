@@ -1,3 +1,4 @@
+from infrastructure.detectors.presidio_detector import PresidioPIIDetector
 from fastapi import APIRouter, Depends, HTTPException
 from application.dtos.chat_request import ChatRequest
 from application.dtos.chat_response import ChatResponse
@@ -14,7 +15,7 @@ router = APIRouter()
 # Ideally, we should use `lru_cache` or a global instance.
 
 def get_chat_use_case() -> ChatUseCase:
-    detectors = [RegexPIIDetector()]
+    detectors = [PresidioPIIDetector()]
     anonymizer = AnonymizerService(detectors)
     llm = create_llm_provider()
     return ChatUseCase(anonymizer, llm)
