@@ -31,7 +31,7 @@ A secure gateway to anonymize PII before sending prompts to LLMs.
 Start the server using Uvicorn:
 
 ```bash
-uvicorn main:app --reload
+uvicorn main:app
 ```
 
 The API will be available at `http://127.0.0.1:8000`.
