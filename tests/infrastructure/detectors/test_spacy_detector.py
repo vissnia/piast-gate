@@ -5,12 +5,12 @@ from unittest.mock import MagicMock, patch
 sys.modules["spacy"] = MagicMock()
 
 import pytest
-from infrastructure.detectors.spacy_detector import SpacyPIIDetector
+from infrastructure.detectors.spacy import SpacyPIIDetector
 from domain.enums.pii_type import PIIType
 
 @pytest.fixture
 def mock_spacy():
-    with patch('infrastructure.detectors.spacy_detector.spacy') as mock:
+    with patch('infrastructure.detectors.spacy.detector.spacy') as mock:
         yield mock
 
 def test_detect_returns_correct_tokens(mock_spacy):
