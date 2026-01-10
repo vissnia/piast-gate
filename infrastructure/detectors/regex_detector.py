@@ -9,7 +9,6 @@ class RegexPIIDetector(PIIDetector):
 
     # Simplified patterns for MVP
     PATTERNS = {
-        PIIType.EMAIL: r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b',
         PIIType.PHONE: r'(?:\+48\s?)?[1-9]\d{2}[-\s]?\d{3}[-\s]?\d{3,4}\b',
         PIIType.PESEL: r'\b\d{11}\b', # Simple 11 digit check for PESEL to change later
     }

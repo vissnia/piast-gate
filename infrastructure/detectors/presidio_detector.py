@@ -1,12 +1,14 @@
 import spacy
 import logging
 import os
+import json
 from typing import List, Optional, Dict
 from presidio_analyzer import AnalyzerEngine, RecognizerResult
 from domain.entities.pii_token import PIIToken
 from domain.enums.pii_type import PIIType
 from domain.interfaces.pii_detector import PIIDetector
 from presidio_analyzer.nlp_engine import NlpEngineProvider
+from presidio_analyzer import RecognizerRegistry
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -31,22 +33,27 @@ def download_model(model_name: str) -> None:
 
 def get_analyzer_engine() -> AnalyzerEngine:
     """Get or create singleton AnalyzerEngine instance."""
-
     global _analyzer_engine
     if _analyzer_engine is None:
-        model_name = os.getenv("PL_NER_MODEL_NAME", "pl_core_news_lg")
+        current_dir = os.path.dirname(__file__)
+        config_path = os.path.abspath(os.path.join(current_dir, "..", "..", "presidio_config.json"))
         
-        configuration = {
-            "nlp_engine_name": "spacy",
-            "models": [{"lang_code": "pl", "model_name": model_name}],
-        }
+        with open(config_path, "r", encoding="utf-8") as f:
+            configuration = json.load(f)
         
         provider = NlpEngineProvider(nlp_configuration=configuration)
         nlp_engine = provider.create_engine()
         
-        _analyzer_engine = AnalyzerEngine(nlp_engine=nlp_engine, supported_languages=["pl"])
+        supported_languages = list(nlp_engine.get_supported_languages())
+        registry = RecognizerRegistry(supported_languages=["pl"])
+        registry.load_predefined_recognizers(languages=["pl"])
+        
+        _analyzer_engine = AnalyzerEngine(
+            registry=registry, 
+            supported_languages=supported_languages, 
+            nlp_engine=nlp_engine
+        )
 
-        _analyzer_engine.analyze(text="warm up", language="pl")
     return _analyzer_engine
 
 class PresidioPIIDetector(PIIDetector):
