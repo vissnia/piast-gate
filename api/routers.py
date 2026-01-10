@@ -1,4 +1,4 @@
-from infrastructure.detectors.presidio_detector import PresidioPIIDetector
+from infrastructure.detectors.spacy_detector import SpacyPIIDetector
 from fastapi import APIRouter, Depends, HTTPException
 from application.dtos.chat_request import ChatRequest
 from application.dtos.chat_response import ChatResponse
@@ -6,7 +6,9 @@ from application.use_cases.chat_use_case import ChatUseCase
 from infrastructure.detectors.regex_detector import RegexPIIDetector
 from infrastructure.llm.llm_factory import create_llm_provider
 from domain.services.anonymizer_service import AnonymizerService
+import logging
 
+logger = logging.getLogger(__name__)
 router = APIRouter()
 
 # Dependency Injection Factory
@@ -15,7 +17,7 @@ router = APIRouter()
 # Ideally, we should use `lru_cache` or a global instance.
 
 def get_chat_use_case() -> ChatUseCase:
-    detectors = [PresidioPIIDetector(), RegexPIIDetector()]
+    detectors = [SpacyPIIDetector(), RegexPIIDetector()]
     anonymizer = AnonymizerService(detectors)
     llm = create_llm_provider()
     return ChatUseCase(anonymizer, llm)
@@ -28,5 +30,5 @@ async def chat_endpoint(
     try:
         return await use_case.execute(request)
     except Exception as e:
-        # Log error in production
+        logger.error(f"Chat endpoint failed: {e}")  
         raise HTTPException(status_code=500, detail=str(e))
