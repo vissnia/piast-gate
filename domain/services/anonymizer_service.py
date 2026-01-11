@@ -32,7 +32,6 @@ class AnonymizerService:
         for detector in self.detectors:
             all_tokens.extend(detector.detect(text))
 
-        # Sort by start position (asc) and length (desc) to prioritize longer matches at same position
         all_tokens.sort(key=lambda t: (t.start, -len(t.original_value)))
 
         non_overlapping_tokens: List[PIIToken] = []
@@ -43,18 +42,14 @@ class AnonymizerService:
                 non_overlapping_tokens.append(token)
                 last_end = token.end
         
-        # Build result and generate tokens
         result_parts = []
         last_idx = 0
         mapping: Dict[str, PIIToken] = {}
-        # Keep track of value -> token_str for consistency within this request
         value_to_token_str: Dict[str, str] = {}
 
         for token in non_overlapping_tokens:
-            # Append text before this token
             result_parts.append(text[last_idx:token.start])
 
-            # consistency check
             if token.original_value in value_to_token_str:
                 token_str = value_to_token_str[token.original_value]
             else:
@@ -68,7 +63,6 @@ class AnonymizerService:
             
             last_idx = token.end
 
-        # Append remaining text
         result_parts.append(text[last_idx:])
 
         return "".join(result_parts), mapping

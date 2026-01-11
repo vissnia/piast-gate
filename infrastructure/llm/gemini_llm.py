@@ -25,9 +25,6 @@ DO NOT modify, rename, or obfuscate them.
         try:
             full_prompt = f"{self._SYSTEM_PROMPT}\n\nUser: {prompt}"
             response = self.client.models.generate_content(contents=full_prompt, model=self.model)
-            # Check if response was blocked or empty, though generate_content usually raises or returns object
             return response.text
         except Exception as e:
-            # Wrap in a consistent error or let bubble up? 
-            # Interface says returns str, let's propagate for now as runtime error
             raise RuntimeError(f"Gemini API error: {e}")

@@ -28,7 +28,5 @@ def create_llm_provider() -> LLMProvider:
             raise ValueError("MODEL_NAME environment variable is required for Gemini provider")
        
         return GeminiLLM(api_key, model_name)
-        
-    # Future providers (OpenAI, Azure) would be added here
     
     raise ValueError(f"Unknown LLM provider: {provider_type}")

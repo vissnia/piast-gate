@@ -1,32 +1,45 @@
-from infrastructure.detectors.presidio_detector import PresidioPIIDetector
+import logging
 from fastapi import APIRouter, Depends, HTTPException
+
 from application.dtos.chat_request import ChatRequest
 from application.dtos.chat_response import ChatResponse
 from application.use_cases.chat_use_case import ChatUseCase
-from infrastructure.detectors.regex_detector import RegexPIIDetector
-from infrastructure.llm.llm_factory import create_llm_provider
-from domain.services.anonymizer_service import AnonymizerService
+from api.di.chat_container import get_chat_use_case
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
-# Dependency Injection Factory
-# For MVP we can instantiate here or use a proper DI container helper
-# Since we need a fresh object or stateless service, let's create it.
-# Ideally, we should use `lru_cache` or a global instance.
-
-def get_chat_use_case() -> ChatUseCase:
-    detectors = [PresidioPIIDetector(), RegexPIIDetector()]
-    anonymizer = AnonymizerService(detectors)
-    llm = create_llm_provider()
-    return ChatUseCase(anonymizer, llm)
-
-@router.post("/chat", response_model=ChatResponse)
+@router.post(
+    "/chat",
+    response_model=ChatResponse,
+    status_code=200,
+    summary="Process a chat request",
+    description="Anonymizes input, sends to LLM, and deanonymizes response."
+)
 async def chat_endpoint(
     request: ChatRequest,
     use_case: ChatUseCase = Depends(get_chat_use_case)
 ):
+    """
+    Endpoint for chat interactions.
+
+    Args:
+        request (ChatRequest): The user's chat message.
+        use_case (ChatUseCase): Injected application core logic.
+
+    Returns:
+        ChatResponse: The LLM's response.
+    """
     try:
-        return await use_case.execute(request)
+        response = await use_case.execute(request)
+        return response
+    except ValueError as e:
+        logger.warning(f"Validation error in chat endpoint: {e}")
+        raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        # Log error in production
-        raise HTTPException(status_code=500, detail=str(e))
+        logger.error(f"Unexpected error in chat endpoint: {e}", exc_info=True)
+        raise HTTPException(
+            status_code=500, 
+            detail="An internal server error occurred processing the request."
+        )
