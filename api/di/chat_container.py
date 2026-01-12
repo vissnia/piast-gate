@@ -8,6 +8,7 @@ from infrastructure.llm.llm_factory import create_llm_provider
 from domain.services.anonymizer_service import AnonymizerService
 from domain.interfaces.pii_detector import PIIDetector
 from application.use_cases.chat_use_case import ChatUseCase
+from application.use_cases.anonymize_use_case import AnonymizeUseCase
 from domain.interfaces.llm_provider import LLMProvider
 
 @lru_cache
@@ -51,3 +52,11 @@ def get_chat_use_case(
     Wraps the application logic with required services.
     """
     return ChatUseCase(anonymizer, llm)
+
+def get_anonymize_use_case(
+    anonymizer: AnonymizerService = Depends(get_anonymizer_service),
+) -> AnonymizeUseCase:
+    """
+    Dependency provider for AnonymizeUseCase.
+    """
+    return AnonymizeUseCase(anonymizer)
