@@ -19,10 +19,8 @@ class ChatUseCase:
         4. Return result.
         """
         anon_prompt, mapping = self.anonymizer.anonymize(request.prompt)
-        print("Anonymized prompt:", anon_prompt)
 
         llm_response_text = await self.llm.chat(anon_prompt)
-        print("LLM response:", llm_response_text)
         
         final_response_text = self.anonymizer.deanonymize(llm_response_text, mapping)
         
