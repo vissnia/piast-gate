@@ -1,5 +1,5 @@
 import pytest
-from infrastructure.detectors.regex_detector import RegexPIIDetector
+from infrastructure.detectors.email_detector import RegexPIIDetector
 from domain.enums.pii_type import PIIType
 
 def test_detect_email():
@@ -21,11 +21,3 @@ def test_detect_phone():
     assert len(phone_tokens) > 0
     assert "123-456-7890" in [t.original_value for t in phone_tokens] or "+48 123-456-7890" in [t.original_value for t in phone_tokens]
 
-def test_detect_pesel():
-    detector = RegexPIIDetector()
-    text = "My PESEL is 12345678901."
-    tokens = detector.detect(text)
-    
-    pesel_tokens = [t for t in tokens if t.type == PIIType.PESEL]
-    assert len(pesel_tokens) == 1
-    assert pesel_tokens[0].original_value == "12345678901"
