@@ -1,9 +1,16 @@
+from api.di.detector_container import (
+    get_spacy_detector,
+    get_email_detector,
+    get_phone_detector,
+    get_pesel_detector,
+)
+from infrastructure.detectors.phone_detector import PhoneDetector
+from infrastructure.detectors.email_detector import EmailDetector
+from infrastructure.detectors.pesel_detector import PeselDetector
+from infrastructure.detectors.spacy import SpacyPIIDetector
 from functools import lru_cache
 from typing import List
-
 from fastapi import Depends
-from infrastructure.detectors.spacy import SpacyPIIDetector
-from infrastructure.detectors.regex_detector import RegexPIIDetector
 from infrastructure.llm.llm_factory import create_llm_provider
 from domain.services.anonymizer_service import AnonymizerService
 from domain.interfaces.pii_detector import PIIDetector
@@ -11,19 +18,6 @@ from application.use_cases.chat_use_case import ChatUseCase
 from application.use_cases.anonymize_use_case import AnonymizeUseCase
 from domain.interfaces.llm_provider import LLMProvider
 
-@lru_cache
-def get_spacy_detector() -> SpacyPIIDetector:
-    """
-    Returns a cached instance of SpacyPIIDetector to avoid reloading the model.
-    """
-    return SpacyPIIDetector()
-
-@lru_cache
-def get_regex_detector() -> RegexPIIDetector:
-    """
-    Returns a cached instance of RegexPIIDetector.
-    """
-    return RegexPIIDetector()
 
 @lru_cache
 def get_llm_provider() -> LLMProvider:
@@ -34,13 +28,15 @@ def get_llm_provider() -> LLMProvider:
 
 def get_anonymizer_service(
     spacy_detector: SpacyPIIDetector = Depends(get_spacy_detector),
-    regex_detector: RegexPIIDetector = Depends(get_regex_detector),
+    email_detector: EmailDetector = Depends(get_email_detector),
+    phone_detector: PhoneDetector = Depends(get_phone_detector),
+    pesel_detector: PeselDetector = Depends(get_pesel_detector),
 ) -> AnonymizerService:
     """
     Dependency provider for AnonymizerService.
     Combines all configured PII detectors.
     """
-    detectors: List[PIIDetector] = [spacy_detector, regex_detector]
+    detectors: List[PIIDetector] = [spacy_detector, email_detector, phone_detector, pesel_detector]
     return AnonymizerService(detectors)
 
 def get_chat_use_case(
