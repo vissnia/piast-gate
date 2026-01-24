@@ -14,4 +14,4 @@ class PIIDetector(Protocol):
         Returns:
             List[PIIToken]: List of detected PII tokens with their positions/values.
         """
-        ...
+        pass
