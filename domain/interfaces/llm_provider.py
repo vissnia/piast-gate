@@ -13,5 +13,5 @@ class LLMProvider(Protocol):
         Returns:
             str: The LLM's response.
         """
-        ...
+        pass
         
