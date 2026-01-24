@@ -11,7 +11,7 @@ from infrastructure.detectors.spacy import SpacyPIIDetector
 from functools import lru_cache
 from typing import List
 from fastapi import Depends
-from infrastructure.llm.llm_factory import create_llm_provider
+from infrastructure.factories.llm_factory import create_llm_provider
 from domain.services.anonymizer_service import AnonymizerService
 from domain.interfaces.pii_detector import PIIDetector
 from application.use_cases.chat_use_case import ChatUseCase
