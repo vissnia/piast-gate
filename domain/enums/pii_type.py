@@ -9,4 +9,4 @@ class PIIType(Enum):
     LOCATION = auto()
     ORGANIZATION = auto()
     DATE = auto()
-    
+    BANK_ACCOUNT = auto()
