@@ -1,3 +1,4 @@
+from api.config.auth import verify_api_key
 import logging
 from urllib.parse import quote
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Response
@@ -21,7 +22,8 @@ router = APIRouter()
     response_model=ChatResponse,
     status_code=200,
     summary="Process a chat request",
-    description="Anonymizes input, sends to LLM, and deanonymizes response."
+    description="Anonymizes input, sends to LLM, and deanonymizes response.",
+    dependencies=[Depends(verify_api_key)]
 )
 async def chat_endpoint(
     request: ChatRequest,
@@ -55,7 +57,8 @@ async def chat_endpoint(
     response_model=AnonymizeResponse,
     status_code=200,
     summary="Anonymize text without LLM processing",
-    description="Anonymizes input text and returns the result."
+    description="Anonymizes input text and returns the result.",
+    dependencies=[Depends(verify_api_key)]
 )
 async def anonymize_text_endpoint(
     request: AnonymizeRequest,
@@ -88,7 +91,8 @@ async def anonymize_text_endpoint(
     "/anonymize",
     status_code=200,
     summary="Anonymize a document (PDF or DOCX)",
-    description="Accepts a file, anonymizes it, and returns the processed file."
+    description="Accepts a file, anonymizes it, and returns the processed file.",
+    dependencies=[Depends(verify_api_key)]
 )
 async def anonymize_document_endpoint(
     file: UploadFile = File(...),
