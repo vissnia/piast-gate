@@ -46,15 +46,16 @@ class AnonymizerService:
         last_idx = 0
         mapping: Dict[str, PIIToken] = {}
         value_to_token_str: Dict[str, str] = {}
-
+        type_counters: Dict[str, int] = {}
         for token in non_overlapping_tokens:
             result_parts.append(text[last_idx:token.start])
 
             if token.original_value in value_to_token_str:
                 token_str = value_to_token_str[token.original_value]
             else:
-                unique_id = str(uuid.uuid4())[:8]
-                token_str = f"<PII:{token.type.name}:{unique_id}>"
+                type_name = token.type.name
+                type_counters[type_name] = type_counters.get(type_name, 0) + 1
+                token_str = f"<{type_name}{type_counters[type_name]}>"
                 value_to_token_str[token.original_value] = token_str
             
             token.token_str = token_str
@@ -78,8 +79,10 @@ class AnonymizerService:
         Returns:
             str: The de-anonymized text.
         """
+        sorted_tokens = sorted(mapping.items(), key=lambda x: len(x[0]), reverse=True)
+        
         deanonymized_text = text
-        for token_str, token in mapping.items():
+        for token_str, token in sorted_tokens:
             deanonymized_text = deanonymized_text.replace(token_str, token.original_value)
         
         return deanonymized_text
