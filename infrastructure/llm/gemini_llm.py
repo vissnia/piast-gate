@@ -6,7 +6,7 @@ class GeminiLLM(LLMProvider):
 
     _SYSTEM_PROMPT = """
 IMPORTANT: You are part of a PII scrubbing system.
-User prompts may contain anonymized tokens like <PII:TYPE:ID>.
+User prompts may contain anonymized tokens like <PII_TYPE_AND_ID_NUMBER>.
 YOU MUST PRESERVE THESE TOKENS EXACTLY IN YOUR RESPONSE.
 DO NOT modify, rename, or obfuscate them.
 """
@@ -27,4 +27,4 @@ DO NOT modify, rename, or obfuscate them.
             response = self.client.models.generate_content(contents=full_prompt, model=self.model)
             return response.text
         except Exception as e:
-            raise RuntimeError(f"Gemini API error: {e}")
+            raise Exception(f"Gemini API error: {e}")

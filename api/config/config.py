@@ -12,6 +12,8 @@ class Settings(BaseSettings):
     gemini_api_key: str = Field(default="", description="Gemini API key")
     model_name: str = Field(default="gemini-2.5-flash", description="Model name")
     pl_ner_model_name: str = Field(default="pl_core_news_lg", description="PL NER model name")
+    debug: bool = Field(default=False, description="Debug mode")
+    log_file: str = Field(default="logs/app.log", description="Path to log file")
 
     class Config:
         env_file = ".env"

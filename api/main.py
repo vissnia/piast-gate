@@ -6,6 +6,10 @@ from slowapi.middleware import SlowAPIMiddleware
 from api.routers import router
 from api.config.limiter import limiter
 from api.config.config import settings
+from api.middleware.error_handler import GlobalErrorHandlerMiddleware
+from api.config.logging_config import setup_logging
+
+setup_logging()
 
 def create_app() -> FastAPI:
     app = FastAPI(
@@ -15,6 +19,7 @@ def create_app() -> FastAPI:
     
     app.state.limiter = limiter
     app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+    app.add_middleware(GlobalErrorHandlerMiddleware)
     app.add_middleware(SlowAPIMiddleware)
     
     app.add_middleware(
