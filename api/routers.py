@@ -39,18 +39,7 @@ async def chat_endpoint(
     Returns:
         ChatResponse: The LLM's response.
     """
-    try:
-        response = await use_case.execute(request)
-        return response
-    except ValueError as e:
-        logger.warning(f"Validation error in chat endpoint: {e}")
-        raise HTTPException(status_code=400, detail=str(e))
-    except Exception as e:
-        logger.error(f"Unexpected error in chat endpoint: {e}", exc_info=True)
-        raise HTTPException(
-            status_code=500, 
-            detail="An internal server error occurred processing the request."
-        )
+    return await use_case.execute(request)
 
 @router.post(
     "/anonymize/text",
@@ -74,18 +63,7 @@ async def anonymize_text_endpoint(
     Returns:
         AnonymizeResponse: The anonymized text.
     """
-    try:
-        response = await use_case.execute(request)
-        return response
-    except ValueError as e:
-        logger.warning(f"Validation error in anonymize endpoint: {e}")
-        raise HTTPException(status_code=400, detail=str(e))
-    except Exception as e:
-        logger.error(f"Unexpected error in anonymize endpoint: {e}", exc_info=True)
-        raise HTTPException(
-            status_code=500, 
-            detail="An internal server error occurred processing the request."
-        )
+    return await use_case.execute(request)
 
 @router.post(
     "/anonymize",
@@ -108,23 +86,14 @@ async def anonymize_document_endpoint(
     Returns:
         Response: The anonymized file content.
     """
-    try:
-        content = await file.read()
-        anonymized_content = await use_case.execute(content, file.content_type)
-        
-        filename = f"anonymized_{file.filename}"
-        content_disposition = f"attachment; filename*=UTF-8''{quote(filename)}"
-        return Response(
-            content=anonymized_content,
-            media_type=file.content_type,
-            headers={"Content-Disposition": content_disposition}
-        )
-    except ValueError as e:
-        logger.warning(f"Validation error in document anonymize endpoint: {e}")
-        raise HTTPException(status_code=400, detail=str(e))
-    except Exception as e:
-        logger.error(f"Unexpected error in document anonymize endpoint: {e}", exc_info=True)
-        raise HTTPException(
-            status_code=500, 
-            detail="An internal server error occurred processing the request."
-        )
+    content = await file.read()
+    anonymized_content = await use_case.execute(content, file.content_type)
+    
+    filename = f"anonymized_{file.filename}"
+    content_disposition = f"attachment; filename*=UTF-8''{quote(filename)}"
+    
+    return Response(
+        content=anonymized_content,
+        media_type=file.content_type,
+        headers={"Content-Disposition": content_disposition}
+    )

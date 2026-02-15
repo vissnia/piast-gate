@@ -4,7 +4,7 @@ A secure gateway to anonymize PII before sending prompts to LLMs.
 
 ## Features (MVP)
 - **PII Detection**: Regex-based detection for Email, Phone, PESEL and Bank Account.
-- **Anonymization**: Replaces PII with safe tokens `<PII:TYPE:ID>`.
+- **Anonymization**: Replaces PII with safe tokens `<PII_TYPE_AND_ID_NUMBER>` (e.g., `<PERSON1>`).
 - **Deanonymization**: Restores original values in the LLM response.
 - **Mock LLM**: Simulates LLM interaction for testing.
 - **FastAPI**: High-performance async API.
