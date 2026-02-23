@@ -66,4 +66,4 @@ Content-Type: application/json
 }
 ```
 
-(Note: The internal Mock LLM sees the anonymized version, e.g., `LLM response to: My email is <PII:EMAIL:xyz>`)
+(Note: The internal Mock LLM sees the anonymized version, e.g., `LLM response to: My email is <EMAIL1>`)

@@ -1,3 +1,4 @@
+import asyncio
 from domain.services.anonymizer_service import AnonymizerService
 from domain.interfaces.document_processor_factory import DocumentProcessorFactory
 
@@ -23,4 +24,10 @@ class AnonymizeDocumentUseCase:
             ValueError: If the content type is unsupported.
         """
         processor = self.processor_factory.get_processor(content_type)
-        return processor.process(file_content, self.anonymizer)
+        loop = asyncio.get_running_loop()
+        return await loop.run_in_executor(
+            None,
+            processor.process,
+            file_content,
+            self.anonymizer
+        )

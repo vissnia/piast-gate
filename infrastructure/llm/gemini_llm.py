@@ -23,8 +23,12 @@ DO NOT modify, rename, or obfuscate them.
 
     async def chat(self, prompt: str) -> str:
         try:
-            full_prompt = f"{self._SYSTEM_PROMPT}\n\nUser: {prompt}"
-            response = self.client.models.generate_content(contents=full_prompt, model=self.model)
+            messages = [
+                {"role": "user", "parts": [self._SYSTEM_PROMPT]},
+                {"role": "model", "parts": ["Understood."]},
+                {"role": "user", "parts": [prompt]}
+            ]
+            response = self.client.models.generate_content(contents=messages, model=self.model)
             return response.text
         except Exception as e:
             raise Exception(f"Gemini API error: {e}")
