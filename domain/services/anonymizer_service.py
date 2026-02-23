@@ -1,3 +1,4 @@
+import asyncio
 import logging
 import re
 from typing import List, Tuple, Dict
@@ -88,3 +89,18 @@ class AnonymizerService:
             return mapping[match.group(0)].original_value
             
         return pattern.sub(replace_match, text)
+
+
+    async def anonymize_async(self, text: str) -> Tuple[str, Dict[str, PIIToken]]:
+        """
+        Async wrapper for anonymize. Offloads processing to a ThreadPoolExecutor.
+        """
+        loop = asyncio.get_running_loop()
+        return await loop.run_in_executor(None, self.anonymize, text)
+
+    async def deanonymize_async(self, text: str, mapping: Dict[str, PIIToken]) -> str:
+        """
+        Async wrapper for deanonymize. Offloads processing to a ThreadPoolExecutor.
+        """
+        loop = asyncio.get_running_loop()
+        return await loop.run_in_executor(None, self.deanonymize, text, mapping)

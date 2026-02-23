@@ -14,6 +14,6 @@ class AnonymizeUseCase:
         1. Anonymize user text.
         2. Return result.
         """
-        anon_text, _ = self.anonymizer.anonymize(request.text)
+        anon_text, _ = await self.anonymizer.anonymize_async(request.text)
         
         return AnonymizeResponse(anonymized_text=anon_text)
