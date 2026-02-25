@@ -17,7 +17,7 @@ class AnonymizerService:
         """
         self.detectors = detectors
 
-    def anonymize(self, text: str) -> Tuple[str, Dict[str, PIIToken]]:
+    def anonymize(self, text: str, state_type_counters: Dict[str, int] = None, state_value_to_token_str: Dict[str, str] = None) -> Tuple[str, Dict[str, PIIToken]]:
         """
         Replaces detected PII in text with placeholders.
 
@@ -46,8 +46,8 @@ class AnonymizerService:
         result_parts = []
         last_idx = 0
         mapping: Dict[str, PIIToken] = {}
-        value_to_token_str: Dict[str, str] = {}
-        type_counters: Dict[str, int] = {}
+        value_to_token_str: Dict[str, str] = state_value_to_token_str if state_value_to_token_str is not None else {}
+        type_counters: Dict[str, int] = state_type_counters if state_type_counters is not None else {}
         for token in non_overlapping_tokens:
             result_parts.append(text[last_idx:token.start])
 
@@ -91,12 +91,12 @@ class AnonymizerService:
         return pattern.sub(replace_match, text)
 
 
-    async def anonymize_async(self, text: str) -> Tuple[str, Dict[str, PIIToken]]:
+    async def anonymize_async(self, text: str, state_type_counters: Dict[str, int] = None, state_value_to_token_str: Dict[str, str] = None) -> Tuple[str, Dict[str, PIIToken]]:
         """
         Async wrapper for anonymize. Offloads processing to a ThreadPoolExecutor.
         """
         loop = asyncio.get_running_loop()
-        return await loop.run_in_executor(None, self.anonymize, text)
+        return await loop.run_in_executor(None, self.anonymize, text, state_type_counters, state_value_to_token_str)
 
     async def deanonymize_async(self, text: str, mapping: Dict[str, PIIToken]) -> str:
         """

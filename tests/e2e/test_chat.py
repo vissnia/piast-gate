@@ -1,15 +1,25 @@
 def test_chat_success(client, auth_headers):
     """Test successful chat interaction with anonymization and deanonymization."""
     payload = {
-        "prompt": "Nazywam się Jan Kowalski. Mój PESEL to 90010112345."
+        "model": "gemini-2.5-flash",
+        "messages": [
+            {
+                "role": "user",
+                "content": "Nazywam się Jan Kowalski. Mój PESEL to 90010112345."
+            }
+        ],
+        "temperature": 0.1,
+        "max_tokens": 500
     }
     response = client.post("/chat", json=payload, headers=auth_headers)
     data = response.json()
     
     assert response.status_code == 200
-    assert "response" in data
-    assert "90010112345" in data["response"]
-    assert "Jan Kowalski" in data["response"]
+    assert "choices" in data
+    assert "message" in data["choices"][0]
+    assert "content" in data["choices"][0]["message"]
+    assert "90010112345" in data["choices"][0]["message"]["content"]
+    assert "Jan Kowalski" in data["choices"][0]["message"]["content"]
 
 
 def test_chat_unauthorized(client):
