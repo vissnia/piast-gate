@@ -47,6 +47,14 @@ Run unit and integration tests using `pytest`:
 pytest
 ```
 
+Run performance tests using `k6`:
+
+```bash
+k6 run tests/perf/test_concurrency.js
+k6 run tests/perf/test_entity_scaling.js
+k6 run tests/perf/test_rate_limiting.js
+```
+
 ## Usage Example
 
 **Request:**
