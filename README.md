@@ -1,7 +1,6 @@
 # 🔒 piast-gate
 
 ![Python version](https://img.shields.io/badge/python-3.10+-blue.svg)
-![License](https://img.shields.io/badge/license-Apache--2.0-green.svg)
 ![Language](https://img.shields.io/badge/lang-Polish-red.svg)
 
 **Privacy-first LLM gateway — anonymize PII before it leaves your system.**
