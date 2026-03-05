@@ -1,7 +1,7 @@
-import os
 from infrastructure.llm.mock_llm import MockLLM
 from infrastructure.llm.gemini_llm import GeminiLLM
 from domain.interfaces.llm_provider import LLMProvider
+from api.config.config import settings
 
 def create_llm_provider() -> LLMProvider:
     """
@@ -13,17 +13,17 @@ def create_llm_provider() -> LLMProvider:
     Raises:
         ValueError: If configuration is invalid.
     """
-    provider_type = os.getenv("LLM_PROVIDER", "mock").lower()
+    provider_type = settings.llm_provider.lower()
     
     if provider_type == "mock":
         return MockLLM()
     
     if provider_type == "gemini":
-        api_key = os.getenv("GEMINI_API_KEY")
+        api_key = settings.gemini_api_key
         if not api_key:
             raise ValueError("GEMINI_API_KEY environment variable is required for Gemini provider")
         
-        model_name = os.getenv("MODEL_NAME")
+        model_name = settings.model_name
         if not model_name:
             raise ValueError("MODEL_NAME environment variable is required for Gemini provider")
        

@@ -6,6 +6,7 @@ from domain.entities.pii_token import PIIToken
 from domain.enums.pii_type import PIIType
 from domain.interfaces.pii_detector import PIIDetector
 from .mapping import ENTITY_MAPPING
+from api.config.config import settings
 
 logger = logging.getLogger(__name__)
 
@@ -14,8 +15,8 @@ class SpacyPIIDetector(PIIDetector):
     PII Detector implementation using spaCy directly.
     """
     
-    def __init__(self, model_name: str = "pl_core_news_lg"):
-        self.model_name = os.getenv("PL_NER_MODEL_NAME", model_name)
+    def __init__(self):
+        self.model_name = settings.pl_ner_model_name
         self._nlp = self._load_model()
 
     def _load_model(self):
