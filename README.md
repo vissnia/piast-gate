@@ -1,11 +1,14 @@
 # 🔒 piast-gate
 
-![Python version](https://img.shields.io/badge/python-3.10+-blue.svg)
+![Python version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue.svg)
 ![Language](https://img.shields.io/badge/lang-Polish-red.svg)
+![LLM](https://img.shields.io/badge/LLM-Gemini-green.svg)
+![License](https://img.shields.io/badge/license-GPL%203.0-blue.svg)
 
 **Privacy-first LLM gateway — anonymize PII before it leaves your system.**
 
-> Optimized for **Polish-language** prompts. Built for production.
+>[!IMPORTANT]
+> This is a MVP Version — Currently supporting only **Google Gemini API** and **Polish-language** prompts.
 
 ---
 
@@ -34,38 +37,61 @@ Mam na imię Jan Kowalski, mój email to jan@example.com, a PESEL: 85010112345
 
 ## Quick Start
 
-### 1. Install
+The recommended way to run this project is using [uv](https://docs.astral.sh/uv/).
 
+### 1. Installation
+
+Using `uv` (fast & recommended):
 ```bash
 git clone https://github.com/your-org/piast-gate.git
 cd piast-gate
+uv sync
+```
 
+Using standard `pip`:
+```bash
 python -m venv .venv
-.venv\Scripts\activate        # Windows
-# source .venv/bin/activate   # Linux/macOS
-
-pip install -r requirements.txt
+.venv\Scripts\activate        # Windows alternate: source .venv/bin/activate
+pip install -e ".[dev]"
 ```
 
 ### 2. Configure
 
 ```bash
-cp .env.sample .env
+cp .env.example .env
 ```
 
-```env
-LLM_PROVIDER=gemini
-GEMINI_API_KEY=your_api_key_here
-MODEL_NAME=gemini-2.0-flash
-PL_NER_MODEL_NAME=pl_core_news_lg
-RATE_LIMIT_PER_MINUTE=60
-API_KEYS=["your-secret-key"]
-```
+Edit the `.env` file and provide your `GEMINI_API_KEY`.
 
 ### 3. Run
 
+Using `uv`:
+```bash
+uv run uvicorn main:app --workers 4
+```
+
+Using standard `python`:
 ```bash
 uvicorn main:app --workers 4
+```
+
+### 4. Tests
+
+```bash
+uv run pytest     # using uv
+pytest            # using venv
+```
+
+### 5. API Keys Configuration
+
+Example configuration in `.env`:
+```env
+LLM_PROVIDER=gemini
+GEMINI_API_KEY=your_api_key_here
+MODEL_NAME=gemini-2.5-flash
+PL_NER_MODEL_NAME=pl_core_news_lg
+RATE_LIMIT_PER_MINUTE=60
+API_KEYS=["your-secret-key"]
 ```
 
 ### Usage
