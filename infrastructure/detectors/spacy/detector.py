@@ -1,9 +1,7 @@
 import spacy
 import logging
-import os
 from typing import List
 from domain.entities.pii_token import PIIToken
-from domain.enums.pii_type import PIIType
 from domain.interfaces.pii_detector import PIIDetector
 from .mapping import ENTITY_MAPPING
 from api.config.config import settings
