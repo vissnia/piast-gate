@@ -18,6 +18,7 @@ from domain.services.anonymizer_service import AnonymizerService
 from domain.interfaces.pii_detector import PIIDetector
 from application.use_cases.chat_use_case import ChatUseCase
 from application.use_cases.anonymize_use_case import AnonymizeUseCase
+from application.use_cases.stream_chat_use_case import StreamChatUseCase
 from domain.interfaces.llm_provider import LLMProvider
 
 
@@ -57,6 +58,15 @@ def get_chat_use_case(
     Wraps the application logic with required services.
     """
     return ChatUseCase(anonymizer, llm)
+
+def get_stream_chat_use_case(
+    anonymizer: AnonymizerService = Depends(get_anonymizer_service),
+    llm: LLMProvider = Depends(get_llm_provider),
+) -> StreamChatUseCase:
+    """
+    Dependency provider for StreamChatUseCase.
+    """
+    return StreamChatUseCase(anonymizer, llm)
 
 def get_anonymize_use_case(
     anonymizer: AnonymizerService = Depends(get_anonymizer_service),

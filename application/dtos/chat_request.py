@@ -12,3 +12,4 @@ class ChatRequest(BaseModel):
     messages: List[ChatMessage]
     temperature: Optional[float] = 0.1
     max_tokens: Optional[int] = 500
+    stream: Optional[bool] = False
