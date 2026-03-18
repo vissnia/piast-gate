@@ -30,7 +30,7 @@ def create_app() -> FastAPI:
         allow_headers=settings.cors_headers,
     )
     
-    app.include_router(router)
+    app.include_router(router, prefix="/v1/api")
     
     @app.get("/health")
     async def health_check():

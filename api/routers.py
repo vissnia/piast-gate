@@ -17,20 +17,19 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
-async def _sse_generator(request: ChatRequest, use_case: StreamChatUseCase):
+async def _stream_generator(request: ChatRequest, use_case: StreamChatUseCase):
     """
-    Async generator that serialises StreamChatChunk objects as SSE lines.
+    Async generator that serialises StreamChatChunk objects as raw JSON lines.
 
     Args:
         request (ChatRequest): The validated chat request.
         use_case (StreamChatUseCase): Injected streaming use case.
 
     Yields:
-        str: SSE-formatted text lines.
+        str: JSON-formatted text lines.
     """
     async for chunk in use_case.execute(request):
-        yield f"data: {chunk.model_dump_json(exclude_none=True)}\n\n"
-    yield "data: [DONE]\n\n"
+        yield chunk.model_dump_json() + "\n"
 
 
 @router.post(
@@ -60,8 +59,8 @@ async def chat_endpoint(
     """
     if request.stream:
         return StreamingResponse(
-            _sse_generator(request, stream_use_case),
-            media_type="text/event-stream",
+            _stream_generator(request, stream_use_case),
+            media_type="application/x-ndjson",
             headers={
                 "Cache-Control": "no-cache",
                 "X-Accel-Buffering": "no",
@@ -69,7 +68,6 @@ async def chat_endpoint(
         )
 
     return await chat_use_case.execute(request)
-
 
 @router.post(
     "/anonymize/text",
@@ -127,3 +125,15 @@ async def anonymize_document_endpoint(
         media_type=file.content_type,
         headers={"Content-Disposition": content_disposition}
     )
+
+@router.get("/tags")
+def get_models():
+    return {
+        "models": [
+            {
+                "name": "piast-gate",
+                "model": "piast-gate"
+            }
+        ]
+    }
+    
