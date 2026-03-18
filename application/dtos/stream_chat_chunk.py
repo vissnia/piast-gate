@@ -1,23 +1,19 @@
-from typing import Optional
 from pydantic import BaseModel
 
-class StreamDelta(BaseModel):
-    """Incremental content in a streaming chunk."""
-    role: Optional[str] = None
-    content: Optional[str] = None
-
-class StreamChoice(BaseModel):
-    """A single choice entry in an SSE streaming chunk."""
-    index: int = 0
-    delta: StreamDelta
-    finish_reason: Optional[str] = None
+class StreamMessage(BaseModel):
+    """
+    Message structure for the streaming chunk.
+    Compatible with Ollama-style stream format.
+    """
+    role: str = "assistant"
+    content: str = ""
+    thinking: str = ""
 
 class StreamChatChunk(BaseModel):
     """
-    OpenAI-compatible Server-Sent Event chunk for streaming chat completions.
+    Ollama-style streaming chat completion chunk.
     """
-    id: str
-    object: str = "chat.completion.chunk"
-    created: int
     model: str
-    choices: list[StreamChoice]
+    created_at: str
+    message: StreamMessage
+    done: bool = False

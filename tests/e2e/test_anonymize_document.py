@@ -18,7 +18,7 @@ def test_anonymize_document_success(client, auth_headers):
         "file": ("test.docx", file_bytes, "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
     }
     
-    response = client.post("/anonymize", files=files, headers=auth_headers)
+    response = client.post("/v1/api/anonymize", files=files, headers=auth_headers)
     
     assert response.status_code == 200
     
@@ -40,6 +40,6 @@ def test_anonymize_document_unauthorized(client):
     files = {
         "file": ("test.txt", file_bytes, "text/plain")
     }
-    response = client.post("/anonymize", files=files)
+    response = client.post("/v1/api/anonymize", files=files)
     
     assert response.status_code == 401

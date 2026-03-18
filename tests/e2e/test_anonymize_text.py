@@ -3,7 +3,7 @@ def test_anonymize_text_success(client, auth_headers):
     payload = {
         "text": "Jan Kowalski mieszka w Warszawie. Jego PESEL to 90010112345."
     }
-    response = client.post("/anonymize/text", json=payload, headers=auth_headers)
+    response = client.post("/v1/api/anonymize/text", json=payload, headers=auth_headers)
     data = response.json()
 
     assert response.status_code == 200
@@ -20,14 +20,15 @@ def test_anonymize_text_unauthorized(client):
     payload = {
         "text": "Test unauthorized access."
     }
-    response = client.post("/anonymize/text", json=payload)
+    response = client.post("/v1/api/anonymize/text", json=payload)
     
     assert response.status_code == 401
-    assert response.json()["detail"] == "Invalid or missing API Key"
+    assert response.json()["detail"] == "Invalid or missing Authorization Token"
+
     
 def test_anonymize_text_validation_error(client, auth_headers):
     """Test anonymization with invalid payload fails with 422 Unprocessable Entity."""
-    response = client.post("/anonymize/text", json={}, headers=auth_headers)
+    response = client.post("/v1/api/anonymize/text", json={}, headers=auth_headers)
     
     assert response.status_code == 422
     data = response.json()

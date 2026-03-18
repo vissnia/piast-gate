@@ -11,7 +11,7 @@ def test_chat_success(client, auth_headers):
         "temperature": 0.1,
         "max_tokens": 500
     }
-    response = client.post("/chat", json=payload, headers=auth_headers)
+    response = client.post("/v1/api/chat", json=payload, headers=auth_headers)
     data = response.json()
     
     assert response.status_code == 200
@@ -25,11 +25,11 @@ def test_chat_success(client, auth_headers):
 def test_chat_unauthorized(client):
     """Test chat without API key fails with 401."""
     payload = {"prompt": "Test"}
-    response = client.post("/chat", json=payload)
+    response = client.post("/v1/api/chat", json=payload)
     
     assert response.status_code == 401
     
 def test_chat_validation_error(client, auth_headers):
     """Test chat with invalid payload fails."""
-    response = client.post("/chat", json={}, headers=auth_headers)
+    response = client.post("/v1/api/chat", json={}, headers=auth_headers)
     assert response.status_code == 422

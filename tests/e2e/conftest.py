@@ -30,5 +30,6 @@ def client(app):
 
 @pytest.fixture
 def auth_headers():
-    """Return headers with a valid API key."""
-    return {"X-API-KEY": "test-api-key"}
+    """Return headers with a valid Bearer token."""
+    return {"Authorization": "Bearer test-api-key"}
+

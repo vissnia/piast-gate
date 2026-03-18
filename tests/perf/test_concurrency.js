@@ -1,7 +1,7 @@
 import http from 'k6/http';
 import { check } from 'k6';
 
-const BASE_URL = 'http://localhost:8000/chat';
+const BASE_URL = 'http://localhost:8000/v1/chat';
 
 export const options = {
     stages: [
@@ -26,7 +26,10 @@ const payload = JSON.stringify({
 
 export default function () {
     const res = http.post(BASE_URL, payload, {
-        headers: { 'Content-Type': 'application/json', 'X-API-Key': 'test-key' },
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer test-key'
+        },
     });
 
     check(res, {
