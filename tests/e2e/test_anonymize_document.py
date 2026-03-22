@@ -43,3 +43,21 @@ def test_anonymize_document_unauthorized(client):
     response = client.post("/v1/api/anonymize", files=files)
     
     assert response.status_code == 401
+
+def test_anonymize_document_too_large(client, auth_headers):
+    """Test anonymization of an oversized file fails with 413."""
+    from api.config.config import settings
+    old_size = settings.max_upload_size
+    settings.max_upload_size = 100
+    
+    try:
+        file_bytes = b"A" * 101
+        files = {
+            "file": ("large.txt", file_bytes, "text/plain")
+        }
+        response = client.post("/v1/api/anonymize", files=files, headers=auth_headers)
+        
+        assert response.status_code == 413
+        assert "File too large" in response.json()["detail"]
+    finally:
+        settings.max_upload_size = old_size
