@@ -97,11 +97,17 @@ API_KEYS=["your-secret-key"]
 ### Usage
 
 ```bash
-curl -X POST http://localhost:8000/chat \
+curl -X POST http://localhost:8000/v1/api/chat \
   -H "Content-Type: application/json" \
-  -H "X-API-Key: your-secret-key" \
-  -d '{"message": "Mam na imię Jan Kowalski, email: jan@example.com"}'
+  -H "Authorization: Bearer your-secret-key" \
+  -d '{
+    "model": "piast-gate",
+    "messages": [
+      {"role": "user", "content": "Mam na imię Jan Kowalski, email: jan@example.com"}
+    ]
+  }'
 ```
+
 
 **Response:**
 ```json
