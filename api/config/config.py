@@ -8,12 +8,14 @@ class Settings(BaseSettings):
     cors_origins: List[str] = Field(default_factory=list, description="List of allowed CORS origins")
     cors_methods: List[str] = Field(default_factory=lambda: ["*"], description="List of allowed CORS methods")
     cors_headers: List[str] = Field(default_factory=lambda: ["*"], description="List of allowed CORS headers")
+    allow_credentials: bool = Field(default=False, description="Allow credentials")
     llm_provider: str = Field(default="mock", description="LLM provider")
     gemini_api_key: str = Field(default="", description="Gemini API key")
     model_name: str = Field(default="gemini-2.5-flash", description="Model name")
     pl_ner_model_name: str = Field(default="pl_core_news_lg", description="PL NER model name")
     debug: bool = Field(default=False, description="Debug mode")
     log_file: str = Field(default="logs/app.log", description="Path to log file")
+    max_upload_size: int = Field(default=10 * 1024 * 1024, description="Max upload size in bytes (default 10MB)")
 
     model_config = ConfigDict(
         env_file=".env",
