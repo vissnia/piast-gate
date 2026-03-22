@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     cors_origins: List[str] = Field(default_factory=list, description="List of allowed CORS origins")
     cors_methods: List[str] = Field(default_factory=lambda: ["*"], description="List of allowed CORS methods")
     cors_headers: List[str] = Field(default_factory=lambda: ["*"], description="List of allowed CORS headers")
+    allow_credentials: bool = Field(default=False, description="Allow credentials")
     llm_provider: str = Field(default="mock", description="LLM provider")
     gemini_api_key: str = Field(default="", description="Gemini API key")
     model_name: str = Field(default="gemini-2.5-flash", description="Model name")
