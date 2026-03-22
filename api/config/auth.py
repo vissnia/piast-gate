@@ -1,8 +1,10 @@
+import hmac
 from fastapi import Security, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from api.config.config import settings
 
 security = HTTPBearer(auto_error=False)
+
 
 async def verify_api_key(
     credentials: HTTPAuthorizationCredentials = Security(security),
@@ -20,11 +22,22 @@ async def verify_api_key(
     Raises:
         HTTPException: If the token is invalid or missing.
     """
-    if not credentials or credentials.credentials not in settings.api_keys:
+    if not credentials:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid or missing Authorization Token",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    return credentials.credentials
 
+    is_valid = any(
+        hmac.compare_digest(credentials.credentials, key) for key in settings.api_keys
+    )
+
+    if not is_valid:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or missing Authorization Token",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+    return credentials.credentials
