@@ -1,4 +1,4 @@
-import asyncio
+from typing import AsyncIterator
 from google import genai
 from google.genai import types
 from domain.interfaces.llm_provider import LLMProvider
@@ -67,7 +67,7 @@ DO NOT modify, rename, or obfuscate them.
             str: The LLM's complete response text.
         """
         contents = self._build_contents(messages)
-        response = self.client.models.generate_content(
+        response = await self.client.aio.models.generate_content(
             model=self.model,
             contents=contents,
             config=types.GenerateContentConfig(
@@ -77,10 +77,26 @@ DO NOT modify, rename, or obfuscate them.
         )
         return response.text or ""
 
-    async def chat_stream(self, messages, temperature=0.1, max_tokens=500):
+    async def chat_stream(
+        self,
+        messages: list[dict],
+        temperature: float = 0.1,
+        max_tokens: int = 500,
+    ) -> AsyncIterator[str]:
+        """
+        Sends a conversation to Gemini and streams the response.
+
+        Args:
+            messages (list[dict]): Anonymized chat messages.
+            temperature (float): Sampling temperature.
+            max_tokens (int): Maximum tokens to generate.
+
+        Yields:
+            str: Chunks of the model's response text.
+        """
         contents = self._build_contents(messages)
 
-        stream = self.client.models.generate_content_stream(
+        response = await self.client.aio.models.generate_content_stream(
             model=self.model,
             contents=contents,
             config=types.GenerateContentConfig(
@@ -89,19 +105,7 @@ DO NOT modify, rename, or obfuscate them.
             ),
         )
 
-        loop = asyncio.get_event_loop()
-
-        def next_chunk():
-            try:
-                return next(stream)
-            except StopIteration:
-                return None
-
-        while True:
-            chunk = await loop.run_in_executor(None, next_chunk)
-            if chunk is None:
-                break
-
+        async for chunk in response:
             if chunk.text:
                 yield chunk.text
 
