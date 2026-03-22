@@ -1,8 +1,9 @@
 import logging
 from urllib.parse import quote
-from fastapi import APIRouter, Depends, UploadFile, File, Response
+from fastapi import APIRouter, Depends, UploadFile, File, Response, HTTPException, status
 from fastapi.responses import StreamingResponse
 from api.config.auth import verify_api_key
+from api.config.config import settings
 from application.dtos.chat_request import ChatRequest
 from application.dtos.anonymize_request import AnonymizeRequest
 from application.dtos.anonymize_response import AnonymizeResponse
@@ -114,6 +115,12 @@ async def anonymize_document_endpoint(
     Returns:
         Response: The anonymized file content.
     """
+    if file.size and file.size > settings.max_upload_size:
+        raise HTTPException(
+            status_code=status.HTTP_413_CONTENT_TOO_LARGE,
+            detail=f"File too large. Max size is {settings.max_upload_size / (1024 * 1024):.1f}MB."
+        )
+
     content = await file.read()
     anonymized_content = await use_case.execute(content, file.content_type)
     

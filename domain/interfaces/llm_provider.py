@@ -1,5 +1,4 @@
-from asyncio.protocols import Protocol
-from typing import AsyncIterator
+from typing import Protocol, AsyncIterator
 
 class LLMProvider(Protocol):
     """Interface for LLM interactions."""
