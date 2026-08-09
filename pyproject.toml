@@ -16,6 +16,7 @@ dependencies = [
     "pl_core_news_lg @ https://github.com/explosion/spacy-models/releases/download/pl_core_news_lg-3.8.0/pl_core_news_lg-3.8.0-py3-none-any.whl#sha256=3bc7296cd4d67fa9ee0904b25401b0e9a9a772d5c4756edf54143a2ff4c9dcc0",
     "pydantic==2.12.5",
     "pydantic-settings==2.12.0",
+    "pdfplumber==0.11.10",
     "python-docx==1.2.0",
     "python-dotenv==1.2.1",
     "slowapi==0.1.9",

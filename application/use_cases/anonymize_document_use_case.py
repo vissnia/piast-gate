@@ -9,7 +9,7 @@ class AnonymizeDocumentUseCase:
         self.anonymizer = anonymizer
         self.processor_factory = processor_factory
 
-    async def execute(self, file_content: bytes, content_type: str) -> bytes:
+    async def execute(self, file_content: bytes, content_type: str) -> str:
         """
         Anonymizes the uploaded document.
 
@@ -18,8 +18,8 @@ class AnonymizeDocumentUseCase:
             content_type (str): The MIME type of the file.
 
         Returns:
-            bytes: The anonymized file content.
-        
+            str: The anonymized document content, rendered as markdown.
+
         Raises:
             ValueError: If the content type is unsupported.
         """
