@@ -1,6 +1,5 @@
 import logging
-from urllib.parse import quote
-from fastapi import APIRouter, Depends, UploadFile, File, Response, HTTPException, status
+from fastapi import APIRouter, Depends, UploadFile, File, HTTPException, status
 from fastapi.responses import StreamingResponse
 from api.config.auth import verify_api_key
 from api.config.config import settings
@@ -96,9 +95,10 @@ async def anonymize_text_endpoint(
 
 @router.post(
     "/anonymize",
+    response_model=AnonymizeResponse,
     status_code=200,
     summary="Anonymize a document (PDF or DOCX)",
-    description="Accepts a file, anonymizes it, and returns the processed file.",
+    description="Accepts a file, anonymizes it, and returns the extracted content as anonymized markdown text.",
     dependencies=[Depends(verify_api_key)]
 )
 async def anonymize_document_endpoint(
@@ -113,7 +113,7 @@ async def anonymize_document_endpoint(
         use_case (AnonymizeDocumentUseCase): Injected application core logic.
 
     Returns:
-        Response: The anonymized file content.
+        AnonymizeResponse: The anonymized document content, rendered as markdown.
     """
     if file.size and file.size > settings.max_upload_size:
         raise HTTPException(
@@ -122,16 +122,9 @@ async def anonymize_document_endpoint(
         )
 
     content = await file.read()
-    anonymized_content = await use_case.execute(content, file.content_type)
-    
-    filename = f"anonymized_{file.filename}"
-    content_disposition = f"attachment; filename*=UTF-8''{quote(filename)}"
-    
-    return Response(
-        content=anonymized_content,
-        media_type=file.content_type,
-        headers={"Content-Disposition": content_disposition}
-    )
+    anonymized_text = await use_case.execute(content, file.content_type)
+
+    return AnonymizeResponse(anonymized_text=anonymized_text)
 
 @router.get("/tags")
 def get_models():
