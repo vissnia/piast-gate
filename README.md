@@ -82,6 +82,20 @@ uv run pytest     # using uv
 pytest            # using venv
 ```
 
+#### Anonymization accuracy eval
+
+`tests/eval/` measures detector accuracy (precision/recall/F1 per PII type) against a labeled dataset, separate from the pass/fail unit tests:
+
+```bash
+uv run python tests/eval/run_eval.py            # using uv
+python tests/eval/run_eval.py                   # using venv
+
+python tests/eval/run_eval.py -v                # show missed/spurious entities per example
+python tests/eval/run_eval.py --category person_declension   # run one category only
+```
+
+Add new cases to `tests/eval/dataset.json` as `{"text": ..., "entities": [{"type": "PERSON", "value": "..."}]}`.
+
 ### 5. API Keys Configuration
 
 Example configuration in `.env`:

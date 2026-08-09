@@ -1,0 +1,364 @@
+[
+  {
+    "id": "person-001",
+    "category": "person_basic",
+    "text": "Jan Kowalski mieszka w Krakowie od pięciu lat.",
+    "entities": [
+      { "type": "PERSON", "value": "Jan Kowalski" },
+      { "type": "LOCATION", "value": "Krakowie" }
+    ]
+  },
+  {
+    "id": "person-002",
+    "category": "person_declension",
+    "text": "Proszę przekazać dokumenty Annie Nowak, a kopię wysłać do Piotra Zielińskiego.",
+    "entities": [
+      { "type": "PERSON", "value": "Annie Nowak" },
+      { "type": "PERSON", "value": "Piotra Zielińskiego" }
+    ]
+  },
+  {
+    "id": "person-003",
+    "category": "person_repeated",
+    "text": "Marek Wiśniewski złożył wniosek wczoraj. Marek Wiśniewski czeka na odpowiedź.",
+    "entities": [
+      { "type": "PERSON", "value": "Marek Wiśniewski" }
+    ]
+  },
+  {
+    "id": "location-001",
+    "category": "location_city",
+    "text": "Spotkanie odbędzie się w Warszawie, w siedzibie firmy.",
+    "entities": [
+      { "type": "LOCATION", "value": "Warszawie" }
+    ]
+  },
+  {
+    "id": "location-002",
+    "category": "location_address",
+    "text": "Wysyłka na adres ul. Marszałkowska 12, 00-950 Warszawa.",
+    "entities": [
+      { "type": "LOCATION", "value": "Marszałkowska" },
+      { "type": "LOCATION", "value": "Warszawa" }
+    ]
+  },
+  {
+    "id": "org-001",
+    "category": "organization_basic",
+    "text": "Umowę podpisano z firmą Acme Sp. z o.o. w obecności świadków.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Acme Sp. z o.o." }
+    ]
+  },
+  {
+    "id": "org-002",
+    "category": "organization_bank",
+    "text": "Płatność zrealizowano przez PKO Bank Polski.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "PKO Bank Polski" }
+    ]
+  },
+  {
+    "id": "date-001",
+    "category": "date_basic",
+    "text": "Umowa została podpisana 15 marca 2023 roku.",
+    "entities": [
+      { "type": "DATE", "value": "15 marca 2023 roku" }
+    ]
+  },
+  {
+    "id": "email-001",
+    "category": "email_basic",
+    "text": "Kontakt: jan.kowalski@example.com w razie pytań.",
+    "entities": [
+      { "type": "EMAIL", "value": "jan.kowalski@example.com" }
+    ]
+  },
+  {
+    "id": "email-002",
+    "category": "email_multiple",
+    "text": "Napisz do a.nowak@firma.pl albo do wsparcie@firma.pl.",
+    "entities": [
+      { "type": "EMAIL", "value": "a.nowak@firma.pl" },
+      { "type": "EMAIL", "value": "wsparcie@firma.pl" }
+    ]
+  },
+  {
+    "id": "phone-001",
+    "category": "phone_local",
+    "text": "Zadzwoń pod numer 500123456 po godzinie 10.",
+    "entities": [
+      { "type": "PHONE", "value": "500123456" }
+    ]
+  },
+  {
+    "id": "phone-002",
+    "category": "phone_country_code",
+    "text": "Numer kontaktowy to +48 500 123 456.",
+    "entities": [
+      { "type": "PHONE", "value": "+48 500 123 456" }
+    ]
+  },
+  {
+    "id": "pesel-001",
+    "category": "pesel_basic",
+    "text": "Jego numer PESEL to 90010112345, proszę zweryfikować.",
+    "entities": [
+      { "type": "PESEL", "value": "90010112345" }
+    ]
+  },
+  {
+    "id": "bank-001",
+    "category": "bank_account_nrb",
+    "text": "Przelew proszę wykonać na konto 12345678901234567890123456.",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "12345678901234567890123456" }
+    ]
+  },
+  {
+    "id": "bank-002",
+    "category": "bank_account_iban",
+    "text": "IBAN odbiorcy: PL61123456789012345678901234.",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "PL61123456789012345678901234" }
+    ]
+  },
+  {
+    "id": "mixed-001",
+    "category": "mixed_letter",
+    "text": "Szanowny Panie Adamie Malinowski, w związku z Pana zgłoszeniem z dnia 3 stycznia 2024 informujemy, że sprawę przekazano do oddziału w Poznaniu. W razie pytań prosimy o kontakt pod adresem adam.malinowski@poczta.pl lub telefonicznie: 601234567.",
+    "entities": [
+      { "type": "PERSON", "value": "Adamie Malinowski" },
+      { "type": "DATE", "value": "3 stycznia 2024" },
+      { "type": "LOCATION", "value": "Poznaniu" },
+      { "type": "EMAIL", "value": "adam.malinowski@poczta.pl" },
+      { "type": "PHONE", "value": "601234567" }
+    ]
+  },
+  {
+    "id": "mixed-002",
+    "category": "mixed_form",
+    "text": "Wnioskodawca: Katarzyna Lis, PESEL 85030512345, zamieszkała w Gdańsku, konto bankowe PL10123456789012345678901234.",
+    "entities": [
+      { "type": "PERSON", "value": "Katarzyna Lis" },
+      { "type": "PESEL", "value": "85030512345" },
+      { "type": "LOCATION", "value": "Gdańsku" },
+      { "type": "BANK_ACCOUNT", "value": "PL10123456789012345678901234" }
+    ]
+  },
+  {
+    "id": "negative-001",
+    "category": "negative_no_pii",
+    "text": "Pogoda dzisiaj jest bardzo ładna i słoneczna.",
+    "entities": []
+  },
+  {
+    "id": "negative-002",
+    "category": "negative_short_digit_sequence",
+    "text": "Kod pocztowy to 12345, proszę sprawdzić w systemie.",
+    "entities": []
+  },
+  {
+    "id": "negative-003",
+    "category": "negative_ten_digit_sequence",
+    "text": "Numer zgłoszenia to 9001011234, nie jest to numer PESEL.",
+    "entities": []
+  },
+  {
+    "id": "negative-004",
+    "category": "negative_capitalized_common_word",
+    "text": "Ostrożnie z tym urządzeniem, może być gorące.",
+    "entities": []
+  },
+  {
+    "id": "foreign-001",
+    "category": "person_foreign_name",
+    "text": "Spotkanie z John Smith zaplanowano na przyszły tydzień.",
+    "entities": [
+      { "type": "PERSON", "value": "John Smith" }
+    ]
+  },
+  {
+    "id": "foreign-002",
+    "category": "person_foreign_name",
+    "text": "Wiadomość od Hansa Müllera dotarła dzisiaj rano.",
+    "entities": [
+      { "type": "PERSON", "value": "Hansa Müllera" }
+    ]
+  },
+  {
+    "id": "foreign-003",
+    "category": "location_foreign",
+    "text": "Delegacja wyjeżdża do Berlina w przyszłym tygodniu.",
+    "entities": [
+      { "type": "LOCATION", "value": "Berlina" }
+    ]
+  },
+  {
+    "id": "person-004",
+    "category": "person_with_title",
+    "text": "Konsultacja z dr Anną Kowalską odbędzie się w środę.",
+    "entities": [
+      { "type": "PERSON", "value": "Anną Kowalską" }
+    ]
+  },
+  {
+    "id": "person-005",
+    "category": "person_hyphenated_surname",
+    "text": "Umowę podpisała Ewa Kowalska-Nowak w imieniu spółki.",
+    "entities": [
+      { "type": "PERSON", "value": "Ewa Kowalska-Nowak" }
+    ]
+  },
+  {
+    "id": "person-006",
+    "category": "person_first_name_only",
+    "text": "Karolina zgłosiła awarię systemu dziś rano.",
+    "entities": [
+      { "type": "PERSON", "value": "Karolina" }
+    ]
+  },
+  {
+    "id": "location-003",
+    "category": "location_small_town",
+    "text": "Nadawca wysyłki pochodzi z Milanówka.",
+    "entities": [
+      { "type": "LOCATION", "value": "Milanówka" }
+    ]
+  },
+  {
+    "id": "location-004",
+    "category": "location_voivodeship",
+    "text": "Oddział regionalny obejmuje województwo małopolskie.",
+    "entities": [
+      { "type": "LOCATION", "value": "małopolskie" }
+    ]
+  },
+  {
+    "id": "org-003",
+    "category": "organization_sa",
+    "text": "Kontrahentem w umowie jest Orlen S.A.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Orlen S.A." }
+    ]
+  },
+  {
+    "id": "org-004",
+    "category": "organization_government",
+    "text": "Pismo skierowano do Urzędu Skarbowego w Krakowie.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Urzędu Skarbowego" },
+      { "type": "LOCATION", "value": "Krakowie" }
+    ]
+  },
+  {
+    "id": "org-005",
+    "category": "organization_abbreviation",
+    "text": "Wniosek trafił do ZUS w celu weryfikacji.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "ZUS" }
+    ]
+  },
+  {
+    "id": "date-002",
+    "category": "date_numeric",
+    "text": "Termin płatności upływa 31.12.2024.",
+    "entities": [
+      { "type": "DATE", "value": "31.12.2024" }
+    ]
+  },
+  {
+    "id": "date-003",
+    "category": "date_iso",
+    "text": "Zgłoszenie zarejestrowano w systemie dnia 2024-01-15.",
+    "entities": [
+      { "type": "DATE", "value": "2024-01-15" }
+    ]
+  },
+  {
+    "id": "email-003",
+    "category": "email_plus_addressing",
+    "text": "Potwierdzenie wysłano na adres jan+faktury@firma.co.uk.",
+    "entities": [
+      { "type": "EMAIL", "value": "jan+faktury@firma.co.uk" }
+    ]
+  },
+  {
+    "id": "phone-003",
+    "category": "phone_dashes",
+    "text": "Numer do biura: 500-123-456.",
+    "entities": [
+      { "type": "PHONE", "value": "500-123-456" }
+    ]
+  },
+  {
+    "id": "phone-004",
+    "category": "phone_landline",
+    "text": "Recepcja odbiera pod numerem 12 345 67 89.",
+    "entities": [
+      { "type": "PHONE", "value": "12 345 67 89" }
+    ]
+  },
+  {
+    "id": "pesel-002",
+    "category": "pesel_second_example",
+    "text": "W formularzu podano PESEL 02280512389.",
+    "entities": [
+      { "type": "PESEL", "value": "02280512389" }
+    ]
+  },
+  {
+    "id": "bank-003",
+    "category": "bank_account_spaced",
+    "text": "Numer rachunku: 12 3456 7890 1234 5678 9012 3456.",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "12 3456 7890 1234 5678 9012 3456" }
+    ]
+  },
+  {
+    "id": "mixed-003",
+    "category": "mixed_complaint",
+    "text": "Reklamację złożyła Zofia Krawczyk, zamieszkała w Łodzi, dnia 12.02.2024. Sprawę prowadzi kancelaria Lex Partners Sp. z o.o. Kontakt zwrotny: zofia.krawczyk@onet.pl, tel. 511222333.",
+    "entities": [
+      { "type": "PERSON", "value": "Zofia Krawczyk" },
+      { "type": "LOCATION", "value": "Łodzi" },
+      { "type": "DATE", "value": "12.02.2024" },
+      { "type": "ORGANIZATION", "value": "Lex Partners Sp. z o.o." },
+      { "type": "EMAIL", "value": "zofia.krawczyk@onet.pl" },
+      { "type": "PHONE", "value": "511222333" }
+    ]
+  },
+  {
+    "id": "mixed-004",
+    "category": "mixed_name_next_to_email",
+    "text": "Tomasz Adamczyk (tomasz.adamczyk@firma.pl) potwierdził udział w spotkaniu.",
+    "entities": [
+      { "type": "PERSON", "value": "Tomasz Adamczyk" },
+      { "type": "EMAIL", "value": "tomasz.adamczyk@firma.pl" }
+    ]
+  },
+  {
+    "id": "negative-005",
+    "category": "negative_invoice_number",
+    "text": "Numer faktury FV/2024/00187 został wysłany do księgowości.",
+    "entities": []
+  },
+  {
+    "id": "negative-006",
+    "category": "negative_capitalized_common_word",
+    "text": "Szybko sprawdź, czy drukarka ma jeszcze papier.",
+    "entities": []
+  },
+  {
+    "id": "negative-007",
+    "category": "negative_invalid_email_format",
+    "text": "Napis na wizytówce brzmiał: kontakt(at)firma bez działającego adresu.",
+    "entities": []
+  },
+  {
+    "id": "negative-008",
+    "category": "negative_short_extension_number",
+    "text": "Wewnętrzny numer działu to 123.",
+    "entities": []
+  }
+]
