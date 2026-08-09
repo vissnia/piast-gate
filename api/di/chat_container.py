@@ -4,11 +4,13 @@ from api.di.detector_container import (
     get_phone_detector,
     get_pesel_detector,
     get_bank_account_detector,
+    get_date_detector,
 )
 from infrastructure.detectors.phone_detector import PhoneDetector
 from infrastructure.detectors.email_detector import EmailDetector
 from infrastructure.detectors.pesel_detector import PeselDetector
 from infrastructure.detectors.bank_account_detector import BankAccountDetector
+from infrastructure.detectors.date_detector import DateDetector
 from infrastructure.detectors.spacy import SpacyPIIDetector
 from functools import lru_cache
 from typing import List
@@ -35,6 +37,7 @@ def get_anonymizer_service(
     bank_account_detector: BankAccountDetector = Depends(get_bank_account_detector),
     pesel_detector: PeselDetector = Depends(get_pesel_detector),
     phone_detector: PhoneDetector = Depends(get_phone_detector),
+    date_detector: DateDetector = Depends(get_date_detector),
 ) -> AnonymizerService:
     """
     Dependency provider for AnonymizerService.
@@ -46,6 +49,7 @@ def get_anonymizer_service(
         bank_account_detector,
         pesel_detector,
         phone_detector,
+        date_detector,
     ]
     return AnonymizerService(detectors)
 

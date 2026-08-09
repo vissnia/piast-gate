@@ -15,5 +15,4 @@ ENTITY_MAPPING: Dict[str, PIIType] = {
     "LOC": PIIType.LOCATION,
     "GPE": PIIType.LOCATION,
     "FAC": PIIType.LOCATION,
-    "date": PIIType.DATE,
 }

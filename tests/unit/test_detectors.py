@@ -5,6 +5,7 @@ from infrastructure.detectors.email_detector import EmailDetector
 from infrastructure.detectors.phone_detector import PhoneDetector
 from infrastructure.detectors.pesel_detector import PeselDetector
 from infrastructure.detectors.bank_account_detector import BankAccountDetector
+from infrastructure.detectors.date_detector import DateDetector
 from infrastructure.detectors.spacy.detector import SpacyPIIDetector
 
 
@@ -59,6 +60,15 @@ class TestPhoneDetector:
         assert len(tokens) == 1
         assert tokens[0].type == PIIType.PHONE
 
+    def test_does_not_include_trailing_whitespace(self):
+        detector = PhoneDetector()
+        text = "Zadzwoń pod numer 500123456 po godzinie 10."
+        tokens = detector.detect(text)
+
+        assert len(tokens) == 1
+        assert tokens[0].original_value == "500123456"
+        assert text[tokens[0].start:tokens[0].end] == "500123456"
+
     def test_rejects_invalid_number(self):
         detector = PhoneDetector()
         text = "Kod klienta to 000000000 (nie telefon)."
@@ -102,6 +112,49 @@ class TestPeselDetector:
     def test_empty_text_returns_no_tokens(self):
         detector = PeselDetector()
         assert detector.detect("") == []
+
+
+class TestDateDetector:
+    def test_detects_iso_date(self):
+        detector = DateDetector()
+        text = "Zgłoszenie zarejestrowano dnia 2024-01-15."
+        tokens = detector.detect(text)
+
+        assert len(tokens) == 1
+        assert tokens[0].type == PIIType.DATE
+        assert tokens[0].original_value == "2024-01-15"
+
+    def test_detects_numeric_dotted_date(self):
+        detector = DateDetector()
+        text = "Termin płatności upływa 31.12.2024."
+        tokens = detector.detect(text)
+
+        assert len(tokens) == 1
+        assert tokens[0].original_value == "31.12.2024"
+
+    def test_detects_polish_long_form_date(self):
+        detector = DateDetector()
+        text = "Umowa została podpisana 15 marca 2023 roku."
+        tokens = detector.detect(text)
+
+        assert len(tokens) == 1
+        assert tokens[0].original_value == "15 marca 2023 roku"
+
+    def test_does_not_include_preceding_word(self):
+        detector = DateDetector()
+        text = "Zgłoszenie z dnia 3 stycznia 2024 zostało przyjęte."
+        tokens = detector.detect(text)
+
+        assert len(tokens) == 1
+        assert tokens[0].original_value == "3 stycznia 2024"
+
+    def test_empty_text_returns_no_tokens(self):
+        detector = DateDetector()
+        assert detector.detect("") == []
+
+    def test_no_match_in_plain_text(self):
+        detector = DateDetector()
+        assert detector.detect("Nie ma tu żadnej daty.") == []
 
 
 class TestBankAccountDetector:
@@ -209,6 +262,54 @@ class TestSpacyPIIDetector:
 
         assert len(tokens) == 1
         assert tokens[0].type == PIIType.ORGANIZATION
+
+    def test_filters_location_abbreviation_false_positives(self, monkeypatch):
+        text = "Wysyłka na adres ul. Marszałkowska 12."
+        ents = [
+            _FakeEntity("placeName", "ul.", 17, 20),
+            _FakeEntity("placeName", "Marszałkowska", 21, 34),
+        ]
+        detector = _make_detector(monkeypatch, ents)
+
+        tokens = detector.detect(text)
+
+        assert len(tokens) == 1
+        assert tokens[0].original_value == "Marszałkowska"
+
+    def test_merges_sp_z_o_o_suffix_split_off_by_spacy(self, monkeypatch):
+        text = "Umowę podpisano z firmą Acme Sp. z o.o. w obecności świadków."
+        acme_end = text.index("Acme Sp.") + len("Acme Sp.")
+        suffix_start = text.index("z o.o.")
+        suffix_end = suffix_start + len("z o.o.")
+        ents = [
+            _FakeEntity("orgName", "Acme Sp.", text.index("Acme Sp."), acme_end),
+            _FakeEntity("orgName", "z o.o.", suffix_start, suffix_end),
+        ]
+        detector = _make_detector(monkeypatch, ents)
+
+        tokens = detector.detect(text)
+
+        assert len(tokens) == 1
+        assert tokens[0].type == PIIType.ORGANIZATION
+        assert tokens[0].original_value == "Acme Sp. z o.o."
+
+    def test_merges_sa_suffix_and_drops_absorbed_entity(self, monkeypatch):
+        text = "Kontrahentem w umowie jest Orlen S.A."
+        org_start = text.index("Orlen S.")
+        org_end = org_start + len("Orlen S.")
+        person_start = text.index("A.", org_end)
+        person_end = person_start + len("A.")
+        ents = [
+            _FakeEntity("orgName", "Orlen S.", org_start, org_end),
+            _FakeEntity("persName", "A.", person_start, person_end),
+        ]
+        detector = _make_detector(monkeypatch, ents)
+
+        tokens = detector.detect(text)
+
+        assert len(tokens) == 1
+        assert tokens[0].type == PIIType.ORGANIZATION
+        assert tokens[0].original_value == "Orlen S.A."
 
     def test_empty_text_short_circuits_without_calling_model(self, monkeypatch):
         calls = []

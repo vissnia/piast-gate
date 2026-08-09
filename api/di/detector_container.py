@@ -4,6 +4,7 @@ from infrastructure.detectors.email_detector import EmailDetector
 from infrastructure.detectors.phone_detector import PhoneDetector
 from infrastructure.detectors.pesel_detector import PeselDetector
 from infrastructure.detectors.bank_account_detector import BankAccountDetector
+from infrastructure.detectors.date_detector import DateDetector
 
 @lru_cache
 def get_spacy_detector() -> SpacyPIIDetector:
@@ -39,3 +40,10 @@ def get_bank_account_detector() -> BankAccountDetector:
     Returns a cached instance of BankAccountDetector.
     """
     return BankAccountDetector()
+
+@lru_cache
+def get_date_detector() -> DateDetector:
+    """
+    Returns a cached instance of DateDetector.
+    """
+    return DateDetector()

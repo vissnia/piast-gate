@@ -6,7 +6,7 @@ import phonenumbers
 import re
 
 PHONE_CANDIDATE_REGEX = re.compile(
-    r'\+?\d[\d\s\-()]{7,}'
+    r'\+?\d[\d\s\-()]{6,}\d'
 )
 
 class PhoneDetector(PIIDetector):

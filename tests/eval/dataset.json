@@ -231,7 +231,7 @@
     "category": "location_voivodeship",
     "text": "Oddział regionalny obejmuje województwo małopolskie.",
     "entities": [
-      { "type": "LOCATION", "value": "małopolskie" }
+      { "type": "LOCATION", "value": "województwo małopolskie" }
     ]
   },
   {
