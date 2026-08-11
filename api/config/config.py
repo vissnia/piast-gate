@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     llm_provider: str = Field(default="mock", description="LLM provider")
     gemini_api_key: str = Field(default="", description="Gemini API key")
     model_name: str = Field(default="gemini-2.5-flash", description="Model name")
-    pl_ner_model_name: str = Field(default="pl_core_news_lg", description="PL NER model name")
+    pl_ner_model_name: str = Field(default="radlab/pii-pl-v1.0", description="PL NER model name")
     debug: bool = Field(default=False, description="Debug mode")
     log_file: str = Field(default="logs/app.log", description="Path to log file")
     max_upload_size: int = Field(default=10 * 1024 * 1024, description="Max upload size in bytes (default 10MB)")

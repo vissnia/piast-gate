@@ -1,5 +1,11 @@
+import sys
 import uvicorn
 from dotenv import load_dotenv
+
+if sys.stdout.encoding.lower() != "utf-8":
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+
 from api.main import create_app
 
 load_dotenv()

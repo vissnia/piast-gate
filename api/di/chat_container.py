@@ -1,15 +1,17 @@
 from api.di.detector_container import (
-    get_spacy_detector,
+    get_pii_pl_detector,
     get_email_detector,
     get_phone_detector,
     get_pesel_detector,
     get_bank_account_detector,
+    get_date_detector,
 )
 from infrastructure.detectors.phone_detector import PhoneDetector
 from infrastructure.detectors.email_detector import EmailDetector
 from infrastructure.detectors.pesel_detector import PeselDetector
 from infrastructure.detectors.bank_account_detector import BankAccountDetector
-from infrastructure.detectors.spacy import SpacyPIIDetector
+from infrastructure.detectors.date_detector import DateDetector
+from infrastructure.detectors.pii_pl import PiiPlDetector
 from functools import lru_cache
 from typing import List
 from fastapi import Depends
@@ -30,22 +32,24 @@ def get_llm_provider() -> LLMProvider:
     return create_llm_provider()
 
 def get_anonymizer_service(
-    spacy_detector: SpacyPIIDetector = Depends(get_spacy_detector),
+    pii_pl_detector: PiiPlDetector = Depends(get_pii_pl_detector),
     email_detector: EmailDetector = Depends(get_email_detector),
     bank_account_detector: BankAccountDetector = Depends(get_bank_account_detector),
     pesel_detector: PeselDetector = Depends(get_pesel_detector),
     phone_detector: PhoneDetector = Depends(get_phone_detector),
+    date_detector: DateDetector = Depends(get_date_detector),
 ) -> AnonymizerService:
     """
     Dependency provider for AnonymizerService.
     Combines all configured PII detectors.
     """
     detectors: List[PIIDetector] = [
-        spacy_detector,
+        pii_pl_detector,
         email_detector,
         bank_account_detector,
         pesel_detector,
         phone_detector,
+        date_detector,
     ]
     return AnonymizerService(detectors)
 

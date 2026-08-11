@@ -1,16 +1,17 @@
 from functools import lru_cache
-from infrastructure.detectors.spacy import SpacyPIIDetector
+from infrastructure.detectors.pii_pl import PiiPlDetector
 from infrastructure.detectors.email_detector import EmailDetector
 from infrastructure.detectors.phone_detector import PhoneDetector
 from infrastructure.detectors.pesel_detector import PeselDetector
 from infrastructure.detectors.bank_account_detector import BankAccountDetector
+from infrastructure.detectors.date_detector import DateDetector
 
 @lru_cache
-def get_spacy_detector() -> SpacyPIIDetector:
+def get_pii_pl_detector() -> PiiPlDetector:
     """
-    Returns a cached instance of SpacyPIIDetector to avoid reloading the model.
+    Returns a cached instance of PiiPlDetector to avoid reloading the model.
     """
-    return SpacyPIIDetector()
+    return PiiPlDetector()
 
 @lru_cache
 def get_email_detector() -> EmailDetector:
@@ -39,3 +40,10 @@ def get_bank_account_detector() -> BankAccountDetector:
     Returns a cached instance of BankAccountDetector.
     """
     return BankAccountDetector()
+
+@lru_cache
+def get_date_detector() -> DateDetector:
+    """
+    Returns a cached instance of DateDetector.
+    """
+    return DateDetector()

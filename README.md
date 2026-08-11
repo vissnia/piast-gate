@@ -82,6 +82,32 @@ uv run pytest     # using uv
 pytest            # using venv
 ```
 
+#### Anonymization accuracy eval
+
+`tests/eval/` measures detector accuracy (precision/recall/F1 per PII type) against a labeled dataset, separate from the pass/fail unit tests:
+
+```bash
+uv run python tests/eval/run_eval.py            # using uv
+python tests/eval/run_eval.py                   # using venv
+
+python tests/eval/run_eval.py -v                # show missed/spurious entities per example
+python tests/eval/run_eval.py --category person_declension   # run one category only
+```
+
+Add new cases to `tests/eval/dataset.json` as `{"text": ..., "entities": [{"type": "PERSON", "value": "..."}]}`.
+
+### PL NER Model Download
+
+The PL NER model (`PL_NER_MODEL_NAME`, default [`radlab/pii-pl-v1.0`](https://huggingface.co/radlab/pii-pl-v1.0)) is **not** bundled with the repo or fetched during `uv sync`/`pip install`. It downloads itself automatically from the Hugging Face Hub on app startup (via a FastAPI `lifespan` hook), so `uvicorn main:app` will block for a bit on the first run while it downloads and loads into memory — the app won't accept traffic until that finishes.
+
+The download is cached by `huggingface_hub` in the standard HF cache dir (`~/.cache/huggingface/hub`, or `%USERPROFILE%\.cache\huggingface\hub` on Windows — override with the `HF_HOME` env var), so subsequent restarts just load the local copy and start fast. No `HF_TOKEN` is needed since the model is public.
+
+To pre-populate the cache ahead of time (e.g. as a separate Docker build/CI step, so the runtime container never hits the network), you can pre-download it manually:
+
+```bash
+uv run hf download radlab/pii-pl-v1.0
+```
+
 ### 5. API Keys Configuration
 
 Example configuration in `.env`:
@@ -89,7 +115,7 @@ Example configuration in `.env`:
 LLM_PROVIDER=gemini
 GEMINI_API_KEY=your_api_key_here
 MODEL_NAME=gemini-2.5-flash
-PL_NER_MODEL_NAME=pl_core_news_lg
+PL_NER_MODEL_NAME=radlab/pii-pl-v1.0
 RATE_LIMIT_PER_MINUTE=60
 API_KEYS=["your-secret-key"]
 ```
