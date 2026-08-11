@@ -36,9 +36,9 @@
   {
     "id": "location-002",
     "category": "location_address",
-    "text": "Wysyłka na adres ul. Marszałkowska 12, 00-950 Warszawa.",
+    "text": "Wysyłka powinna zostać zrealizowana na adres ul. Piłsudskiego 12, 00-950 Warszawa.",
     "entities": [
-      { "type": "LOCATION", "value": "Marszałkowska" },
+      { "type": "LOCATION", "value": "Piłsudskiego" },
       { "type": "LOCATION", "value": "Warszawa" }
     ]
   },
@@ -237,9 +237,10 @@
   {
     "id": "org-003",
     "category": "organization_sa",
-    "text": "Kontrahentem w umowie jest Orlen S.A.",
+    "text": "Kontrahentem w umowie jest Orlen S.A. z siedzibą w Płocku.",
     "entities": [
-      { "type": "ORGANIZATION", "value": "Orlen S.A." }
+      { "type": "ORGANIZATION", "value": "Orlen S.A." },
+      { "type": "LOCATION", "value": "Płocku" }
     ]
   },
   {
@@ -247,8 +248,7 @@
     "category": "organization_government",
     "text": "Pismo skierowano do Urzędu Skarbowego w Krakowie.",
     "entities": [
-      { "type": "ORGANIZATION", "value": "Urzędu Skarbowego" },
-      { "type": "LOCATION", "value": "Krakowie" }
+      { "type": "ORGANIZATION", "value": "Urzędu Skarbowego w Krakowie" }
     ]
   },
   {
@@ -323,7 +323,7 @@
       { "type": "PERSON", "value": "Zofia Krawczyk" },
       { "type": "LOCATION", "value": "Łodzi" },
       { "type": "DATE", "value": "12.02.2024" },
-      { "type": "ORGANIZATION", "value": "Lex Partners Sp. z o.o." },
+      { "type": "ORGANIZATION", "value": "kancelaria Lex Partners Sp. z o.o." },
       { "type": "EMAIL", "value": "zofia.krawczyk@onet.pl" },
       { "type": "PHONE", "value": "511222333" }
     ]

@@ -14,19 +14,19 @@ from infrastructure.detectors.date_detector import DateDetector
 from infrastructure.detectors.email_detector import EmailDetector
 from infrastructure.detectors.pesel_detector import PeselDetector
 from infrastructure.detectors.phone_detector import PhoneDetector
-from infrastructure.detectors.spacy.detector import SpacyPIIDetector
+from infrastructure.detectors.pii_pl.detector import PiiPlDetector
 
 DEFAULT_DATASET = Path(__file__).parent / "dataset.json"
 
 
 def build_service() -> AnonymizerService:
     detectors = [
-        SpacyPIIDetector(),
         EmailDetector(),
         PhoneDetector(),
         PeselDetector(),
         BankAccountDetector(),
         DateDetector(),
+        PiiPlDetector(),
     ]
     return AnonymizerService(detectors)
 

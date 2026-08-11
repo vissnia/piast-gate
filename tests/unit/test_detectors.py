@@ -6,7 +6,7 @@ from infrastructure.detectors.phone_detector import PhoneDetector
 from infrastructure.detectors.pesel_detector import PeselDetector
 from infrastructure.detectors.bank_account_detector import BankAccountDetector
 from infrastructure.detectors.date_detector import DateDetector
-from infrastructure.detectors.spacy.detector import SpacyPIIDetector
+from infrastructure.detectors.pii_pl.detector import PiiPlDetector
 
 
 class TestEmailDetector:
@@ -214,114 +214,159 @@ class TestBankAccountDetector:
         assert detector._remove_overlaps([]) == []
 
 
-class _FakeEntity:
-    def __init__(self, label_, text, start_char, end_char):
-        self.label_ = label_
-        self.text = text
-        self.start_char = start_char
-        self.end_char = end_char
+def _entity(entity_group, start, end, score=0.99):
+    return {"entity_group": entity_group, "score": score, "start": start, "end": end}
 
 
-class _FakeDoc:
-    def __init__(self, ents):
-        self.ents = ents
+class _FakePipeline:
+    def __init__(self, entities):
+        self._entities = entities
+
+    def __call__(self, text):
+        return self._entities
 
 
-def _make_detector(monkeypatch, ents):
-    """Builds a SpacyPIIDetector whose model is stubbed to return fixed entities."""
+def _make_detector(monkeypatch, entities):
+    """Builds a PiiPlDetector whose HF pipeline is stubbed to return fixed entities."""
     monkeypatch.setattr(
-        SpacyPIIDetector, "_load_model", lambda self: lambda text: _FakeDoc(ents)
+        PiiPlDetector, "_load_pipeline", lambda self: _FakePipeline(entities)
     )
-    return SpacyPIIDetector()
+    return PiiPlDetector()
 
 
-class TestSpacyPIIDetector:
+class TestPiiPlDetector:
     def test_maps_known_entity_labels(self, monkeypatch):
-        ents = [
-            _FakeEntity("persName", "Jan Kowalski", 0, 12),
-            _FakeEntity("placeName", "Warszawa", 20, 28),
+        text = "Jan Kowalski mieszka w Warszawie."
+        entities = [
+            _entity("PERSON", 0, 12),
+            _entity("LOCATION", 23, 32),
         ]
-        detector = _make_detector(monkeypatch, ents)
+        detector = _make_detector(monkeypatch, entities)
 
-        tokens = detector.detect("Jan Kowalski mieszka w Warszawa.")
+        tokens = detector.detect(text)
 
         assert len(tokens) == 2
         assert tokens[0].type == PIIType.PERSON
         assert tokens[0].original_value == "Jan Kowalski"
         assert tokens[1].type == PIIType.LOCATION
-        assert tokens[1].original_value == "Warszawa"
+        assert tokens[1].original_value == "Warszawie"
+
+    def test_maps_facility_to_location(self, monkeypatch):
+        text = "Wysylka na adres ul. Marszalkowska 12, Warszawa."
+        entities = [_entity("FACILITY", 21, 34)]
+        detector = _make_detector(monkeypatch, entities)
+
+        tokens = detector.detect(text)
+
+        assert len(tokens) == 1
+        assert tokens[0].type == PIIType.LOCATION
+        assert tokens[0].original_value == "Marszalkowska"
+
+    def test_skips_contact_num_while_unmapped(self, monkeypatch):
+        """CONTACT/NUM has no entry in ENTITY_MAPPING (dedicated PhoneDetector handles phones)."""
+        text = "Numer: 500123456."
+        entities = [_entity("CONTACT/NUM", 7, 16)]
+        detector = _make_detector(monkeypatch, entities)
+
+        assert detector.detect(text) == []
+
+    def test_extends_location_with_administrative_prefix_noun(self, monkeypatch):
+        text = "Oddzial regionalny obejmuje województwo małopolskie."
+        entities = [_entity("LOCATION", 40, 51)]
+        detector = _make_detector(monkeypatch, entities)
+
+        tokens = detector.detect(text)
+
+        assert len(tokens) == 1
+        assert tokens[0].type == PIIType.LOCATION
+        assert tokens[0].original_value == "województwo małopolskie"
+
+    def test_does_not_extend_location_for_unlisted_preceding_word(self, monkeypatch):
+        text = "Piekne Krakow."
+        entities = [_entity("LOCATION", 7, 13)]
+        detector = _make_detector(monkeypatch, entities)
+
+        tokens = detector.detect(text)
+
+        assert len(tokens) == 1
+        assert tokens[0].original_value == "Krakow"
+
+    def test_merges_org_split_by_legal_suffix_punctuation(self, monkeypatch):
+        text = (
+            "Nazywam sie Jan Kowalski, mieszkam w Warszawie i pracuje w "
+            "firmie Acme Sp. z o.o. Moj numer to 500123456."
+        )
+        entities = [
+            _entity("ORGANIZATION", 66, 73),
+            _entity("ORGANIZATION", 75, 78),
+            _entity("ORGANIZATION", 79, 80),
+        ]
+        detector = _make_detector(monkeypatch, entities)
+
+        tokens = detector.detect(text)
+
+        assert len(tokens) == 1
+        assert tokens[0].type == PIIType.ORGANIZATION
+        assert tokens[0].original_value == "Acme Sp. z o.o"
+
+    def test_does_not_merge_across_unrelated_text(self, monkeypatch):
+        text = "Warszawa jest stolica. Krakow jest stary."
+        entities = [
+            _entity("LOCATION", 0, 8),
+            _entity("LOCATION", 23, 29),
+        ]
+        detector = _make_detector(monkeypatch, entities)
+
+        tokens = detector.detect(text)
+
+        assert len(tokens) == 2
+        assert tokens[0].original_value == "Warszawa"
+        assert tokens[1].original_value == "Krakow"
+
+    def test_does_not_merge_different_entity_types(self, monkeypatch):
+        text = "Acme w Warszawie."
+        entities = [
+            _entity("ORGANIZATION", 0, 4),
+            _entity("LOCATION", 7, 16),
+        ]
+        detector = _make_detector(monkeypatch, entities)
+
+        tokens = detector.detect(text)
+
+        assert len(tokens) == 2
+        assert tokens[0].type == PIIType.ORGANIZATION
+        assert tokens[1].type == PIIType.LOCATION
 
     def test_skips_unmapped_entity_labels(self, monkeypatch):
-        ents = [
-            _FakeEntity("MISC", "coś nieznanego", 0, 14),
-            _FakeEntity("orgName", "Acme Sp. z o.o.", 20, 35),
+        text = "coś nieznanego Acme Sp. z o.o."
+        entities = [
+            _entity("EVENT", 0, 14),
+            _entity("ORGANIZATION", 15, 30),
         ]
-        detector = _make_detector(monkeypatch, ents)
-
-        tokens = detector.detect("tekst testowy")
-
-        assert len(tokens) == 1
-        assert tokens[0].type == PIIType.ORGANIZATION
-
-    def test_filters_location_abbreviation_false_positives(self, monkeypatch):
-        text = "Wysyłka na adres ul. Marszałkowska 12."
-        ents = [
-            _FakeEntity("placeName", "ul.", 17, 20),
-            _FakeEntity("placeName", "Marszałkowska", 21, 34),
-        ]
-        detector = _make_detector(monkeypatch, ents)
-
-        tokens = detector.detect(text)
-
-        assert len(tokens) == 1
-        assert tokens[0].original_value == "Marszałkowska"
-
-    def test_merges_sp_z_o_o_suffix_split_off_by_spacy(self, monkeypatch):
-        text = "Umowę podpisano z firmą Acme Sp. z o.o. w obecności świadków."
-        acme_end = text.index("Acme Sp.") + len("Acme Sp.")
-        suffix_start = text.index("z o.o.")
-        suffix_end = suffix_start + len("z o.o.")
-        ents = [
-            _FakeEntity("orgName", "Acme Sp.", text.index("Acme Sp."), acme_end),
-            _FakeEntity("orgName", "z o.o.", suffix_start, suffix_end),
-        ]
-        detector = _make_detector(monkeypatch, ents)
+        detector = _make_detector(monkeypatch, entities)
 
         tokens = detector.detect(text)
 
         assert len(tokens) == 1
         assert tokens[0].type == PIIType.ORGANIZATION
-        assert tokens[0].original_value == "Acme Sp. z o.o."
 
-    def test_merges_sa_suffix_and_drops_absorbed_entity(self, monkeypatch):
-        text = "Kontrahentem w umowie jest Orlen S.A."
-        org_start = text.index("Orlen S.")
-        org_end = org_start + len("Orlen S.")
-        person_start = text.index("A.", org_end)
-        person_end = person_start + len("A.")
-        ents = [
-            _FakeEntity("orgName", "Orlen S.", org_start, org_end),
-            _FakeEntity("persName", "A.", person_start, person_end),
-        ]
-        detector = _make_detector(monkeypatch, ents)
+    def test_skips_low_confidence_entities(self, monkeypatch):
+        text = "Jan Kowalski"
+        entities = [_entity("PERSON", 0, 12, score=0.01)]
+        detector = _make_detector(monkeypatch, entities)
 
-        tokens = detector.detect(text)
-
-        assert len(tokens) == 1
-        assert tokens[0].type == PIIType.ORGANIZATION
-        assert tokens[0].original_value == "Orlen S.A."
+        assert detector.detect(text) == []
 
     def test_empty_text_short_circuits_without_calling_model(self, monkeypatch):
         calls = []
 
-        def fake_load(self):
-            def nlp(text):
+        class _TrackingPipeline:
+            def __call__(self, text):
                 calls.append(text)
-                return _FakeDoc([])
-            return nlp
+                return []
 
-        monkeypatch.setattr(SpacyPIIDetector, "_load_model", fake_load)
-        detector = SpacyPIIDetector()
+        monkeypatch.setattr(PiiPlDetector, "_load_pipeline", lambda self: _TrackingPipeline())
+        detector = PiiPlDetector()
 
         tokens = detector.detect("")
 
