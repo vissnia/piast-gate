@@ -61,6 +61,30 @@ def get_anonymizer_service(
     ]
     return AnonymizerService(detectors)
 
+def get_hallucination_guard(
+    email_detector: EmailDetector = Depends(get_email_detector),
+    phone_detector: PhoneDetector = Depends(get_phone_detector),
+    bank_account_detector: BankAccountDetector = Depends(get_bank_account_detector),
+    pesel_detector: PeselDetector = Depends(get_pesel_detector),
+    nip_detector: NipDetector = Depends(get_nip_detector),
+    regon_detector: RegonDetector = Depends(get_regon_detector),
+) -> AnonymizerService:
+    """
+    Dependency provider for an AnonymizerService scoped to fast,
+    checksum-validated detectors only (no NER). Used to scrub hallucinated
+    PII from streamed LLM output word-by-word without the latency of
+    running the NER model per word.
+    """
+    detectors: List[PIIDetector] = [
+        email_detector,
+        bank_account_detector,
+        pesel_detector,
+        phone_detector,
+        nip_detector,
+        regon_detector,
+    ]
+    return AnonymizerService(detectors)
+
 def get_chat_use_case(
     anonymizer: AnonymizerService = Depends(get_anonymizer_service),
     llm: LLMProvider = Depends(get_llm_provider),
@@ -74,11 +98,12 @@ def get_chat_use_case(
 def get_stream_chat_use_case(
     anonymizer: AnonymizerService = Depends(get_anonymizer_service),
     llm: LLMProvider = Depends(get_llm_provider),
+    hallucination_guard: AnonymizerService = Depends(get_hallucination_guard),
 ) -> StreamChatUseCase:
     """
     Dependency provider for StreamChatUseCase.
     """
-    return StreamChatUseCase(anonymizer, llm)
+    return StreamChatUseCase(anonymizer, llm, hallucination_guard)
 
 def get_anonymize_use_case(
     anonymizer: AnonymizerService = Depends(get_anonymizer_service),

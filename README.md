@@ -18,6 +18,8 @@
 
 Detected PII types: `PERSON`, `LOCATION`, `ORGANIZATION` (via NER), `EMAIL`, `PHONE`, `DATE`, `PESEL`, `NIP`, `REGON`, `BANK_ACCOUNT` (IBAN/NRB). PESEL, NIP, REGON and IBAN/NRB matches are checksum-validated, so a random digit string of the right length won't be flagged as PII.
 
+The model's response is also scanned before being returned: since the model is only ever shown placeholders, any PII-shaped text it produces on its own (hallucinated, or a corrupted echo of a placeholder) is redacted rather than forwarded. On `stream=false` this checks the full response with every detector; on `stream=true` it's a lighter, word-buffered check using only the fast checksum-validated detectors (NER is too slow to run per streamed word) — multi-word hallucinated PII such as names isn't caught in streaming mode.
+
 ## Example
 
 **Input:**

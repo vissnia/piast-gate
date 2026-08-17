@@ -1,4 +1,5 @@
 from application.helpers.stream_helper import build_chunk
+from application.services.hallucination_scrubber import HallucinationScrubber
 from application.services.thinking_parser import ThinkingParser
 from typing import AsyncIterator
 from application.dtos.chat_request import ChatRequest
@@ -14,18 +15,24 @@ class StreamChatUseCase:
     Steps:
     1. Anonymize all user messages (same stateful mapping as non-streaming path).
     2. Open a streaming connection to the LLM.
-    3. Pipe LLM chunks through :class:`StreamDeanonymizer` to restore PII.
+    3. Pipe LLM chunks through :class:`HallucinationScrubber` to redact any
+       hallucinated PII, then through :class:`StreamDeanonymizer` to restore
+       the real placeholders.
     4. Yield :class:`StreamChatChunk` objects ready to be serialised as SSE.
     """
 
-    def __init__(self, anonymizer: AnonymizerService, llm: LLMProvider) -> None:
+    def __init__(self, anonymizer: AnonymizerService, llm: LLMProvider, hallucination_guard: AnonymizerService) -> None:
         """
         Args:
             anonymizer (AnonymizerService): Service that handles PII anonymization / de-anonymization.
             llm (LLMProvider): LLM provider that supports ``chat_stream``.
+            hallucination_guard (AnonymizerService): Scoped to fast, non-NER
+                detectors only; used to scrub hallucinated PII from the raw
+                stream without the latency of running NER per word.
         """
         self.anonymizer = anonymizer
         self.llm = llm
+        self.hallucination_guard = hallucination_guard
 
     async def _anonymize_messages(self, request: ChatRequest):
         texts = [msg.content for msg in request.messages]
@@ -46,10 +53,12 @@ class StreamChatUseCase:
             max_tokens=request.max_tokens,
         )
 
+        scrubber = HallucinationScrubber(self.hallucination_guard)
         deanonymizer = StreamDeanonymizer(mapping=global_mapping)
         parser = ThinkingParser()
 
-        async for safe_text in deanonymizer.process(raw_stream):
+        scrubbed_stream = scrubber.process(raw_stream)
+        async for safe_text in deanonymizer.process(scrubbed_stream):
             chunks = parser.process(safe_text)
 
             for content, thinking in chunks:

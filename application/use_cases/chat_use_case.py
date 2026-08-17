@@ -32,8 +32,13 @@ class ChatUseCase:
             temperature=request.temperature,
             max_tokens=request.max_tokens
         )
-        
-        final_response_text = await self.anonymizer.deanonymize_async(llm_response_text, global_mapping)
+
+        # The LLM only ever saw placeholders, so any PII-shaped span in its
+        # raw response is hallucinated, not a legitimate restoration; scrub
+        # it before restoring the real placeholders below.
+        safe_response_text, _ = await self.anonymizer.redact_async(llm_response_text)
+
+        final_response_text = await self.anonymizer.deanonymize_async(safe_response_text, global_mapping)
         
         return ChatResponse(
             id=f"chatcmpl-{uuid.uuid4().hex}",
