@@ -96,6 +96,33 @@ python tests/eval/run_eval.py --category person_declension   # run one category 
 
 Add new cases to `tests/eval/dataset.json` as `{"text": ..., "entities": [{"type": "PERSON", "value": "..."}]}`.
 
+#### Load tests (k6)
+
+`tests/perf/` holds [k6](https://k6.io/docs/get-started/installation/) load-test scripts that hit a running instance of the app:
+
+- `test_concurrency.js` — ramps virtual users up to 100 to check behavior under concurrent load.
+- `test_input_scaling.js` — sends a single very long message to see how latency scales with input size.
+- `test_entity_scaling.js` — sends a message packed with many PII entities to see how latency scales with entity count.
+
+Run the server with the mock LLM provider so requests don't hit the real Gemini API, and make sure `test-api-key` is in `API_KEYS`:
+
+```env
+LLM_PROVIDER=mock
+API_KEYS=["test-api-key"]
+```
+
+```bash
+uv run uvicorn main:app --workers 4
+```
+
+Then, in a separate terminal, run any of the scripts:
+
+```bash
+k6 run tests/perf/test_concurrency.js
+k6 run tests/perf/test_input_scaling.js
+k6 run tests/perf/test_entity_scaling.js
+```
+
 ### PL NER Model Download
 
 The PL NER model (`PL_NER_MODEL_NAME`, default [`radlab/pii-pl-v1.0`](https://huggingface.co/radlab/pii-pl-v1.0)) is **not** bundled with the repo or fetched during `uv sync`/`pip install`. It downloads itself automatically from the Hugging Face Hub on app startup (via a FastAPI `lifespan` hook), so `uvicorn main:app` will block for a bit on the first run while it downloads and loads into memory — the app won't accept traffic until that finishes.

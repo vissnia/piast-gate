@@ -13,6 +13,8 @@ class Settings(BaseSettings):
     gemini_api_key: str = Field(default="", description="Gemini API key")
     model_name: str = Field(default="gemini-2.5-flash", description="Model name")
     pl_ner_model_name: str = Field(default="radlab/pii-pl-v1.0", description="PL NER model name")
+    pl_ner_chunk_tokens: int = Field(default=384, description="Max tokens per NER inference window (smaller = cheaper attention per chunk)")
+    pl_ner_chunk_stride: int = Field(default=64, description="Token overlap between NER inference windows, to avoid splitting entities at chunk boundaries")
     debug: bool = Field(default=False, description="Debug mode")
     log_file: str = Field(default="logs/app.log", description="Path to log file")
     max_upload_size: int = Field(default=10 * 1024 * 1024, description="Max upload size in bytes (default 10MB)")

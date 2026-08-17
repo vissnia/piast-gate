@@ -1,7 +1,5 @@
 import time
 import uuid
-from typing import Dict
-from domain.entities.pii_token import PIIToken
 from domain.interfaces.llm_provider import LLMProvider
 from domain.services.anonymizer_service import AnonymizerService
 from application.dtos.chat_request import ChatRequest
@@ -22,19 +20,12 @@ class ChatUseCase:
         3. Deanonymize LLM response.
         4. Return formatted OpenAI compatible response.
         """
-        state_type_counters: Dict[str, int] = {}
-        state_value_to_token_str: Dict[str, str] = {}
-        global_mapping: Dict[str, PIIToken] = {}
-        
-        anonymized_messages = []
-        for msg in request.messages:
-            anon_content, mapping = await self.anonymizer.anonymize_async(
-                msg.content, 
-                state_type_counters, 
-                state_value_to_token_str
-            )
-            global_mapping.update(mapping)
-            anonymized_messages.append({"role": msg.role, "content": anon_content})
+        texts = [msg.content for msg in request.messages]
+        anonymized_texts, global_mapping = await self.anonymizer.anonymize_texts_async(texts)
+        anonymized_messages = [
+            {"role": msg.role, "content": anon_content}
+            for msg, anon_content in zip(request.messages, anonymized_texts)
+        ]
 
         llm_response_text = await self.llm.chat(
             messages=anonymized_messages,

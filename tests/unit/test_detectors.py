@@ -222,7 +222,7 @@ class _FakePipeline:
     def __init__(self, entities):
         self._entities = entities
 
-    def __call__(self, text):
+    def __call__(self, text, **kwargs):
         return self._entities
 
 
@@ -361,7 +361,7 @@ class TestPiiPlDetector:
         calls = []
 
         class _TrackingPipeline:
-            def __call__(self, text):
+            def __call__(self, text, **kwargs):
                 calls.append(text)
                 return []
 

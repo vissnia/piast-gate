@@ -53,17 +53,25 @@ class PiiPlDetector(PIIDetector):
 
     def __init__(self):
         self.model_name = settings.pl_ner_model_name
+        self.chunk_tokens = settings.pl_ner_chunk_tokens
+        self.chunk_stride = settings.pl_ner_chunk_stride
         self._pipeline = self._load_pipeline()
 
     def _load_pipeline(self):
         try:
+            import torch
             from transformers import pipeline
-            return pipeline(
+            device = 0 if torch.cuda.is_available() else -1
+            ner_pipeline = pipeline(
                 "ner",
                 model=self.model_name,
                 tokenizer=self.model_name,
                 aggregation_strategy="simple",
+                device=device,
             )
+            ner_pipeline.tokenizer.model_max_length = self.chunk_tokens
+            logger.info(f"Loaded PII PL model {self.model_name} on {'cuda' if device == 0 else 'cpu'}")
+            return ner_pipeline
         except Exception as e:
             logger.error(f"Failed to load PII PL model {self.model_name}: {e}")
             raise
@@ -75,7 +83,7 @@ class PiiPlDetector(PIIDetector):
         if not text:
             return []
 
-        entities = self._pipeline(text)
+        entities = self._pipeline(text, stride=self.chunk_stride)
         entities = _extend_location_prefixes(text, entities)
         entities = _merge_adjacent_entities(text, entities)
 
