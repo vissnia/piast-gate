@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field
 from typing import List, Literal, Optional
 
-MAX_CONTENT_LENGTH = 20_000
+MAX_CONTENT_LENGTH = 80_000
 MAX_MESSAGES = 50
 
 class ChatMessage(BaseModel):
