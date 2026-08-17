@@ -17,7 +17,7 @@ const payload = JSON.stringify({
     messages: [
         {
             role: "system",
-            content: "Jan Kowalski mieszka w Warszawie przy ul. Kwiatowej. PESEL: 90010112345. Numer telefonu: 123456789. Email: j.kowalski@example.com",
+            content: "Jan Kowalski mieszka w Warszawie przy ul. Kwiatowej. PESEL: 90010112349. Numer telefonu: 123456789. Email: j.kowalski@example.com",
         }
     ],
     temperature: 0.1,

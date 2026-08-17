@@ -16,6 +16,8 @@
 
 **piast-gate** sits between your app and the model. It strips sensitive data before sending, then restores it after the response. The model never sees real PII.
 
+Detected PII types: `PERSON`, `LOCATION`, `ORGANIZATION` (via NER), `EMAIL`, `PHONE`, `DATE`, `PESEL`, `NIP`, `REGON`, `BANK_ACCOUNT` (IBAN/NRB). PESEL, NIP, REGON and IBAN/NRB matches are checksum-validated, so a random digit string of the right length won't be flagged as PII.
+
 ## Example
 
 **Input:**

@@ -5,6 +5,8 @@ from infrastructure.detectors.phone_detector import PhoneDetector
 from infrastructure.detectors.pesel_detector import PeselDetector
 from infrastructure.detectors.bank_account_detector import BankAccountDetector
 from infrastructure.detectors.date_detector import DateDetector
+from infrastructure.detectors.nip_detector import NipDetector
+from infrastructure.detectors.regon_detector import RegonDetector
 
 @lru_cache
 def get_pii_pl_detector() -> PiiPlDetector:
@@ -47,3 +49,17 @@ def get_date_detector() -> DateDetector:
     Returns a cached instance of DateDetector.
     """
     return DateDetector()
+
+@lru_cache
+def get_nip_detector() -> NipDetector:
+    """
+    Returns a cached instance of NipDetector.
+    """
+    return NipDetector()
+
+@lru_cache
+def get_regon_detector() -> RegonDetector:
+    """
+    Returns a cached instance of RegonDetector.
+    """
+    return RegonDetector()

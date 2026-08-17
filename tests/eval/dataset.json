@@ -102,25 +102,25 @@
   {
     "id": "pesel-001",
     "category": "pesel_basic",
-    "text": "Jego numer PESEL to 90010112345, proszę zweryfikować.",
+    "text": "Jego numer PESEL to 90010112349, proszę zweryfikować.",
     "entities": [
-      { "type": "PESEL", "value": "90010112345" }
+      { "type": "PESEL", "value": "90010112349" }
     ]
   },
   {
     "id": "bank-001",
     "category": "bank_account_nrb",
-    "text": "Przelew proszę wykonać na konto 12345678901234567890123456.",
+    "text": "Przelew proszę wykonać na konto 94345678901234567890123456.",
     "entities": [
-      { "type": "BANK_ACCOUNT", "value": "12345678901234567890123456" }
+      { "type": "BANK_ACCOUNT", "value": "94345678901234567890123456" }
     ]
   },
   {
     "id": "bank-002",
     "category": "bank_account_iban",
-    "text": "IBAN odbiorcy: PL61123456789012345678901234.",
+    "text": "IBAN odbiorcy: PL04123456789012345678901234.",
     "entities": [
-      { "type": "BANK_ACCOUNT", "value": "PL61123456789012345678901234" }
+      { "type": "BANK_ACCOUNT", "value": "PL04123456789012345678901234" }
     ]
   },
   {
@@ -138,12 +138,12 @@
   {
     "id": "mixed-002",
     "category": "mixed_form",
-    "text": "Wnioskodawca: Katarzyna Lis, PESEL 85030512345, zamieszkała w Gdańsku, konto bankowe PL10123456789012345678901234.",
+    "text": "Wnioskodawca: Katarzyna Lis, PESEL 85030512345, zamieszkała w Gdańsku, konto bankowe PL04123456789012345678901234.",
     "entities": [
       { "type": "PERSON", "value": "Katarzyna Lis" },
       { "type": "PESEL", "value": "85030512345" },
       { "type": "LOCATION", "value": "Gdańsku" },
-      { "type": "BANK_ACCOUNT", "value": "PL10123456789012345678901234" }
+      { "type": "BANK_ACCOUNT", "value": "PL04123456789012345678901234" }
     ]
   },
   {
@@ -302,17 +302,17 @@
   {
     "id": "pesel-002",
     "category": "pesel_second_example",
-    "text": "W formularzu podano PESEL 02280512389.",
+    "text": "W formularzu podano PESEL 02280512381.",
     "entities": [
-      { "type": "PESEL", "value": "02280512389" }
+      { "type": "PESEL", "value": "02280512381" }
     ]
   },
   {
     "id": "bank-003",
     "category": "bank_account_spaced",
-    "text": "Numer rachunku: 12 3456 7890 1234 5678 9012 3456.",
+    "text": "Numer rachunku: 94 3456 7890 1234 5678 9012 3456.",
     "entities": [
-      { "type": "BANK_ACCOUNT", "value": "12 3456 7890 1234 5678 9012 3456" }
+      { "type": "BANK_ACCOUNT", "value": "94 3456 7890 1234 5678 9012 3456" }
     ]
   },
   {
@@ -359,6 +359,42 @@
     "id": "negative-008",
     "category": "negative_short_extension_number",
     "text": "Wewnętrzny numer działu to 123.",
+    "entities": []
+  },
+  {
+    "id": "nip-001",
+    "category": "nip_basic",
+    "text": "NIP dostawcy: 526-000-00-05, prosimy zweryfikować przed podpisaniem umowy.",
+    "entities": [
+      { "type": "NIP", "value": "526-000-00-05" }
+    ]
+  },
+  {
+    "id": "nip-002",
+    "category": "nip_plain",
+    "text": "Faktura wystawiona na NIP 5260000005.",
+    "entities": [
+      { "type": "NIP", "value": "5260000005" }
+    ]
+  },
+  {
+    "id": "regon-001",
+    "category": "regon_basic",
+    "text": "REGON spółki to 987654326, zgodnie z wpisem do KRS.",
+    "entities": [
+      { "type": "REGON", "value": "987654326" }
+    ]
+  },
+  {
+    "id": "negative-009",
+    "category": "negative_pesel_invalid_checksum",
+    "text": "Numer referencyjny zgłoszenia to 90010112345, to nie jest PESEL.",
+    "entities": []
+  },
+  {
+    "id": "negative-010",
+    "category": "negative_nip_invalid_checksum",
+    "text": "Numer zamówienia 1234567890 został przyjęty do realizacji.",
     "entities": []
   }
 ]

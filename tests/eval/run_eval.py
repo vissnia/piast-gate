@@ -12,8 +12,10 @@ from domain.services.anonymizer_service import AnonymizerService
 from infrastructure.detectors.bank_account_detector import BankAccountDetector
 from infrastructure.detectors.date_detector import DateDetector
 from infrastructure.detectors.email_detector import EmailDetector
+from infrastructure.detectors.nip_detector import NipDetector
 from infrastructure.detectors.pesel_detector import PeselDetector
 from infrastructure.detectors.phone_detector import PhoneDetector
+from infrastructure.detectors.regon_detector import RegonDetector
 from infrastructure.detectors.pii_pl.detector import PiiPlDetector
 
 DEFAULT_DATASET = Path(__file__).parent / "dataset.json"
@@ -26,6 +28,8 @@ def build_service() -> AnonymizerService:
         PeselDetector(),
         BankAccountDetector(),
         DateDetector(),
+        NipDetector(),
+        RegonDetector(),
         PiiPlDetector(),
     ]
     return AnonymizerService(detectors)

@@ -8,7 +8,7 @@ const ENTITY_COUNT = 100;
 function generateEntities(count) {
     let text = "";
     for (let i = 0; i < count; i++) {
-        text += `Osoba ${i}: Jan Kowalski PESEL 90010112345 mieszka w Warszawie. `;
+        text += `Osoba ${i}: Jan Kowalski PESEL 90010112349 mieszka w Warszawie. `;
     }
     return text;
 }

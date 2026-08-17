@@ -4,7 +4,7 @@ import docx
 def create_dummy_docx():
     """Create a dummy docx file in memory."""
     doc = docx.Document()
-    doc.add_paragraph("Jan Kowalski (PESEL: 90010112345) to plik testowy.")
+    doc.add_paragraph("Jan Kowalski (PESEL: 90010112349) to plik testowy.")
     f = BytesIO()
     doc.save(f)
     f.seek(0)
@@ -12,7 +12,7 @@ def create_dummy_docx():
 
 def create_dummy_pdf():
     """Build a minimal single-page PDF (no external PDF library needed) containing PII text."""
-    text = "Jan Kowalski PESEL 90010112345"
+    text = "Jan Kowalski PESEL 90010112349"
     content = f"BT /F1 24 Tf 72 700 Td ({text}) Tj ET".encode()
 
     objects = [
@@ -54,7 +54,7 @@ def test_anonymize_document_success(client, auth_headers):
 
     body = response.json()
     text = body["anonymized_text"]
-    assert "90010112345" not in text
+    assert "90010112349" not in text
     assert "<PERSON" in text or "<PESEL" in text
 
 
@@ -72,7 +72,7 @@ def test_anonymize_pdf_document_success(client, auth_headers):
 
     body = response.json()
     text = body["anonymized_text"]
-    assert "90010112345" not in text
+    assert "90010112349" not in text
     assert "<PERSON" in text or "<PESEL" in text
 
 

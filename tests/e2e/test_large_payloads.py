@@ -99,7 +99,7 @@ def test_anonymize_document_at_max_upload_size_boundary_succeeds(client, auth_he
     """A file whose size is exactly at the configured limit must not trip the 413 guard."""
     from api.config.config import settings
 
-    file_bytes = _make_docx_bytes("Jan Kowalski, PESEL 90010112345.")
+    file_bytes = _make_docx_bytes("Jan Kowalski, PESEL 90010112349.")
 
     old_size = settings.max_upload_size
     settings.max_upload_size = len(file_bytes)
@@ -114,6 +114,6 @@ def test_anonymize_document_at_max_upload_size_boundary_succeeds(client, auth_he
         response = client.post("/v1/api/anonymize", files=files, headers=auth_headers)
 
         assert response.status_code == 200
-        assert "90010112345" not in response.json()["anonymized_text"]
+        assert "90010112349" not in response.json()["anonymized_text"]
     finally:
         settings.max_upload_size = old_size
