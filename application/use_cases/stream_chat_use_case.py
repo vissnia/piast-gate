@@ -28,20 +28,12 @@ class StreamChatUseCase:
         self.llm = llm
 
     async def _anonymize_messages(self, request: ChatRequest):
-        state_type_counters = {}
-        state_value_to_token_str = {}
-        global_mapping = {}
-
-        anonymized_messages = []
-
-        for msg in request.messages:
-            anon_content, mapping = await self.anonymizer.anonymize_async(
-                msg.content,
-                state_type_counters,
-                state_value_to_token_str,
-            )
-            global_mapping.update(mapping)
-            anonymized_messages.append({"role": msg.role, "content": anon_content})
+        texts = [msg.content for msg in request.messages]
+        anonymized_texts, global_mapping = await self.anonymizer.anonymize_texts_async(texts)
+        anonymized_messages = [
+            {"role": msg.role, "content": anon_content}
+            for msg, anon_content in zip(request.messages, anonymized_texts)
+        ]
 
         return anonymized_messages, global_mapping
 
