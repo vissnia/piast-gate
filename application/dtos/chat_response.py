@@ -1,9 +1,10 @@
 from pydantic import BaseModel
-from typing import List, Literal
+from typing import Any, Dict, List, Literal, Optional
 
 class ChatChoiceMessage(BaseModel):
     role: Literal["assistant"]
-    content: str
+    content: Optional[str] = None
+    tool_calls: Optional[List[Dict[str, Any]]] = None
 
 class ChatChoice(BaseModel):
     index: int
