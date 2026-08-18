@@ -7,6 +7,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from fastapi.exceptions import RequestValidationError
 from api.config.config import settings
+from domain.exceptions.llm_provider_error import LLMProviderError
 
 logger = logging.getLogger(__name__)
 
@@ -22,7 +23,7 @@ class GlobalErrorHandlerMiddleware(BaseHTTPMiddleware):
         status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
         message = "Internal Server Error"
 
-        if isinstance(e, (StarletteHTTPException, RequestValidationError)):
+        if isinstance(e, (StarletteHTTPException, RequestValidationError, LLMProviderError)):
             if isinstance(e, StarletteHTTPException):
                 status_code = e.status_code
                 message = e.detail
@@ -30,6 +31,9 @@ class GlobalErrorHandlerMiddleware(BaseHTTPMiddleware):
                  status_code = status.HTTP_422_UNPROCESSABLE_ENTITY
                  message = "Validation Error"
                  error_details = e.errors()
+            elif isinstance(e, LLMProviderError):
+                 status_code = e.status_code
+                 message = e.message
 
             logger.warning(
                 f"HTTP Exception: {message} | Status: {status_code} | Path: {request.url.path}"

@@ -107,6 +107,15 @@ async def test_process_empty_chunks(deanonymizer: StreamDeanonymizer):
     assert "".join(results) == "Hello Jan Kowalski!"
 
 @pytest.mark.asyncio
+async def test_process_unresolved_placeholder_shaped_tag_is_redacted(deanonymizer: StreamDeanonymizer):
+    """A tag that looks like our placeholder format (<TYPE#>) but isn't in
+    the mapping is hallucinated or corrupted, and must not leak raw."""
+    stream = mock_stream("Kontakt: <PERSON99>.")
+    results = [chunk async for chunk in deanonymizer.process(stream)]
+    assert "".join(results) == "Kontakt: [REDACTED:PERSON]."
+
+
+@pytest.mark.asyncio
 async def test_process_multiple_tags(deanonymizer: StreamDeanonymizer):
     """
     Tests processing a stream that contains multiple distinct tags.

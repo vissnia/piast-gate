@@ -6,6 +6,8 @@ from infrastructure.detectors.phone_detector import PhoneDetector
 from infrastructure.detectors.pesel_detector import PeselDetector
 from infrastructure.detectors.bank_account_detector import BankAccountDetector
 from infrastructure.detectors.date_detector import DateDetector
+from infrastructure.detectors.nip_detector import NipDetector
+from infrastructure.detectors.regon_detector import RegonDetector
 from infrastructure.detectors.pii_pl.detector import PiiPlDetector
 
 
@@ -84,14 +86,14 @@ class TestPhoneDetector:
 
 
 class TestPeselDetector:
-    def test_detects_eleven_digit_sequence(self):
+    def test_detects_eleven_digit_sequence_with_valid_checksum(self):
         detector = PeselDetector()
-        text = "Jego PESEL to 90010112345 dziękuję."
+        text = "Jego PESEL to 90010112349 dziękuję."
         tokens = detector.detect(text)
 
         assert len(tokens) == 1
         assert tokens[0].type == PIIType.PESEL
-        assert tokens[0].original_value == "90010112345"
+        assert tokens[0].original_value == "90010112349"
 
     def test_does_not_match_ten_digit_sequence(self):
         detector = PeselDetector()
@@ -101,13 +103,21 @@ class TestPeselDetector:
         detector = PeselDetector()
         assert detector.detect("numer 900101123456 to nie pesel") == []
 
-    def test_detects_multiple_separate_sequences(self):
+    def test_rejects_eleven_digits_with_invalid_checksum(self):
         detector = PeselDetector()
-        text = "90010112345 oraz 12345678901 to dwa numery."
+        assert detector.detect("numer zgłoszenia 90010112345 nie jest peselem") == []
+
+    def test_rejects_eleven_digits_with_implausible_month(self):
+        detector = PeselDetector()
+        assert detector.detect("numer 90990112344 nie jest peselem") == []
+
+    def test_detects_multiple_separate_valid_sequences(self):
+        detector = PeselDetector()
+        text = "90010112349 oraz 02280512381 to dwa numery."
         tokens = detector.detect(text)
 
         values = {t.original_value for t in tokens}
-        assert values == {"90010112345", "12345678901"}
+        assert values == {"90010112349", "02280512381"}
 
     def test_empty_text_returns_no_tokens(self):
         detector = PeselDetector()
@@ -158,9 +168,9 @@ class TestDateDetector:
 
 
 class TestBankAccountDetector:
-    def test_detects_nrb_number(self):
+    def test_detects_nrb_number_with_valid_checksum(self):
         detector = BankAccountDetector()
-        nrb = "12345678901234567890123456"[:26]
+        nrb = "94345678901234567890123456"
         text = f"Numer konta:{nrb}."
         tokens = detector.detect(text)
 
@@ -168,15 +178,25 @@ class TestBankAccountDetector:
         assert tokens[0].type == PIIType.BANK_ACCOUNT
         assert tokens[0].original_value == nrb
 
-    def test_detects_iban_style_number(self):
+    def test_detects_iban_style_number_with_valid_checksum(self):
         detector = BankAccountDetector()
-        iban = "PL61" + "12345678901"
+        iban = "DE89370400440532013000"
         text = f"IBAN:{iban}."
         tokens = detector.detect(text)
 
         assert len(tokens) == 1
         assert tokens[0].type == PIIType.BANK_ACCOUNT
         assert tokens[0].original_value == iban
+
+    def test_rejects_26_digits_with_invalid_checksum(self):
+        detector = BankAccountDetector()
+        nrb = "12345678901234567890123456"
+        assert detector.detect(f"Numer konta:{nrb}.") == []
+
+    def test_rejects_iban_style_number_with_invalid_checksum(self):
+        detector = BankAccountDetector()
+        iban = "PL61" + "12345678901"
+        assert detector.detect(f"IBAN:{iban}.") == []
 
     def test_does_not_match_pesel_length_sequence(self):
         detector = BankAccountDetector()
@@ -212,6 +232,72 @@ class TestBankAccountDetector:
     def test_remove_overlaps_handles_empty_list(self):
         detector = BankAccountDetector()
         assert detector._remove_overlaps([]) == []
+
+
+class TestNipDetector:
+    def test_detects_plain_ten_digit_nip_with_valid_checksum(self):
+        detector = NipDetector()
+        text = "NIP dostawcy: 5260000005."
+        tokens = detector.detect(text)
+
+        assert len(tokens) == 1
+        assert tokens[0].type == PIIType.NIP
+        assert tokens[0].original_value == "5260000005"
+
+    def test_detects_dash_separated_3_3_2_2_format(self):
+        detector = NipDetector()
+        text = "NIP: 526-000-00-05."
+        tokens = detector.detect(text)
+
+        assert len(tokens) == 1
+        assert tokens[0].original_value == "526-000-00-05"
+
+    def test_detects_dash_separated_3_2_2_3_format(self):
+        detector = NipDetector()
+        text = "NIP: 526-00-00-005."
+        tokens = detector.detect(text)
+
+        assert len(tokens) == 1
+        assert tokens[0].original_value == "526-00-00-005"
+
+    def test_rejects_ten_digits_with_invalid_checksum(self):
+        detector = NipDetector()
+        assert detector.detect("numer zamówienia 1234567890 przyjęto") == []
+
+    def test_empty_text_returns_no_tokens(self):
+        detector = NipDetector()
+        assert detector.detect("") == []
+
+
+class TestRegonDetector:
+    def test_detects_nine_digit_regon_with_valid_checksum(self):
+        detector = RegonDetector()
+        text = "REGON firmy: 123456785."
+        tokens = detector.detect(text)
+
+        assert len(tokens) == 1
+        assert tokens[0].type == PIIType.REGON
+        assert tokens[0].original_value == "123456785"
+
+    def test_detects_fourteen_digit_regon_with_valid_checksum(self):
+        detector = RegonDetector()
+        text = "REGON jednostki lokalnej: 12345678500010."
+        tokens = detector.detect(text)
+
+        assert len(tokens) == 1
+        assert tokens[0].original_value == "12345678500010"
+
+    def test_rejects_nine_digits_with_invalid_checksum(self):
+        detector = RegonDetector()
+        assert detector.detect("kod produktu 123456789 na magazynie") == []
+
+    def test_rejects_fourteen_digits_with_invalid_tail_checksum(self):
+        detector = RegonDetector()
+        assert detector.detect("numer referencyjny 12345678500011 w systemie") == []
+
+    def test_empty_text_returns_no_tokens(self):
+        detector = RegonDetector()
+        assert detector.detect("") == []
 
 
 def _entity(entity_group, start, end, score=0.99):

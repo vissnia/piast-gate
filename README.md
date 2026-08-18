@@ -2,19 +2,32 @@
 
 ![Python version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue.svg)
 ![Language](https://img.shields.io/badge/lang-Polish-red.svg)
-![LLM](https://img.shields.io/badge/LLM-Gemini-green.svg)
+![LLM](https://img.shields.io/badge/LLM-litellm%20multi--provider-green.svg)
 ![License](https://img.shields.io/badge/license-GPL%203.0-blue.svg)
 
 **Privacy-first LLM gateway — anonymize PII before it leaves your system.**
 
 >[!IMPORTANT]
-> This is a MVP Version — Currently supporting only **Google Gemini API** and **Polish-language** prompts.
+> This is a MVP Version — Currently supporting only **Polish-language** prompts. The LLM backend
+> is powered by [litellm](https://docs.litellm.ai/docs/providers), so any provider it supports
+> (Gemini, OpenAI, Anthropic, and 100+ others) is a config change away — no code changes needed.
+
+>[!WARNING]
+> **PII scanning currently covers plain-text message content only.** Tool/function-call
+> arguments and results, and any image content in multimodal messages, are forwarded to the
+> provider **without** anonymization or redaction — only text goes through the
+> anonymize/redact/deanonymize pipeline described below. Don't put sensitive data in tool
+> arguments/results or images until this gap is closed.
 
 ---
 
 ## How It Works
 
 **piast-gate** sits between your app and the model. It strips sensitive data before sending, then restores it after the response. The model never sees real PII.
+
+Detected PII types: `PERSON`, `LOCATION`, `ORGANIZATION` (via NER), `EMAIL`, `PHONE`, `DATE`, `PESEL`, `NIP`, `REGON`, `BANK_ACCOUNT` (IBAN/NRB). PESEL, NIP, REGON and IBAN/NRB matches are checksum-validated, so a random digit string of the right length won't be flagged as PII.
+
+The model's response is also scanned before being returned: since the model is only ever shown placeholders, any PII-shaped text it produces on its own (hallucinated, or a corrupted echo of a placeholder) is redacted rather than forwarded. On `stream=false` this checks the full response with every detector; on `stream=true` it's a lighter, word-buffered check using only the fast checksum-validated detectors (NER is too slow to run per streamed word) — multi-word hallucinated PII such as names isn't caught in streaming mode.
 
 ## Example
 
@@ -39,6 +52,10 @@ Mam na imię Jan Kowalski, mój email to jan@example.com, a PESEL: 85010112345
 
 The recommended way to run this project is using [uv](https://docs.astral.sh/uv/).
 
+`litellm` is pinned to an exact version in `pyproject.toml` rather than a range — PyPI briefly
+served two compromised releases (`1.82.7`, `1.82.8`) in March 2026, so this project only ever
+bumps to a specific, verified-clean version rather than tracking latest automatically.
+
 ### 1. Installation
 
 Using `uv` (fast & recommended):
@@ -61,7 +78,9 @@ pip install -e ".[dev]"
 cp .env.example .env
 ```
 
-Edit the `.env` file and provide your `GEMINI_API_KEY`.
+Edit the `.env` file and provide the API key for whichever provider `DEFAULT_MODEL` points at
+(e.g. `GEMINI_API_KEY`, `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`) — litellm reads these directly from
+the environment, no code changes needed to switch providers.
 
 ### 3. Run
 
@@ -139,13 +158,42 @@ uv run hf download radlab/pii-pl-v1.0
 
 Example configuration in `.env`:
 ```env
-LLM_PROVIDER=gemini
+LLM_PROVIDER=litellm
+DEFAULT_MODEL=gemini/gemini-2.5-flash
+ALLOWED_MODELS=[]
 GEMINI_API_KEY=your_api_key_here
-MODEL_NAME=gemini-2.5-flash
 PL_NER_MODEL_NAME=radlab/pii-pl-v1.0
 RATE_LIMIT_PER_MINUTE=60
 API_KEYS=["your-secret-key"]
 ```
+
+To switch providers, change `DEFAULT_MODEL` to the litellm `"<provider>/<model>"` form (e.g.
+`openai/gpt-4o`, `anthropic/claude-sonnet-4-5-20250929`) and set the matching API key env var — see
+[litellm's provider docs](https://docs.litellm.ai/docs/providers) for the exact key name per
+provider. Set `ALLOWED_MODELS` to a JSON list to restrict which `model` values a request may pass;
+leave it empty to allow any model litellm supports.
+
+#### Using an external LiteLLM Proxy instead of (or alongside) direct provider calls
+
+If your infrastructure already runs a [LiteLLM Proxy](https://docs.litellm.ai/docs/simple_proxy)
+as its own service, piast-gate can hand off all provider connectivity to it instead of calling
+Gemini/OpenAI/Anthropic/etc. directly — it then only does anonymization and forwards the already
+zero-PII request to your proxy. Both modes are available at once, selected per-request purely by
+model prefix, so nothing here forces an all-or-nothing choice:
+
+```env
+LITELLM_PROXY_API_BASE=http://litellm-proxy.internal:4000
+LITELLM_PROXY_API_KEY=sk-...          # a virtual key issued by the proxy, not a real provider key
+DEFAULT_MODEL=litellm_proxy/gpt-4o    # <alias> is whatever your proxy's config.yaml exposes
+```
+
+Any model requested with the `litellm_proxy/` prefix (as `DEFAULT_MODEL`, in `ALLOWED_MODELS`, or
+in a request's own `model` field) is routed to `LITELLM_PROXY_API_BASE`; every other prefix
+(`gemini/`, `openai/`, `anthropic/`, ...) always calls that provider directly, regardless of
+whether the proxy settings above are set — so you can, for example, keep `gemini/gemini-2.5-flash`
+as your default while still allowing `litellm_proxy/internal-model` for specific requests, or vice
+versa. Provider API keys (`GEMINI_API_KEY`, etc.) aren't needed for proxy-routed models — the proxy
+holds those itself.
 
 ### Usage
 
@@ -154,18 +202,39 @@ curl -X POST http://localhost:8000/v1/api/chat \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer your-secret-key" \
   -d '{
-    "model": "piast-gate",
     "messages": [
       {"role": "user", "content": "Mam na imię Jan Kowalski, email: jan@example.com"}
     ]
   }'
 ```
 
+`model` is optional — omit it to use `DEFAULT_MODEL`, or pass an explicit
+`"<provider>/<model>"` string to route a specific request elsewhere (subject to
+`ALLOWED_MODELS`, if set). The request also accepts, passed straight through to the provider:
+`tools`, `tool_choice`, `response_format`, `top_p`, `stop`, `presence_penalty`,
+`frequency_penalty`, `seed`, and multimodal `content` (a list of OpenAI-style content parts, e.g.
+`[{"type": "text", "text": "..."}, {"type": "image_url", "image_url": {"url": "..."}}]`) — see the
+warning above about the PII-scanning gap for tool calls and images.
+
 
 **Response:**
 ```json
 {
-  "response": "Cześć Jan Kowalski! Jak mogę Ci pomóc?"
+  "id": "chatcmpl-...",
+  "object": "chat.completion",
+  "created": 1234567890,
+  "model": "gemini/gemini-2.5-flash",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "Cześć Jan Kowalski! Jak mogę Ci pomóc?"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {"prompt_tokens": 18, "completion_tokens": 9, "total_tokens": 27}
 }
 ```
 

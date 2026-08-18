@@ -1,6 +1,12 @@
+import logging
+import re
 from enum import Enum, auto
 from typing import AsyncIterator, Dict
 from domain.entities.pii_token import PIIToken
+
+logger = logging.getLogger(__name__)
+
+_PLACEHOLDER_SHAPE_RE = re.compile(r"^<([A-Z_]+)\d+>$")
 
 class State(Enum):
     NORMAL = auto()
@@ -45,12 +51,7 @@ class StreamDeanonymizer:
                 elif self._state == State.IN_TAG:
                     self._buffer += char
                     if char == '>':
-                        pii = self._mapping.get(self._buffer)
-                        if pii:
-                            output.append(pii.original_value)
-                        else:
-                            output.append(self._buffer)
-                        
+                        output.append(self._resolve_tag(self._buffer))
                         self._buffer = ""
                         self._state = State.NORMAL
                     elif char == '<':
@@ -64,3 +65,26 @@ class StreamDeanonymizer:
             yield self._buffer
             self._buffer = ""
             self._state = State.NORMAL
+
+    def _resolve_tag(self, tag: str) -> str:
+        """
+        Resolves a complete `<...>` tag captured by the state machine.
+
+        A tag matching a known placeholder is restored to its original
+        value. A tag that merely *looks* like our placeholder format
+        (`<TYPE#>`) but isn't in the mapping is a hallucinated or
+        corrupted tag — it can't be forwarded as-is (that would leak the
+        internal placeholder syntax, or a malformed near-miss of it), so
+        it's redacted instead. Anything else (e.g. genuine angle-bracket
+        text like "<3" or "<b>") is passed through unchanged.
+        """
+        pii = self._mapping.get(tag)
+        if pii:
+            return pii.original_value
+
+        shape_match = _PLACEHOLDER_SHAPE_RE.match(tag)
+        if shape_match:
+            logger.warning("Dropped unresolved placeholder tag from streamed response: %s", tag)
+            return f"[REDACTED:{shape_match.group(1)}]"
+
+        return tag

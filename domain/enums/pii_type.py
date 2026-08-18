@@ -10,3 +10,5 @@ class PIIType(Enum):
     ORGANIZATION = auto()
     DATE = auto()
     BANK_ACCOUNT = auto()
+    NIP = auto()
+    REGON = auto()

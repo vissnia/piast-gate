@@ -7,6 +7,8 @@ from domain.interfaces.pii_detector import PIIDetector
 
 logger = logging.getLogger(__name__)
 
+_RESIDUAL_PLACEHOLDER_RE = re.compile(r"<[A-Z_]+\d+>")
+
 class AnonymizerService:
     """Service responsible for replacing PII with tokens and restoring them."""
 
@@ -95,6 +97,13 @@ class AnonymizerService:
         """
         Restores PII in the text using the provided mapping.
 
+        Any `<TYPE#>`-shaped span left over after restoring known tokens
+        (a hallucinated placeholder number, or one mangled by the LLM) is
+        stripped rather than forwarded to the client: it can't be a real
+        restoration, since it wasn't in the mapping, and the placeholder
+        syntax itself is an internal implementation detail that shouldn't
+        leak into responses either way.
+
         Args:
             text (str): The text containing PII tokens.
             mapping (Dict[str, PIIToken]): Token to PII mapping.
@@ -102,15 +111,68 @@ class AnonymizerService:
         Returns:
             str: The de-anonymized text.
         """
-        if not mapping:
-            return text
+        if mapping:
+            pattern = re.compile("|".join(map(re.escape, sorted(mapping.keys(), key=len, reverse=True))))
 
-        pattern = re.compile("|".join(map(re.escape, sorted(mapping.keys(), key=len, reverse=True))))
-        
-        def replace_match(match: re.Match) -> str:
-            return mapping[match.group(0)].original_value
-            
-        return pattern.sub(replace_match, text)
+            def replace_match(match: re.Match) -> str:
+                return mapping[match.group(0)].original_value
+
+            text = pattern.sub(replace_match, text)
+
+        def strip_residual(match: re.Match) -> str:
+            logger.warning("Stripped unresolved placeholder tag from LLM response: %s", match.group(0))
+            return ""
+
+        return _RESIDUAL_PLACEHOLDER_RE.sub(strip_residual, text)
+
+    def redact(self, text: str) -> Tuple[str, List[PIIToken]]:
+        """
+        Finds PII in text via the same detector pipeline used for
+        anonymization and replaces each match with a redaction marker.
+
+        Intended for scrubbing LLM-generated text (not user input): since
+        the model is only ever shown placeholders, never real PII, any
+        match found here is necessarily hallucinated (or a corrupted echo)
+        rather than a legitimate restoration, and must not reach the client.
+
+        Text inside an intact `<TYPE#>` placeholder is never scanned: a
+        detector (particularly the NER one) can otherwise misread the
+        placeholder's own type name as a PII-shaped span in its own right
+        (e.g. the NER model reading "PERSON1" inside "<PERSON1>" as a
+        name) and corrupt a legitimate token that :meth:`deanonymize`
+        still needs to resolve.
+
+        Args:
+            text (str): LLM-generated text to scan.
+
+        Returns:
+            Tuple[str, List[PIIToken]]: The redacted text, and the PII
+            tokens that were found and redacted (for logging; callers
+            should log only ``type``/count, never ``original_value``).
+        """
+        protected_spans = [m.span() for m in _RESIDUAL_PLACEHOLDER_RE.finditer(text)]
+
+        def overlaps_placeholder(token: PIIToken) -> bool:
+            return any(token.start < end and token.end > start for start, end in protected_spans)
+
+        tokens = [t for t in self._detect_tokens(text) if not overlaps_placeholder(t)]
+        if not tokens:
+            return text, []
+
+        result_parts = []
+        last_idx = 0
+        for token in tokens:
+            result_parts.append(text[last_idx:token.start])
+            result_parts.append(f"[REDACTED:{token.type.name}]")
+            last_idx = token.end
+        result_parts.append(text[last_idx:])
+
+        logger.warning(
+            "Redacted %d hallucinated PII span(s) from LLM output: %s",
+            len(tokens), [t.type.name for t in tokens],
+        )
+
+        return "".join(result_parts), tokens
 
 
     async def anonymize_async(self, text: str, state_type_counters: Dict[str, int] = None, state_value_to_token_str: Dict[str, str] = None) -> Tuple[str, Dict[str, PIIToken]]:
@@ -157,3 +219,10 @@ class AnonymizerService:
         """
         loop = asyncio.get_running_loop()
         return await loop.run_in_executor(None, self.deanonymize, text, mapping)
+
+    async def redact_async(self, text: str) -> Tuple[str, List[PIIToken]]:
+        """
+        Async wrapper for redact. Offloads processing to a ThreadPoolExecutor.
+        """
+        loop = asyncio.get_running_loop()
+        return await loop.run_in_executor(None, self.redact, text)

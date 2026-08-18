@@ -7,7 +7,7 @@ def test_chat_success(client, auth_headers):
         "messages": [
             {
                 "role": "user",
-                "content": "Nazywam się Jan Kowalski. Mój PESEL to 90010112345."
+                "content": "Nazywam się Jan Kowalski. Mój PESEL to 90010112349."
             }
         ],
         "temperature": 0.1,
@@ -15,12 +15,12 @@ def test_chat_success(client, auth_headers):
     }
     response = client.post("/v1/api/chat", json=payload, headers=auth_headers)
     data = response.json()
-    
+
     assert response.status_code == 200
     assert "choices" in data
     assert "message" in data["choices"][0]
     assert "content" in data["choices"][0]["message"]
-    assert "90010112345" in data["choices"][0]["message"]["content"]
+    assert "90010112349" in data["choices"][0]["message"]["content"]
     assert "Jan Kowalski" in data["choices"][0]["message"]["content"]
 
 
