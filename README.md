@@ -127,7 +127,7 @@ Run the server with the mock LLM provider so requests don't hit the real Gemini 
 
 ```env
 LLM_PROVIDER=mock
-API_KEYS=["test-api-key"]
+API_KEYS={"test-api-key": "k6-load-test"}
 ```
 
 ```bash
@@ -164,8 +164,11 @@ ALLOWED_MODELS=[]
 GEMINI_API_KEY=your_api_key_here
 PL_NER_MODEL_NAME=radlab/pii-pl-v1.0
 RATE_LIMIT_PER_MINUTE=60
-API_KEYS=["your-secret-key"]
+API_KEYS={"your-secret-key": "your-client-name"}
 ```
+
+`API_KEYS` maps each key to a client name, used only for logging/identifying which client made a
+request — every key grants the same access.
 
 To switch providers, change `DEFAULT_MODEL` to the litellm `"<provider>/<model>"` form (e.g.
 `openai/gpt-4o`, `anthropic/claude-sonnet-4-5-20250929`) and set the matching API key env var — see

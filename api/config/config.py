@@ -1,9 +1,9 @@
 from pydantic_settings import BaseSettings
 from pydantic import Field, ConfigDict
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 class Settings(BaseSettings):
-    api_keys: List[str] = Field(default_factory=list, description="List of valid API keys")
+    api_keys: Dict[str, str] = Field(default_factory=dict, description="Map of valid API key -> client name")
     rate_limit_per_minute: int = Field(default=60, description="Max requests per minute per IP")
     cors_origins: List[str] = Field(default_factory=list, description="List of allowed CORS origins")
     cors_methods: List[str] = Field(default_factory=lambda: ["*"], description="List of allowed CORS methods")

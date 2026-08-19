@@ -9,7 +9,7 @@ def _setup_test_settings():
     original_api_keys = settings.api_keys
     original_provider = settings.llm_provider
     
-    settings.api_keys = ["test-api-key"]
+    settings.api_keys = {"test-api-key": "test-client"}
     settings.llm_provider = "mock"  
     
     yield
