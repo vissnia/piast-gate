@@ -7,6 +7,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from fastapi.exceptions import RequestValidationError
 from api.config.config import settings
+from domain.exceptions.llm_provider_error import LLMProviderError
 
 logger = logging.getLogger(__name__)
 
@@ -21,28 +22,32 @@ class GlobalErrorHandlerMiddleware(BaseHTTPMiddleware):
         error_details = None
         status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
         message = "Internal Server Error"
+        known = True
 
-        if isinstance(e, (StarletteHTTPException, RequestValidationError)):
-            if isinstance(e, StarletteHTTPException):
-                status_code = e.status_code
-                message = e.detail
-            elif isinstance(e, RequestValidationError):
-                 status_code = status.HTTP_422_UNPROCESSABLE_ENTITY
-                 message = "Validation Error"
-                 error_details = e.errors()
-
-            logger.warning(
-                f"HTTP Exception: {message} | Status: {status_code} | Path: {request.url.path}"
-            )
+        if isinstance(e, StarletteHTTPException):
+            status_code = e.status_code
+            message = e.detail
+        elif isinstance(e, RequestValidationError):
+            status_code = status.HTTP_422_UNPROCESSABLE_ENTITY
+            message = "Validation Error"
+            error_details = e.errors()
+        elif isinstance(e, LLMProviderError):
+            status_code = e.status_code
+            message = e.message
         else:
+            known = False
             logger.error(
                 f"Unhandled Exception: {str(e)} | Path: {request.url.path}",
                 exc_info=True
             )
-            
             if settings.debug:
-                 message = str(e)
-                 error_details = traceback.format_exc()
+                message = str(e)
+                error_details = traceback.format_exc()
+
+        if known:
+            logger.warning(
+                f"HTTP Exception: {message} | Status: {status_code} | Path: {request.url.path}"
+            )
 
         return JSONResponse(
             status_code=status_code,

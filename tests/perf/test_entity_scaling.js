@@ -1,14 +1,14 @@
 import http from 'k6/http';
 import { check } from 'k6';
 
-const BASE_URL = 'http://localhost:8000/v1/chat';
+const BASE_URL = 'http://localhost:8000/v1/api/chat';
 
 const ENTITY_COUNT = 100;
 
 function generateEntities(count) {
     let text = "";
     for (let i = 0; i < count; i++) {
-        text += `Osoba ${i}: Jan Kowalski PESEL 90010112345 mieszka w Warszawie. `;
+        text += `Osoba ${i}: Jan Kowalski PESEL 90010112349 mieszka w Warszawie. `;
     }
     return text;
 }
@@ -34,7 +34,7 @@ export default function () {
     const res = http.post(BASE_URL, payload, {
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer test-key'
+            'Authorization': 'Bearer test-api-key'
         },
     });
 

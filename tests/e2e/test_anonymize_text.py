@@ -1,14 +1,14 @@
 def test_anonymize_text_success(client, auth_headers):
     """Test successful anonymization of text."""
     payload = {
-        "text": "Jan Kowalski mieszka w Warszawie. Jego PESEL to 90010112345."
+        "text": "Jan Kowalski mieszka w Warszawie. Jego PESEL to 90010112349."
     }
     response = client.post("/v1/api/anonymize/text", json=payload, headers=auth_headers)
     data = response.json()
 
     assert response.status_code == 200
     assert "anonymized_text" in data
-    assert "90010112345" not in data["anonymized_text"]
+    assert "90010112349" not in data["anonymized_text"]
     assert "Jan Kowalski" not in data["anonymized_text"]
     assert "Warszawie" not in data["anonymized_text"]
     assert "<PERSON" in data["anonymized_text"]

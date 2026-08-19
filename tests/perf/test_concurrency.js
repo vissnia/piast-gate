@@ -1,7 +1,7 @@
 import http from 'k6/http';
 import { check } from 'k6';
 
-const BASE_URL = 'http://localhost:8000/v1/chat';
+const BASE_URL = 'http://localhost:8000/v1/api/chat';
 
 export const options = {
     stages: [
@@ -17,7 +17,7 @@ const payload = JSON.stringify({
     messages: [
         {
             role: "system",
-            content: "Jan Kowalski mieszka w Warszawie przy ul. Kwiatowej. PESEL: 90010112345. Numer telefonu: 123456789. Email: j.kowalski@example.com",
+            content: "Jan Kowalski mieszka w Warszawie przy ul. Kwiatowej. PESEL: 90010112349. Numer telefonu: 123456789. Email: j.kowalski@example.com",
         }
     ],
     temperature: 0.1,
@@ -28,7 +28,7 @@ export default function () {
     const res = http.post(BASE_URL, payload, {
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer test-key'
+            'Authorization': 'Bearer test-api-key'
         },
     });
 
