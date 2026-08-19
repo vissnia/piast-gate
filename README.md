@@ -1,201 +1,58 @@
-# 🔒 piast-gate
+# piast-gate
 
-![Python version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue.svg)
+![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue.svg)
 ![Language](https://img.shields.io/badge/lang-Polish-red.svg)
 ![LLM](https://img.shields.io/badge/LLM-litellm%20multi--provider-green.svg)
-![License](https://img.shields.io/badge/license-GPL%203.0-blue.svg)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
-**Privacy-first LLM gateway — anonymize PII before it leaves your system.**
+**A PII anonymization gateway for LLMs, built for Polish — not translated into it.**
 
->[!IMPORTANT]
-> This is a MVP Version — Currently supporting only **Polish-language** prompts. The LLM backend
-> is powered by [litellm](https://docs.litellm.ai/docs/providers), so any provider it supports
-> (Gemini, OpenAI, Anthropic, and 100+ others) is a config change away — no code changes needed.
+piast-gate sits between your app and any LLM. It strips PII from a prompt before it leaves your system, and restores it in the response — the model itself never sees real data. Most anonymization tools bolt Polish onto an English-first pipeline and quietly lose accuracy on it; piast-gate is designed around Polish's grammar.
 
->[!WARNING]
-> **PII scanning currently covers plain-text message content only.** Tool/function-call
-> arguments and results, and any image content in multimodal messages, are forwarded to the
-> provider **without** anonymization or redaction — only text goes through the
-> anonymize/redact/deanonymize pipeline described below. Don't put sensitive data in tool
-> arguments/results or images until this gap is closed.
+> [!IMPORTANT]
+> MVP — Polish-language prompts only, by design: doing one language precisely instead of many languages approximately. The LLM backend runs on [litellm](https://docs.litellm.ai/docs/providers), so switching providers (Gemini, OpenAI, Anthropic, 100+ others) is a config change, not a code change.
 
----
+> [!WARNING]
+> Only plain-text message content is scanned. Tool/function-call arguments, results, and image content in multimodal messages are forwarded **unredacted**. Keep sensitive data out of those until this is closed.
 
-## How It Works
+## How it works
 
-**piast-gate** sits between your app and the model. It strips sensitive data before sending, then restores it after the response. The model never sees real PII.
+1. **Detect** — `PERSON`, `LOCATION`, `ORGANIZATION` (NER, Polish-tuned), `EMAIL`, `PHONE`, `DATE`, `PESEL`, `NIP`, `REGON`, `BANK_ACCOUNT`
+2. **Anonymize** — each match is swapped for a placeholder before the request reaches the model
+3. **Deanonymize** — placeholders in the response are swapped back for the original values
 
-Detected PII types: `PERSON`, `LOCATION`, `ORGANIZATION` (via NER), `EMAIL`, `PHONE`, `DATE`, `PESEL`, `NIP`, `REGON`, `BANK_ACCOUNT` (IBAN/NRB). PESEL, NIP, REGON and IBAN/NRB matches are checksum-validated, so a random digit string of the right length won't be flagged as PII.
+The response is also scanned before it's returned: since the model only ever sees placeholders, any PII-shaped text it produces on its own is redacted rather than forwarded. Streaming responses get a lighter, word-buffered version of this check (checksum detectors only — NER is too slow per streamed word).
 
-The model's response is also scanned before being returned: since the model is only ever shown placeholders, any PII-shaped text it produces on its own (hallucinated, or a corrupted echo of a placeholder) is redacted rather than forwarded. On `stream=false` this checks the full response with every detector; on `stream=true` it's a lighter, word-buffered check using only the fast checksum-validated detectors (NER is too slow to run per streamed word) — multi-word hallucinated PII such as names isn't caught in streaming mode.
-
-## Example
-
-**Input:**
 ```
-Mam na imię Jan Kowalski, mój email to jan@example.com, a PESEL: 85010112345
+Input:            Mam na imię Jan Kowalski, mój email to jan@example.com, a PESEL: 85010112345
+Sent to LLM:       Mam na imię <PERSON_1>, mój email to <EMAIL_1>, a PESEL: <PESEL_1>
+Returned to you:  Mam na imię Jan Kowalski, mój email to jan@example.com, a PESEL: 85010112345
 ```
 
-**Sent to LLM:**
-```
-Mam na imię <PERSON_1>, mój email to <EMAIL_1>, a PESEL: <PESEL_1>
-```
+## Quick start
 
-**Returned to client:**
-```
-Mam na imię Jan Kowalski, mój email to jan@example.com, a PESEL: 85010112345
-```
-
----
-
-## Quick Start
-
-The recommended way to run this project is using [uv](https://docs.astral.sh/uv/).
-
-`litellm` is pinned to an exact version in `pyproject.toml` rather than a range — PyPI briefly
-served two compromised releases (`1.82.7`, `1.82.8`) in March 2026, so this project only ever
-bumps to a specific, verified-clean version rather than tracking latest automatically.
-
-### 1. Installation
-
-Using `uv` (fast & recommended):
 ```bash
 git clone https://github.com/your-org/piast-gate.git
 cd piast-gate
-uv sync
-```
+uv sync                    # or: pip install -e ".[dev]"
 
-Using standard `pip`:
-```bash
-python -m venv .venv
-.venv\Scripts\activate        # Windows alternate: source .venv/bin/activate
-pip install -e ".[dev]"
-```
+cp .env.example .env       # then set DEFAULT_MODEL's API key, e.g. GEMINI_API_KEY
 
-### 2. Configure
-
-```bash
-cp .env.example .env
-```
-
-Edit the `.env` file and provide the API key for whichever provider `DEFAULT_MODEL` points at
-(e.g. `GEMINI_API_KEY`, `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`) — litellm reads these directly from
-the environment, no code changes needed to switch providers.
-
-### 3. Run
-
-Using `uv`:
-```bash
 uv run uvicorn main:app --workers 4
 ```
 
-Using standard `python`:
-```bash
-uvicorn main:app --workers 4
-```
+The Polish NER model (`radlab/pii-pl-v1.0` by default) downloads from Hugging Face on first startup and is cached locally after that — the first run will pause while it loads.
 
-### 4. Tests
-
-```bash
-uv run pytest     # using uv
-pytest            # using venv
-```
-
-#### Anonymization accuracy eval
-
-`tests/eval/` measures detector accuracy (precision/recall/F1 per PII type) against a labeled dataset, separate from the pass/fail unit tests:
-
-```bash
-uv run python tests/eval/run_eval.py            # using uv
-python tests/eval/run_eval.py                   # using venv
-
-python tests/eval/run_eval.py -v                # show missed/spurious entities per example
-python tests/eval/run_eval.py --category person_declension   # run one category only
-```
-
-Add new cases to `tests/eval/dataset.json` as `{"text": ..., "entities": [{"type": "PERSON", "value": "..."}]}`.
-
-#### Load tests (k6)
-
-`tests/perf/` holds [k6](https://k6.io/docs/get-started/installation/) load-test scripts that hit a running instance of the app:
-
-- `test_concurrency.js` — ramps virtual users up to 100 to check behavior under concurrent load.
-- `test_input_scaling.js` — sends a single very long message to see how latency scales with input size.
-- `test_entity_scaling.js` — sends a message packed with many PII entities to see how latency scales with entity count.
-
-Run the server with the mock LLM provider so requests don't hit the real Gemini API, and make sure `test-api-key` is in `API_KEYS`:
-
-```env
-LLM_PROVIDER=mock
-API_KEYS=["test-api-key"]
-```
-
-```bash
-uv run uvicorn main:app --workers 4
-```
-
-Then, in a separate terminal, run any of the scripts:
-
-```bash
-k6 run tests/perf/test_concurrency.js
-k6 run tests/perf/test_input_scaling.js
-k6 run tests/perf/test_entity_scaling.js
-```
-
-### PL NER Model Download
-
-The PL NER model (`PL_NER_MODEL_NAME`, default [`radlab/pii-pl-v1.0`](https://huggingface.co/radlab/pii-pl-v1.0)) is **not** bundled with the repo or fetched during `uv sync`/`pip install`. It downloads itself automatically from the Hugging Face Hub on app startup (via a FastAPI `lifespan` hook), so `uvicorn main:app` will block for a bit on the first run while it downloads and loads into memory — the app won't accept traffic until that finishes.
-
-The download is cached by `huggingface_hub` in the standard HF cache dir (`~/.cache/huggingface/hub`, or `%USERPROFILE%\.cache\huggingface\hub` on Windows — override with the `HF_HOME` env var), so subsequent restarts just load the local copy and start fast. No `HF_TOKEN` is needed since the model is public.
-
-To pre-populate the cache ahead of time (e.g. as a separate Docker build/CI step, so the runtime container never hits the network), you can pre-download it manually:
-
-```bash
-uv run hf download radlab/pii-pl-v1.0
-```
-
-### 5. API Keys Configuration
-
-Example configuration in `.env`:
 ```env
 LLM_PROVIDER=litellm
 DEFAULT_MODEL=gemini/gemini-2.5-flash
-ALLOWED_MODELS=[]
 GEMINI_API_KEY=your_api_key_here
-PL_NER_MODEL_NAME=radlab/pii-pl-v1.0
-RATE_LIMIT_PER_MINUTE=60
-API_KEYS=["your-secret-key"]
+API_KEYS={"your-secret-key": "your-client-name"}
 ```
 
-To switch providers, change `DEFAULT_MODEL` to the litellm `"<provider>/<model>"` form (e.g.
-`openai/gpt-4o`, `anthropic/claude-sonnet-4-5-20250929`) and set the matching API key env var — see
-[litellm's provider docs](https://docs.litellm.ai/docs/providers) for the exact key name per
-provider. Set `ALLOWED_MODELS` to a JSON list to restrict which `model` values a request may pass;
-leave it empty to allow any model litellm supports.
+`API_KEYS` maps each key to a client name for logging — every key has equal access. To switch providers, change `DEFAULT_MODEL` to litellm's `"<provider>/<model>"` form and set the matching key (`openai/gpt-4o` + `OPENAI_API_KEY`, etc.).
 
-#### Using an external LiteLLM Proxy instead of (or alongside) direct provider calls
-
-If your infrastructure already runs a [LiteLLM Proxy](https://docs.litellm.ai/docs/simple_proxy)
-as its own service, piast-gate can hand off all provider connectivity to it instead of calling
-Gemini/OpenAI/Anthropic/etc. directly — it then only does anonymization and forwards the already
-zero-PII request to your proxy. Both modes are available at once, selected per-request purely by
-model prefix, so nothing here forces an all-or-nothing choice:
-
-```env
-LITELLM_PROXY_API_BASE=http://litellm-proxy.internal:4000
-LITELLM_PROXY_API_KEY=sk-...          # a virtual key issued by the proxy, not a real provider key
-DEFAULT_MODEL=litellm_proxy/gpt-4o    # <alias> is whatever your proxy's config.yaml exposes
-```
-
-Any model requested with the `litellm_proxy/` prefix (as `DEFAULT_MODEL`, in `ALLOWED_MODELS`, or
-in a request's own `model` field) is routed to `LITELLM_PROXY_API_BASE`; every other prefix
-(`gemini/`, `openai/`, `anthropic/`, ...) always calls that provider directly, regardless of
-whether the proxy settings above are set — so you can, for example, keep `gemini/gemini-2.5-flash`
-as your default while still allowing `litellm_proxy/internal-model` for specific requests, or vice
-versa. Provider API keys (`GEMINI_API_KEY`, etc.) aren't needed for proxy-routed models — the proxy
-holds those itself.
-
-### Usage
+## Usage
 
 ```bash
 curl -X POST http://localhost:8000/v1/api/chat \
@@ -208,16 +65,11 @@ curl -X POST http://localhost:8000/v1/api/chat \
   }'
 ```
 
-`model` is optional — omit it to use `DEFAULT_MODEL`, or pass an explicit
-`"<provider>/<model>"` string to route a specific request elsewhere (subject to
-`ALLOWED_MODELS`, if set). The request also accepts, passed straight through to the provider:
-`tools`, `tool_choice`, `response_format`, `top_p`, `stop`, `presence_penalty`,
-`frequency_penalty`, `seed`, and multimodal `content` (a list of OpenAI-style content parts, e.g.
-`[{"type": "text", "text": "..."}, {"type": "image_url", "image_url": {"url": "..."}}]`) — see the
-warning above about the PII-scanning gap for tool calls and images.
+`model` is optional (defaults to `DEFAULT_MODEL`). `tools`, `tool_choice`, `response_format`, `top_p`, `stop`, `presence_penalty`, `frequency_penalty`, `seed`, and multimodal `content` are all passed straight through to the provider — see the warning above regarding those.
 
+<details>
+<summary><strong>Response format</strong></summary>
 
-**Response:**
 ```json
 {
   "id": "chatcmpl-...",
@@ -227,36 +79,68 @@ warning above about the PII-scanning gap for tool calls and images.
   "choices": [
     {
       "index": 0,
-      "message": {
-        "role": "assistant",
-        "content": "Cześć Jan Kowalski! Jak mogę Ci pomóc?"
-      },
+      "message": { "role": "assistant", "content": "Cześć Jan Kowalski! Jak mogę Ci pomóc?" },
       "finish_reason": "stop"
     }
   ],
-  "usage": {"prompt_tokens": 18, "completion_tokens": 9, "total_tokens": 27}
+  "usage": { "prompt_tokens": 18, "completion_tokens": 9, "total_tokens": 27 }
 }
 ```
 
----
+</details>
+
+<details>
+<summary><strong>Routing through an external LiteLLM Proxy</strong></summary>
+
+If your infrastructure already runs a [LiteLLM Proxy](https://docs.litellm.ai/docs/simple_proxy), piast-gate can hand off provider connectivity to it instead of calling Gemini/OpenAI/Anthropic directly:
+
+```env
+LITELLM_PROXY_API_BASE=http://litellm-proxy.internal:4000
+LITELLM_PROXY_API_KEY=sk-...          # a virtual key issued by the proxy
+DEFAULT_MODEL=litellm_proxy/gpt-4o    # alias exposed by the proxy's config.yaml
+```
+
+Any model requested with the `litellm_proxy/` prefix routes to the proxy; every other prefix (`gemini/`, `openai/`, ...) always calls that provider directly — both modes can be used side by side, selected per-request by model prefix.
+
+</details>
+
+## Testing
+
+```bash
+uv run pytest                                   # unit tests
+uv run python tests/eval/run_eval.py            # detector accuracy (precision/recall/F1)
+```
+
+<details>
+<summary><strong>Load testing (k6)</strong></summary>
+
+`tests/perf/` holds [k6](https://k6.io/docs/get-started/installation/) scripts against a running instance — run with `LLM_PROVIDER=mock` so requests don't hit a real provider:
+
+```bash
+k6 run tests/perf/test_concurrency.js       # ramps to 100 virtual users
+k6 run tests/perf/test_input_scaling.js     # latency vs. message length
+k6 run tests/perf/test_entity_scaling.js    # latency vs. PII entity count
+```
+
+</details>
 
 ## Performance
 
-Benchmarks run with `uvicorn main:app --workers 4`.
+Benchmarked with `uvicorn main:app --workers 4`.
 
-### By message length
+| Characters | avg | median | p95 |
+|---|---|---|---|
+| 1,290 | 391 ms | 236 ms | 367 ms |
+| 12,900 | 1.46 s | 1.47 s | 1.86 s |
+| 64,500 | 7.32 s | 7.33 s | 9.11 s |
 
-| Characters | avg | min | median | p(90) | p(95) |
-|---|---|---|---|---|---|
-| 1290 | 391 ms | 144 ms | 236 ms | 339 ms | 367 ms |
-| 12900 | 1.46 s | 839 ms | 1.47 s | 1.78 s | 1.86 s |
-| 64500 | 7.32 s | 5.45 s | 7.33 s | 8.70 s | 9.11 s |
+| Placeholders | avg | median | p95 |
+|---|---|---|---|
+| 3 | 162 ms | 164 ms | 186 ms |
+| 15 | 177 ms | 179 ms | 206 ms |
+| 60 | 260 ms | 257 ms | 333 ms |
+| 300 | 809 ms | 805 ms | 946 ms |
 
-### By placeholder count
+## License
 
-| Placeholders | avg | min | median | p(90) | p(95) |
-|---|---|---|---|---|---|
-| 3 | 162 ms | 97 ms | 164 ms | 182 ms | 186 ms |
-| 15 | 177 ms | 102 ms | 179 ms | 198 ms | 206 ms |
-| 60 | 260 ms | 127 ms | 257 ms | 323 ms | 333 ms |
-| 300 | 809 ms | 562 ms | 805 ms | 916 ms | 946 ms |
+[MIT](LICENSE)

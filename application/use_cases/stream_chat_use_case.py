@@ -1,3 +1,5 @@
+import time
+import uuid
 from application.dtos.chat_response import ChatUsage
 from application.helpers.stream_helper import build_chunk
 from application.services.hallucination_scrubber import HallucinationScrubber
@@ -46,12 +48,14 @@ class StreamChatUseCase:
         stream: AsyncIterator[StreamDelta],
         tool_call_fragments: Dict[int, dict],
         usage_holder: Dict[str, Optional[Usage]],
+        finish_reason_holder: Dict[str, Optional[str]],
     ) -> AsyncIterator[str]:
         """
         Yields only the text content of each delta, harvesting any
         tool-call-delta fragments into ``tool_call_fragments`` (keyed by
-        index, per litellm's streaming convention) and the final usage
-        report (if any) into ``usage_holder["usage"]``, as a side effect.
+        index, per litellm's streaming convention), the final usage report
+        (if any) into ``usage_holder["usage"]``, and the finish reason (if
+        any) into ``finish_reason_holder["finish_reason"]``, as a side effect.
         """
         async for delta in stream:
             for tcd in delta.tool_call_deltas or []:
@@ -63,12 +67,17 @@ class StreamChatUseCase:
                 entry["arguments"] += tcd.arguments_fragment
             if delta.usage is not None:
                 usage_holder["usage"] = delta.usage
+            if delta.finish_reason:
+                finish_reason_holder["finish_reason"] = delta.finish_reason
             if delta.content:
                 yield delta.content
 
     async def execute(self, request: ChatRequest) -> AsyncIterator[StreamChatChunk]:
         model = resolve_model(request.model)
         anonymized_messages, global_mapping = await anonymize_messages(self.anonymizer, request.messages)
+
+        chunk_id = f"chatcmpl-{uuid.uuid4().hex}"
+        created = int(time.time())
 
         raw_stream = self.llm.chat_stream(
             messages=anonymized_messages,
@@ -87,30 +96,49 @@ class StreamChatUseCase:
 
         tool_call_fragments: Dict[int, dict] = {}
         usage_holder: Dict[str, Optional[Usage]] = {"usage": None}
+        finish_reason_holder: Dict[str, Optional[str]] = {"finish_reason": None}
 
         scrubber = HallucinationScrubber(self.hallucination_guard)
         deanonymizer = StreamDeanonymizer(mapping=global_mapping)
         parser = ThinkingParser()
 
-        text_stream = self._text_only(raw_stream, tool_call_fragments, usage_holder)
+        text_stream = self._text_only(raw_stream, tool_call_fragments, usage_holder, finish_reason_holder)
         scrubbed_stream = scrubber.process(text_stream)
+
+        is_first_chunk = True
         async for safe_text in deanonymizer.process(scrubbed_stream):
             chunks = parser.process(safe_text)
 
             for content, thinking in chunks:
-                yield build_chunk(request, content, thinking, done=False, model=model)
+                yield build_chunk(
+                    chunk_id, created, model,
+                    role="assistant" if is_first_chunk else None,
+                    content=content or None,
+                    thinking=thinking or None,
+                )
+                is_first_chunk = False
+
+        finish_reason = finish_reason_holder["finish_reason"] or "stop"
 
         if tool_call_fragments:
             tool_calls = [
                 {"id": f["id"], "type": "function", "function": {"name": f["name"], "arguments": f["arguments"]}}
                 for f in tool_call_fragments.values()
             ]
-            yield build_chunk(request, "", "", done=False, tool_calls=tool_calls, model=model)
+            yield build_chunk(chunk_id, created, model, tool_calls=tool_calls, finish_reason=finish_reason)
+        else:
+            yield build_chunk(chunk_id, created, model, finish_reason=finish_reason)
 
         usage = usage_holder["usage"]
-        final_usage = ChatUsage(
-            prompt_tokens=usage.prompt_tokens if usage else 0,
-            completion_tokens=usage.completion_tokens if usage else 0,
-            total_tokens=usage.total_tokens if usage else 0,
-        )
-        yield build_chunk(request, "", "", done=True, model=model, usage=final_usage)
+        if usage is not None:
+            yield StreamChatChunk(
+                id=chunk_id,
+                created=created,
+                model=model,
+                choices=[],
+                usage=ChatUsage(
+                    prompt_tokens=usage.prompt_tokens,
+                    completion_tokens=usage.completion_tokens,
+                    total_tokens=usage.total_tokens,
+                ),
+            )

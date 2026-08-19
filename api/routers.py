@@ -19,17 +19,22 @@ router = APIRouter()
 
 async def _stream_generator(request: ChatRequest, use_case: StreamChatUseCase):
     """
-    Async generator that serialises StreamChatChunk objects as raw JSON lines.
+    Async generator that serialises StreamChatChunk objects as
+    OpenAI-compatible Server-Sent Events, so both generic SSE clients
+    (``EventSource``, ``fetch-event-source``, ``sseclient-py``, ...) and
+    OpenAI SDK-style streaming clients can consume it.
 
     Args:
         request (ChatRequest): The validated chat request.
         use_case (StreamChatUseCase): Injected streaming use case.
 
     Yields:
-        str: JSON-formatted text lines.
+        str: SSE-framed ``data: <json>\\n\\n`` events, terminated by the
+            OpenAI-convention ``data: [DONE]\\n\\n`` sentinel.
     """
     async for chunk in use_case.execute(request):
-        yield chunk.model_dump_json() + "\n"
+        yield f"data: {chunk.model_dump_json(exclude_none=True)}\n\n"
+    yield "data: [DONE]\n\n"
 
 
 @router.post(
@@ -60,7 +65,7 @@ async def chat_endpoint(
     if request.stream:
         return StreamingResponse(
             _stream_generator(request, stream_use_case),
-            media_type="application/x-ndjson",
+            media_type="text/event-stream",
             headers={
                 "Cache-Control": "no-cache",
                 "X-Accel-Buffering": "no",
