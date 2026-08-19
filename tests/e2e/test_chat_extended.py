@@ -18,7 +18,7 @@ def test_chat_tool_call_passthrough(client, auth_headers):
     assert data["choices"][0]["finish_reason"] == "tool_calls"
 
 
-def test_chat_streaming_tool_call_passthrough(client, auth_headers):
+def test_chat_streaming_tool_call_passthrough(client, auth_headers, parse_sse_chunks):
     """Streamed tool calls arrive as a dedicated chunk after the text stream ends."""
     payload = {
         "messages": [{"role": "user", "content": "__TRIGGER_TOOL_CALL__"}],
@@ -27,11 +27,15 @@ def test_chat_streaming_tool_call_passthrough(client, auth_headers):
     }
     with client.stream("POST", "/v1/api/chat", json=payload, headers=auth_headers) as response:
         assert response.status_code == 200
-        chunks = [__import__("json").loads(line) for line in response.iter_lines() if line]
+        chunks = parse_sse_chunks(response)
 
-    tool_call_chunks = [c for c in chunks if c["message"].get("tool_calls")]
+    tool_call_chunks = [
+        c for c in chunks if c["choices"] and c["choices"][0]["delta"].get("tool_calls")
+    ]
     assert len(tool_call_chunks) == 1
-    assert tool_call_chunks[0]["message"]["tool_calls"][0]["function"]["name"] == "mock_tool"
+    tool_call_choice = tool_call_chunks[0]["choices"][0]
+    assert tool_call_choice["delta"]["tool_calls"][0]["function"]["name"] == "mock_tool"
+    assert tool_call_choice["finish_reason"] == "tool_calls"
 
 
 def test_chat_multimodal_text_part_is_anonymized(client, auth_headers):
@@ -69,15 +73,15 @@ def test_chat_usage_is_populated(client, auth_headers):
     assert usage["total_tokens"] == usage["prompt_tokens"] + usage["completion_tokens"]
 
 
-def test_chat_streaming_usage_on_final_chunk(client, auth_headers):
-    """usage is None on intermediate chunks and populated only on the final done=True chunk."""
+def test_chat_streaming_usage_on_final_chunk(client, auth_headers, parse_sse_chunks):
+    """usage is absent on content chunks and populated only on the final, choice-less chunk."""
     payload = {"messages": [{"role": "user", "content": "Cześć jak się masz"}], "stream": True}
     with client.stream("POST", "/v1/api/chat", json=payload, headers=auth_headers) as response:
         assert response.status_code == 200
-        chunks = [__import__("json").loads(line) for line in response.iter_lines() if line]
+        chunks = parse_sse_chunks(response)
 
-    assert all(c["usage"] is None for c in chunks if not c["done"])
-    final_chunk = next(c for c in chunks if c["done"])
+    assert all("usage" not in c for c in chunks if c["choices"])
+    final_chunk = next(c for c in chunks if not c["choices"])
     assert final_chunk["usage"]["prompt_tokens"] > 0
     assert final_chunk["usage"]["completion_tokens"] > 0
 
