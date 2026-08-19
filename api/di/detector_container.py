@@ -10,56 +10,32 @@ from infrastructure.detectors.regon_detector import RegonDetector
 
 @lru_cache
 def get_pii_pl_detector() -> PiiPlDetector:
-    """
-    Returns a cached instance of PiiPlDetector to avoid reloading the model.
-    """
     return PiiPlDetector()
 
 @lru_cache
 def get_email_detector() -> EmailDetector:
-    """
-    Returns a cached instance of EmailDetector.
-    """
     return EmailDetector()
 
 @lru_cache
 def get_phone_detector() -> PhoneDetector:
-    """
-    Returns a cached instance of PhoneDetector.
-    """
     return PhoneDetector()
 
 @lru_cache
 def get_pesel_detector() -> PeselDetector:
-    """
-    Returns a cached instance of PeselDetector.
-    """
     return PeselDetector()
 
 @lru_cache
 def get_bank_account_detector() -> BankAccountDetector:
-    """
-    Returns a cached instance of BankAccountDetector.
-    """
     return BankAccountDetector()
 
 @lru_cache
 def get_date_detector() -> DateDetector:
-    """
-    Returns a cached instance of DateDetector.
-    """
     return DateDetector()
 
 @lru_cache
 def get_nip_detector() -> NipDetector:
-    """
-    Returns a cached instance of NipDetector.
-    """
     return NipDetector()
 
 @lru_cache
 def get_regon_detector() -> RegonDetector:
-    """
-    Returns a cached instance of RegonDetector.
-    """
     return RegonDetector()

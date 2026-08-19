@@ -121,6 +121,7 @@ class LiteLLMProvider(LLMProvider):
                 messages=self._build_messages(messages),
                 temperature=temperature,
                 max_tokens=max_tokens,
+                num_retries=settings.llm_num_retries,
                 **self._build_kwargs(
                     model, top_p, stop, presence_penalty, frequency_penalty,
                     seed, tools, tool_choice, response_format,
@@ -167,6 +168,7 @@ class LiteLLMProvider(LLMProvider):
                 messages=self._build_messages(messages),
                 temperature=temperature,
                 max_tokens=max_tokens,
+                num_retries=settings.llm_num_retries,
                 stream=True,
                 stream_options={"include_usage": True},
                 **self._build_kwargs(

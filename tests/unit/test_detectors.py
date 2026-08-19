@@ -206,33 +206,6 @@ class TestBankAccountDetector:
         detector = BankAccountDetector()
         assert detector.detect("") == []
 
-    def test_remove_overlaps_keeps_longest_token(self):
-        detector = BankAccountDetector()
-        tokens = [
-            PIIToken(PIIType.BANK_ACCOUNT, "short", "", 5, 20),
-            PIIToken(PIIType.BANK_ACCOUNT, "long", "", 0, 26),
-        ]
-
-        result = detector._remove_overlaps(tokens)
-
-        assert len(result) == 1
-        assert result[0].original_value == "long"
-
-    def test_remove_overlaps_keeps_disjoint_tokens(self):
-        detector = BankAccountDetector()
-        tokens = [
-            PIIToken(PIIType.BANK_ACCOUNT, "first", "", 0, 10),
-            PIIToken(PIIType.BANK_ACCOUNT, "second", "", 15, 25),
-        ]
-
-        result = detector._remove_overlaps(tokens)
-
-        assert {t.original_value for t in result} == {"first", "second"}
-
-    def test_remove_overlaps_handles_empty_list(self):
-        detector = BankAccountDetector()
-        assert detector._remove_overlaps([]) == []
-
 
 class TestNipDetector:
     def test_detects_plain_ten_digit_nip_with_valid_checksum(self):

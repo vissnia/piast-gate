@@ -57,15 +57,7 @@ class DocxProcessor(DocumentProcessor):
 
     def process(self, file_content: bytes, anonymizer: AnonymizerService) -> str:
         doc = Document(BytesIO(file_content))
-
-        type_counters: dict = {}
-        value_to_token_str: dict = {}
-
-        def anonymize_text(text: str) -> str:
-            if not text.strip():
-                return text
-            anonymized, _ = anonymizer.anonymize(text, type_counters, value_to_token_str)
-            return anonymized
+        anonymize_text = anonymizer.scoped()
 
         blocks = []
         for block in _iter_block_items(doc):
