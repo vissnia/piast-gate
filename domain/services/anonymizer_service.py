@@ -1,9 +1,10 @@
 import asyncio
 import logging
 import re
-from typing import List, Tuple, Dict
+from typing import Callable, List, Tuple, Dict
 from domain.entities.pii_token import PIIToken
 from domain.interfaces.pii_detector import PIIDetector
+from domain.services.token_overlap import remove_overlapping_tokens
 
 logger = logging.getLogger(__name__)
 
@@ -31,17 +32,7 @@ class AnonymizerService:
         for detector in self.detectors:
             all_tokens.extend(detector.detect(text))
 
-        all_tokens.sort(key=lambda t: (t.start, -len(t.original_value)))
-
-        non_overlapping_tokens: List[PIIToken] = []
-        last_end = 0
-
-        for token in all_tokens:
-            if token.start >= last_end:
-                non_overlapping_tokens.append(token)
-                last_end = token.end
-
-        return non_overlapping_tokens
+        return remove_overlapping_tokens(all_tokens)
 
     def _assign_tokens(self, text: str, tokens: List[PIIToken], state_type_counters: Dict[str, int] = None, state_value_to_token_str: Dict[str, str] = None) -> Tuple[str, Dict[str, PIIToken]]:
         """
@@ -92,6 +83,25 @@ class AnonymizerService:
         """
         tokens = self._detect_tokens(text)
         return self._assign_tokens(text, tokens, state_type_counters, state_value_to_token_str)
+
+    def scoped(self) -> Callable[[str], str]:
+        """
+        Returns a closure that anonymizes text under one shared numbering
+        scheme (counters + value-to-token mapping) held for its lifetime,
+        so the same PII value gets the same token across repeated calls —
+        e.g. paragraph by paragraph or page by page while walking a
+        document. Blank/whitespace-only text passes through unchanged.
+        """
+        type_counters: Dict[str, int] = {}
+        value_to_token_str: Dict[str, str] = {}
+
+        def anonymize_text(text: str) -> str:
+            if not text.strip():
+                return text
+            anonymized, _ = self.anonymize(text, type_counters, value_to_token_str)
+            return anonymized
+
+        return anonymize_text
 
     def deanonymize(self, text: str, mapping: Dict[str, PIIToken]) -> str:
         """

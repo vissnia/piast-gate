@@ -19,18 +19,9 @@ router = APIRouter()
 
 async def _stream_generator(request: ChatRequest, use_case: StreamChatUseCase):
     """
-    Async generator that serialises StreamChatChunk objects as
-    OpenAI-compatible Server-Sent Events, so both generic SSE clients
-    (``EventSource``, ``fetch-event-source``, ``sseclient-py``, ...) and
-    OpenAI SDK-style streaming clients can consume it.
-
-    Args:
-        request (ChatRequest): The validated chat request.
-        use_case (StreamChatUseCase): Injected streaming use case.
-
-    Yields:
-        str: SSE-framed ``data: <json>\\n\\n`` events, terminated by the
-            OpenAI-convention ``data: [DONE]\\n\\n`` sentinel.
+    Serialises StreamChatChunk objects as OpenAI-compatible Server-Sent
+    Events, so both generic SSE clients and OpenAI SDK-style streaming
+    clients can consume the same endpoint.
     """
     async for chunk in use_case.execute(request):
         yield f"data: {chunk.model_dump_json(exclude_none=True)}\n\n"
@@ -51,17 +42,6 @@ async def chat_endpoint(
     chat_use_case: ChatUseCase = Depends(get_chat_use_case),
     stream_use_case: StreamChatUseCase = Depends(get_stream_chat_use_case),
 ):
-    """
-    Unified chat endpoint supporting both streaming and non-streaming modes.
-
-    Args:
-        request (ChatRequest): The incoming chat request. Set ``stream=true`` to enable streaming.
-        chat_use_case (ChatUseCase): Injected non-streaming use case (used when stream=False).
-        stream_use_case (StreamChatUseCase): Injected streaming use case (used when stream=True).
-
-    Returns:
-        StreamingResponse | ChatResponse: SSE stream or complete JSON response.
-    """
     if request.stream:
         return StreamingResponse(
             _stream_generator(request, stream_use_case),
@@ -86,16 +66,6 @@ async def anonymize_text_endpoint(
     request: AnonymizeRequest,
     use_case: AnonymizeUseCase = Depends(get_anonymize_use_case)
 ):
-    """
-    Endpoint for text anonymization.
-
-    Args:
-        request (AnonymizeRequest): The user's text to anonymize.
-        use_case (AnonymizeUseCase): Injected application core logic.
-
-    Returns:
-        AnonymizeResponse: The anonymized text.
-    """
     return await use_case.execute(request)
 
 @router.post(
@@ -110,16 +80,6 @@ async def anonymize_document_endpoint(
     file: UploadFile = File(...),
     use_case: AnonymizeDocumentUseCase = Depends(get_anonymize_document_use_case)
 ):
-    """
-    Endpoint for document anonymization.
-
-    Args:
-        file (UploadFile): The file to anonymize.
-        use_case (AnonymizeDocumentUseCase): Injected application core logic.
-
-    Returns:
-        AnonymizeResponse: The anonymized document content, rendered as markdown.
-    """
     if file.size and file.size > settings.max_upload_size:
         raise HTTPException(
             status_code=status.HTTP_413_CONTENT_TOO_LARGE,

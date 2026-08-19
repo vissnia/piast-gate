@@ -50,8 +50,7 @@ class PdfProcessor(DocumentProcessor):
     """Concrete implementation for PDF processing using pdfplumber."""
 
     def process(self, file_content: bytes, anonymizer: AnonymizerService) -> str:
-        type_counters: dict = {}
-        value_to_token_str: dict = {}
+        anonymize_text = anonymizer.scoped()
 
         pages_markdown = []
         with pdfplumber.open(BytesIO(file_content)) as pdf:
@@ -60,7 +59,6 @@ class PdfProcessor(DocumentProcessor):
                 text = _reflow_page_text(raw_text)
                 if not text.strip():
                     continue
-                anonymized, _ = anonymizer.anonymize(text, type_counters, value_to_token_str)
-                pages_markdown.append(anonymized)
+                pages_markdown.append(anonymize_text(text))
 
         return "\n\n---\n\n".join(pages_markdown)

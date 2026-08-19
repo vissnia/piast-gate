@@ -30,9 +30,6 @@ from domain.interfaces.llm_provider import LLMProvider
 
 @lru_cache
 def get_llm_provider() -> LLMProvider:
-    """
-    Returns a cached instance of the LLM provider.
-    """
     return create_llm_provider()
 
 def get_anonymizer_service(
@@ -45,10 +42,6 @@ def get_anonymizer_service(
     nip_detector: NipDetector = Depends(get_nip_detector),
     regon_detector: RegonDetector = Depends(get_regon_detector),
 ) -> AnonymizerService:
-    """
-    Dependency provider for AnonymizerService.
-    Combines all configured PII detectors.
-    """
     detectors: List[PIIDetector] = [
         pii_pl_detector,
         email_detector,
@@ -61,38 +54,29 @@ def get_anonymizer_service(
     ]
     return AnonymizerService(detectors)
 
+_SLOW_DETECTOR_TYPES = (PiiPlDetector, DateDetector)
+
 def get_hallucination_guard(
-    email_detector: EmailDetector = Depends(get_email_detector),
-    phone_detector: PhoneDetector = Depends(get_phone_detector),
-    bank_account_detector: BankAccountDetector = Depends(get_bank_account_detector),
-    pesel_detector: PeselDetector = Depends(get_pesel_detector),
-    nip_detector: NipDetector = Depends(get_nip_detector),
-    regon_detector: RegonDetector = Depends(get_regon_detector),
+    anonymizer: AnonymizerService = Depends(get_anonymizer_service),
 ) -> AnonymizerService:
     """
-    Dependency provider for an AnonymizerService scoped to fast,
-    checksum-validated detectors only (no NER). Used to scrub hallucinated
-    PII from streamed LLM output word-by-word without the latency of
-    running the NER model per word.
+    Scoped to fast, checksum-validated detectors only (no NER), to scrub
+    hallucinated PII from streamed LLM output word-by-word without the
+    latency of running the NER model per word.
+
+    Derived from the full detector set rather than re-wired independently,
+    so the "fast" subset can never drift from the detectors actually used
+    for anonymization.
     """
-    detectors: List[PIIDetector] = [
-        email_detector,
-        bank_account_detector,
-        pesel_detector,
-        phone_detector,
-        nip_detector,
-        regon_detector,
+    fast_detectors: List[PIIDetector] = [
+        d for d in anonymizer.detectors if not isinstance(d, _SLOW_DETECTOR_TYPES)
     ]
-    return AnonymizerService(detectors)
+    return AnonymizerService(fast_detectors)
 
 def get_chat_use_case(
     anonymizer: AnonymizerService = Depends(get_anonymizer_service),
     llm: LLMProvider = Depends(get_llm_provider),
 ) -> ChatUseCase:
-    """
-    Dependency provider for ChatUseCase.
-    Wraps the application logic with required services.
-    """
     return ChatUseCase(anonymizer, llm)
 
 def get_stream_chat_use_case(
@@ -100,15 +84,9 @@ def get_stream_chat_use_case(
     llm: LLMProvider = Depends(get_llm_provider),
     hallucination_guard: AnonymizerService = Depends(get_hallucination_guard),
 ) -> StreamChatUseCase:
-    """
-    Dependency provider for StreamChatUseCase.
-    """
     return StreamChatUseCase(anonymizer, llm, hallucination_guard)
 
 def get_anonymize_use_case(
     anonymizer: AnonymizerService = Depends(get_anonymizer_service),
 ) -> AnonymizeUseCase:
-    """
-    Dependency provider for AnonymizeUseCase.
-    """
     return AnonymizeUseCase(anonymizer)

@@ -11,7 +11,7 @@ class LLMProvider(Protocol):
         self,
         messages: list[dict],
         model: str,
-        temperature: float = 0.1,
+        temperature: float = 0.7,
         max_tokens: int = 500,
         top_p: Optional[float] = None,
         stop: Optional[List[str]] = None,
