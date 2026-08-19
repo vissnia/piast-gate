@@ -9,6 +9,7 @@ from api.config.limiter import limiter
 from api.config.config import settings
 from api.di.detector_container import get_pii_pl_detector
 from api.middleware.error_handler import GlobalErrorHandlerMiddleware
+from api.middleware.max_body_size import MaxBodySizeMiddleware
 from api.config.logging_config import setup_logging
 
 setup_logging()
@@ -37,7 +38,9 @@ def create_app() -> FastAPI:
         allow_methods=settings.cors_methods,
         allow_headers=settings.cors_headers,
     )
-    
+
+    app.add_middleware(MaxBodySizeMiddleware)
+
     app.include_router(router, prefix="/v1/api")
     
     @app.get("/health")
