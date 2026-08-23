@@ -298,7 +298,7 @@ class TestPiiPlDetector:
         text = "Jan Kowalski mieszka w Warszawie."
         entities = [
             _entity("PERSON", 0, 12),
-            _entity("LOCATION", 23, 32),
+            _entity("CITY", 23, 32),
         ]
         detector = _make_detector(monkeypatch, entities)
 
@@ -310,9 +310,9 @@ class TestPiiPlDetector:
         assert tokens[1].type == PIIType.LOCATION
         assert tokens[1].original_value == "Warszawie"
 
-    def test_maps_facility_to_location(self, monkeypatch):
+    def test_maps_street_to_location(self, monkeypatch):
         text = "Wysylka na adres ul. Marszalkowska 12, Warszawa."
-        entities = [_entity("FACILITY", 21, 34)]
+        entities = [_entity("STREET", 21, 34)]
         detector = _make_detector(monkeypatch, entities)
 
         tokens = detector.detect(text)
@@ -320,6 +320,20 @@ class TestPiiPlDetector:
         assert len(tokens) == 1
         assert tokens[0].type == PIIType.LOCATION
         assert tokens[0].original_value == "Marszalkowska"
+
+    def test_merges_first_and_last_name_into_person(self, monkeypatch):
+        text = "Jan Kowalski mieszka w Warszawie."
+        entities = [
+            _entity("PERSON_F", 0, 3),
+            _entity("PERSON_L", 4, 12),
+        ]
+        detector = _make_detector(monkeypatch, entities)
+
+        tokens = detector.detect(text)
+
+        assert len(tokens) == 1
+        assert tokens[0].type == PIIType.PERSON
+        assert tokens[0].original_value == "Jan Kowalski"
 
     def test_skips_contact_num_while_unmapped(self, monkeypatch):
         """CONTACT/NUM has no entry in ENTITY_MAPPING (dedicated PhoneDetector handles phones)."""
@@ -331,7 +345,7 @@ class TestPiiPlDetector:
 
     def test_extends_location_with_administrative_prefix_noun(self, monkeypatch):
         text = "Oddzial regionalny obejmuje województwo małopolskie."
-        entities = [_entity("LOCATION", 40, 51)]
+        entities = [_entity("CITY", 40, 51)]
         detector = _make_detector(monkeypatch, entities)
 
         tokens = detector.detect(text)
@@ -342,7 +356,7 @@ class TestPiiPlDetector:
 
     def test_does_not_extend_location_for_unlisted_preceding_word(self, monkeypatch):
         text = "Piekne Krakow."
-        entities = [_entity("LOCATION", 7, 13)]
+        entities = [_entity("CITY", 7, 13)]
         detector = _make_detector(monkeypatch, entities)
 
         tokens = detector.detect(text)
@@ -356,9 +370,9 @@ class TestPiiPlDetector:
             "firmie Acme Sp. z o.o. Moj numer to 500123456."
         )
         entities = [
-            _entity("ORGANIZATION", 66, 73),
-            _entity("ORGANIZATION", 75, 78),
-            _entity("ORGANIZATION", 79, 80),
+            _entity("ORG", 66, 73),
+            _entity("ORG", 75, 78),
+            _entity("ORG", 79, 80),
         ]
         detector = _make_detector(monkeypatch, entities)
 
@@ -371,8 +385,8 @@ class TestPiiPlDetector:
     def test_does_not_merge_across_unrelated_text(self, monkeypatch):
         text = "Warszawa jest stolica. Krakow jest stary."
         entities = [
-            _entity("LOCATION", 0, 8),
-            _entity("LOCATION", 23, 29),
+            _entity("CITY", 0, 8),
+            _entity("CITY", 23, 29),
         ]
         detector = _make_detector(monkeypatch, entities)
 
@@ -385,8 +399,8 @@ class TestPiiPlDetector:
     def test_does_not_merge_different_entity_types(self, monkeypatch):
         text = "Acme w Warszawie."
         entities = [
-            _entity("ORGANIZATION", 0, 4),
-            _entity("LOCATION", 7, 16),
+            _entity("ORG", 0, 4),
+            _entity("CITY", 7, 16),
         ]
         detector = _make_detector(monkeypatch, entities)
 
@@ -400,7 +414,7 @@ class TestPiiPlDetector:
         text = "coś nieznanego Acme Sp. z o.o."
         entities = [
             _entity("EVENT", 0, 14),
-            _entity("ORGANIZATION", 15, 30),
+            _entity("ORG", 15, 30),
         ]
         detector = _make_detector(monkeypatch, entities)
 

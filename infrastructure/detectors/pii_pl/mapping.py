@@ -3,7 +3,9 @@ from typing import Dict
 
 ENTITY_MAPPING: Dict[str, PIIType] = {
     "PERSON": PIIType.PERSON,
-    "LOCATION": PIIType.LOCATION,
-    "FACILITY": PIIType.LOCATION,
-    "ORGANIZATION": PIIType.ORGANIZATION
+    "PERSON_F": PIIType.PERSON,
+    "PERSON_L": PIIType.PERSON,
+    "STREET": PIIType.LOCATION,
+    "CITY": PIIType.LOCATION,
+    "ORG": PIIType.ORGANIZATION
 }

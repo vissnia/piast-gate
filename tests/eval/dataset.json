@@ -38,7 +38,7 @@
     "category": "location_address",
     "text": "Wysyłka powinna zostać zrealizowana na adres ul. Piłsudskiego 12, 00-950 Warszawa.",
     "entities": [
-      { "type": "LOCATION", "value": "Piłsudskiego" },
+      { "type": "LOCATION", "value": "ul. Piłsudskiego" },
       { "type": "LOCATION", "value": "Warszawa" }
     ]
   },
@@ -323,7 +323,7 @@
       { "type": "PERSON", "value": "Zofia Krawczyk" },
       { "type": "LOCATION", "value": "Łodzi" },
       { "type": "DATE", "value": "12.02.2024" },
-      { "type": "ORGANIZATION", "value": "kancelaria Lex Partners Sp. z o.o." },
+      { "type": "ORGANIZATION", "value": "Lex Partners Sp. z o.o" },
       { "type": "EMAIL", "value": "zofia.krawczyk@onet.pl" },
       { "type": "PHONE", "value": "511222333" }
     ]
@@ -382,7 +382,8 @@
     "category": "regon_basic",
     "text": "REGON spółki to 987654326, zgodnie z wpisem do KRS.",
     "entities": [
-      { "type": "REGON", "value": "987654326" }
+      { "type": "REGON", "value": "987654326" },
+      { "type": "ORGANIZATION", "value": "KRS" }
     ]
   },
   {
