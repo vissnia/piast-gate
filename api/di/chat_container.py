@@ -76,8 +76,9 @@ def get_hallucination_guard(
 def get_chat_use_case(
     anonymizer: AnonymizerService = Depends(get_anonymizer_service),
     llm: LLMProvider = Depends(get_llm_provider),
+    hallucination_guard: AnonymizerService = Depends(get_hallucination_guard),
 ) -> ChatUseCase:
-    return ChatUseCase(anonymizer, llm)
+    return ChatUseCase(anonymizer, llm, hallucination_guard)
 
 def get_stream_chat_use_case(
     anonymizer: AnonymizerService = Depends(get_anonymizer_service),

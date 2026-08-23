@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     pl_ner_model_revision: str = Field(default="636c57fe77b0afad8f065e7c76243dc051437035", description="Pinned commit SHA of the PL NER model repo on Hugging Face, so an upstream update to the model can't silently change what gets downloaded")
     pl_ner_chunk_tokens: int = Field(default=384, description="Max tokens per NER inference window (smaller = cheaper attention per chunk)")
     pl_ner_chunk_stride: int = Field(default=64, description="Token overlap between NER inference windows, to avoid splitting entities at chunk boundaries")
+    hallucination_scrubber_enabled: bool = Field(default=False, description="Scrub hallucinated PII from LLM chat responses via the fast, non-NER detectors before deanonymization (streamed responses word-by-word, non-streamed responses in one pass)")
     debug: bool = Field(default=False, description="Debug mode")
     log_file: str = Field(default="logs/app.log", description="Path to log file")
     max_upload_size: int = Field(default=10 * 1024 * 1024, description="Max upload size in bytes (default 10MB)")

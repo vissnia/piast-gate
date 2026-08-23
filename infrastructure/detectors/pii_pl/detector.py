@@ -77,7 +77,13 @@ class PiiPlDetector(PIIDetector):
                 else "CPUExecutionProvider"
             )
             model_path = hf_hub_download(self.model_name, "model.onnx", revision=self.model_revision)
-            session = ort.InferenceSession(model_path, providers=[provider])
+
+            session_options = ort.SessionOptions()
+            session_options.intra_op_num_threads = 1
+            session_options.inter_op_num_threads = 1
+            session_options.execution_mode = ort.ExecutionMode.ORT_SEQUENTIAL
+
+            session = ort.InferenceSession(model_path, sess_options=session_options, providers=[provider])
             tokenizer = AutoTokenizer.from_pretrained(self.model_name, revision=self.model_revision)
             tokenizer.model_max_length = self.chunk_tokens
             id2label = AutoConfig.from_pretrained(self.model_name, revision=self.model_revision).id2label

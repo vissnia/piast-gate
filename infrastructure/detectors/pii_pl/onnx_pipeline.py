@@ -1,6 +1,10 @@
+import os
+from concurrent.futures import ThreadPoolExecutor
 from typing import Dict, List, Tuple
 
 import numpy as np
+
+_CHUNK_EXECUTOR = ThreadPoolExecutor(max_workers=os.cpu_count() or 4)
 
 
 def _softmax(x: np.ndarray) -> np.ndarray:
@@ -49,9 +53,12 @@ class OnnxNerPipeline:
             padding=False,
         )
 
+        num_chunks = len(encoding["input_ids"])
+        futures = [_CHUNK_EXECUTOR.submit(self._process_chunk, encoding, i) for i in range(num_chunks)]
+
         entities: List[Dict] = []
-        for i in range(len(encoding["input_ids"])):
-            entities.extend(self._process_chunk(encoding, i))
+        for future in futures:
+            entities.extend(future.result())
 
         entities.sort(key=lambda e: e["start"])
         return entities

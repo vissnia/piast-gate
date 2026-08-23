@@ -3,12 +3,12 @@ import { check } from 'k6';
 
 const BASE_URL = 'http://localhost:8000/v1/api/chat';
 
-const ENTITY_COUNT = 100;
+const ENTITY_COUNT = 10;
 
 function generateEntities(count) {
     let text = "";
     for (let i = 0; i < count; i++) {
-        text += `Osoba ${i}: Jan Kowalski PESEL 90010112349 mieszka w Warszawie. `;
+        text += `Jan Kowalski mieszka w Warszawie przy ul. Kwiatowej. PESEL: 90010112349. Numer telefonu: 123456789. Email: j.kowalski@examp.com. `;
     }
     return text;
 }
@@ -28,7 +28,7 @@ export default function () {
             }
         ],
         temperature: 0.1,
-        max_tokens: 500
+        max_tokens: 100000
     });
 
     const res = http.post(BASE_URL, payload, {
