@@ -41,7 +41,7 @@ cp .env.example .env       # then set DEFAULT_MODEL's API key, e.g. GEMINI_API_K
 uv run uvicorn main:app --workers 4
 ```
 
-The Polish NER model (`ArkadiuszPawlak/fastpdn-ner-polish-pii` by default) downloads from Hugging Face on first startup and is cached locally after that — the first run will pause while it loads. It's pinned to a specific commit via `PL_NER_MODEL_REVISION`, so an upstream update to the model repo can't silently change what gets downloaded; bump that env var deliberately (and re-run `tests/eval/run_eval.py`) when you want to pick up a newer version.
+The Polish NER model is a spaCy pipeline loaded from disk at `models/pii_ner_model` (override with `PL_NER_MODEL_PATH`). It's not checked into the repo — place the pipeline directory there before first startup. No download happens at runtime. Re-run `tests/eval/run_eval.py` after swapping in a different model.
 
 ```env
 LLM_PROVIDER=litellm
@@ -145,4 +145,4 @@ Benchmarked with `uvicorn main:app --workers 4`.
 
 [MIT](LICENSE) for this codebase.
 
-The bundled Polish NER model, [`ArkadiuszPawlak/fastpdn-ner-polish-pii`](https://huggingface.co/ArkadiuszPawlak/fastpdn-ner-polish-pii), is licensed separately under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) by its author, Arkadiusz Pawlak. It's downloaded and run unmodified (via its published ONNX weights); this project only adds the runtime code around it, which stays under this repo's MIT license. If you redistribute a deployment that bundles the model weights themselves (rather than fetching them from Hugging Face at startup, as this project does by default), CC BY 4.0 requires you to keep this attribution and the license link with it.
+The Polish NER model loaded from `models/pii_ner_model` is a spaCy pipeline trained for this project and is covered by the same [MIT](LICENSE) license as the codebase.

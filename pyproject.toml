@@ -11,7 +11,7 @@ license = "MIT"
 requires-python = ">=3.10,<3.13"
 dependencies = [
     "fastapi==0.128.0",
-    "transformers==5.14.1",
+    "spacy>=3.8.16,<3.9",
     "litellm==1.97.0",
     "phonenumbers==9.0.21",
     "pydantic==2.12.5",
@@ -22,7 +22,6 @@ dependencies = [
     "slowapi==0.1.9",
     "uvicorn==0.40.0",
     "python-multipart==0.0.22",
-    "onnxruntime>=1.24.3",
 ]
 
 [project.optional-dependencies]
