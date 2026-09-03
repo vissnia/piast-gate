@@ -41,7 +41,7 @@ cp .env.example .env       # then set DEFAULT_MODEL's API key, e.g. GEMINI_API_K
 uv run uvicorn main:app --workers 4
 ```
 
-The Polish NER model (`radlab/pii-pl-v1.0` by default) downloads from Hugging Face on first startup and is cached locally after that — the first run will pause while it loads.
+The Polish NER model is a spaCy pipeline loaded from disk at `models/pii_ner_model` (override with `PL_NER_MODEL_PATH`). It's not checked into the repo — place the pipeline directory there before first startup. No download happens at runtime. Re-run `tests/eval/run_eval.py` after swapping in a different model.
 
 ```env
 LLM_PROVIDER=litellm
@@ -143,4 +143,6 @@ Benchmarked with `uvicorn main:app --workers 4`.
 
 ## License
 
-[MIT](LICENSE)
+[MIT](LICENSE) for this codebase.
+
+The Polish NER model loaded from `models/pii_ner_model` is a spaCy pipeline trained for this project and is covered by the same [MIT](LICENSE) license as the codebase.

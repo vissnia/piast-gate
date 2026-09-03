@@ -143,3 +143,4 @@ cython_debug/
 PLANNING.md
 TASK.md
 logs
+models/

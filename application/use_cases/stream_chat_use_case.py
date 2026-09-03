@@ -1,5 +1,6 @@
 import time
 import uuid
+from api.config.config import settings
 from application.dtos.chat_response import ChatUsage
 from application.helpers.stream_helper import build_chunk
 from application.services.hallucination_scrubber import HallucinationScrubber
@@ -103,7 +104,7 @@ class StreamChatUseCase:
         parser = ThinkingParser()
 
         text_stream = self._text_only(raw_stream, tool_call_fragments, usage_holder, finish_reason_holder)
-        scrubbed_stream = scrubber.process(text_stream)
+        scrubbed_stream = scrubber.process(text_stream) if settings.hallucination_scrubber_enabled else text_stream
 
         is_first_chunk = True
         async for safe_text in deanonymizer.process(scrubbed_stream):

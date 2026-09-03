@@ -6,7 +6,7 @@ const BASE_URL = 'http://localhost:8000/v1/api/chat';
 const MESSAGE_MULTIPLIER = 10;
 
 function generateLongMessage(multiplier) {
-    const base = "Jan Kowalski mieszka w Warszawie przy ul. Kwiatowej. PESEL: 90010112349. Numer telefonu: 123456789. Email: j.kowalski@example.com";
+    const base = "Jan Kowalski mieszka w Warszawie przy ul. Kwiatowej. PESEL: 90010112349. Numer telefonu: 123456789. Email: j.kowalski@examp.com. ";
     return base.repeat(multiplier);
 }
 
@@ -25,7 +25,7 @@ export default function () {
             }
         ],
         temperature: 0.1,
-        max_tokens: 500
+        max_tokens: 100000
     });
 
     const res = http.post(BASE_URL, payload, {

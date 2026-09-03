@@ -1,5 +1,6 @@
 import time
 import uuid
+from api.config.config import settings
 from domain.interfaces.llm_provider import LLMProvider
 from domain.services.anonymizer_service import AnonymizerService
 from application.dtos.chat_request import ChatRequest
@@ -10,9 +11,10 @@ from application.services.model_resolver import resolve_model
 class ChatUseCase:
     """Orchestrates the chat flow with anonymization."""
 
-    def __init__(self, anonymizer: AnonymizerService, llm: LLMProvider):
+    def __init__(self, anonymizer: AnonymizerService, llm: LLMProvider, hallucination_guard: AnonymizerService):
         self.anonymizer = anonymizer
         self.llm = llm
+        self.hallucination_guard = hallucination_guard
 
     async def execute(self, request: ChatRequest) -> ChatResponse:
         """
@@ -43,7 +45,9 @@ class ChatUseCase:
 
         final_content = None
         if llm_response.content is not None:
-            safe_response_text, _ = await self.anonymizer.redact_async(llm_response.content)
+            safe_response_text = llm_response.content
+            if settings.hallucination_scrubber_enabled:
+                safe_response_text, _ = await self.hallucination_guard.redact_async(safe_response_text)
             final_content = await self.anonymizer.deanonymize_async(safe_response_text, global_mapping)
 
         tool_calls = None
