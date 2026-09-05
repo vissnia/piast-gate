@@ -3,7 +3,7 @@ import { check } from 'k6';
 
 const BASE_URL = 'http://localhost:8000/v1/api/chat';
 
-const MESSAGE_MULTIPLIER = 10;
+const MESSAGE_MULTIPLIER = 100;
 
 function generateLongMessage(multiplier) {
     const base = "Jan Kowalski mieszka w Warszawie przy ul. Kwiatowej. PESEL: 90010112349. Numer telefonu: 123456789. Email: j.kowalski@examp.com. ";

@@ -1,0 +1,55 @@
+{
+  "generated_on": "2026-09-03",
+  "min_len": 3,
+  "sources": [
+    {
+      "group": "person",
+      "kind": "given_names",
+      "file": "10_-_Wykaz_imion_męskich_osób_żyjących_wg_pola_imię_drugie_występujących_w_rejestrze_PESEL_bez_zgonów.csv",
+      "rows": 16056
+    },
+    {
+      "group": "person",
+      "kind": "given_names",
+      "file": "10_-_Wykaz_imion_żeńskich_osób_żyjących_wg_pola_imię_drugie_występujących_w_rejestrze_PESEL_bez_zgonów.csv",
+      "rows": 12030
+    },
+    {
+      "group": "person",
+      "kind": "surnames",
+      "file": "2_-_nazwiska_męskie-osoby_żyjące.csv",
+      "rows": 408182
+    },
+    {
+      "group": "person",
+      "kind": "surnames",
+      "file": "2_-_nazwiska_żeńskie-osoby_żyjące.csv",
+      "rows": 420082
+    },
+    {
+      "group": "location",
+      "kind": "localities",
+      "file": "SIMC_Adresowy_2026-09-03.csv",
+      "rows": 95101
+    },
+    {
+      "group": "location",
+      "kind": "admin_units",
+      "file": "TERC_Adresowy_2026-09-03.csv",
+      "rows": 3631
+    },
+    {
+      "group": "location",
+      "kind": "streets",
+      "file": "ULIC_Adresowy_2026-09-03.csv",
+      "rows": 309115
+    }
+  ],
+  "outputs": {
+    "person/given_names.txt": 25530,
+    "person/surnames.txt": 598270,
+    "location/localities.txt": 39277,
+    "location/admin_units.txt": 2594,
+    "location/streets.txt": 42502
+  }
+}

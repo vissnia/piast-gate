@@ -1,5 +1,6 @@
 from api.di.detector_container import (
     get_pii_pl_detector,
+    get_gazetteer_detector,
     get_email_detector,
     get_phone_detector,
     get_pesel_detector,
@@ -8,6 +9,7 @@ from api.di.detector_container import (
     get_nip_detector,
     get_regon_detector,
 )
+from infrastructure.detectors.gazetteer import GazetteerDetector
 from infrastructure.detectors.phone_detector import PhoneDetector
 from infrastructure.detectors.email_detector import EmailDetector
 from infrastructure.detectors.pesel_detector import PeselDetector
@@ -34,6 +36,7 @@ def get_llm_provider() -> LLMProvider:
 
 def get_anonymizer_service(
     pii_pl_detector: PiiPlDetector = Depends(get_pii_pl_detector),
+    gazetteer_detector: GazetteerDetector = Depends(get_gazetteer_detector),
     email_detector: EmailDetector = Depends(get_email_detector),
     bank_account_detector: BankAccountDetector = Depends(get_bank_account_detector),
     pesel_detector: PeselDetector = Depends(get_pesel_detector),
@@ -51,10 +54,11 @@ def get_anonymizer_service(
         date_detector,
         nip_detector,
         regon_detector,
+        gazetteer_detector,
     ]
     return AnonymizerService(detectors)
 
-_SLOW_DETECTOR_TYPES = (PiiPlDetector, DateDetector)
+_SLOW_DETECTOR_TYPES = (PiiPlDetector, DateDetector, GazetteerDetector)
 
 def get_hallucination_guard(
     anonymizer: AnonymizerService = Depends(get_anonymizer_service),

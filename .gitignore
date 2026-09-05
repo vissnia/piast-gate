@@ -144,3 +144,5 @@ PLANNING.md
 TASK.md
 logs
 models/
+gazetteers/person/
+gazetteers/location/
