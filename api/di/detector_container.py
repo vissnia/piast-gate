@@ -1,5 +1,6 @@
 from functools import lru_cache
 from infrastructure.detectors.pii_pl import PiiPlDetector
+from infrastructure.detectors.gazetteer import GazetteerDetector
 from infrastructure.detectors.email_detector import EmailDetector
 from infrastructure.detectors.phone_detector import PhoneDetector
 from infrastructure.detectors.pesel_detector import PeselDetector
@@ -11,6 +12,10 @@ from infrastructure.detectors.regon_detector import RegonDetector
 @lru_cache
 def get_pii_pl_detector() -> PiiPlDetector:
     return PiiPlDetector()
+
+@lru_cache
+def get_gazetteer_detector() -> GazetteerDetector:
+    return GazetteerDetector()
 
 @lru_cache
 def get_email_detector() -> EmailDetector:
