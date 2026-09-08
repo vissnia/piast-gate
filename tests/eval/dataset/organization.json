@@ -1,0 +1,400 @@
+[
+  {
+    "id": "org-001",
+    "category": "org_legal_form_sp_zoo",
+    "text": "ABC Sp. z o.o. złożyła ofertę w postępowaniu przetargowym.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "ABC Sp. z o.o." }
+    ]
+  },
+  {
+    "id": "org-002",
+    "category": "org_legal_form_sa",
+    "text": "Kontrakt podpisano z XYZ S.A. na okres dwóch lat.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "XYZ S.A." }
+    ]
+  },
+  {
+    "id": "org-003",
+    "category": "org_legal_form_spk",
+    "text": "Dostawcą materiałów jest Budex Sp.k.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Budex Sp.k." }
+    ]
+  },
+  {
+    "id": "org-004",
+    "category": "org_legal_form_spj",
+    "text": "Usługę transportową świadczy Trans-Pol Sp.j.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Trans-Pol Sp.j." }
+    ]
+  },
+  {
+    "id": "org-005",
+    "category": "org_legal_form_sc",
+    "text": "Zamówienie zrealizowała firma Kowalscy S.C.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Kowalscy S.C." }
+    ]
+  },
+  {
+    "id": "org-006",
+    "category": "org_legal_form_full_unabbreviated",
+    "text": "Spółka działa pod pełną nazwą ABC spółka z ograniczoną odpowiedzialnością, zgodnie z wpisem do KRS.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "ABC spółka z ograniczoną odpowiedzialnością" }
+    ]
+  },
+  {
+    "id": "org-007",
+    "category": "org_legal_form_no_dots",
+    "text": "Faktura wystawiona przez ABC Sp z oo, zgodnie z danymi rejestrowymi.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "ABC Sp z oo" }
+    ]
+  },
+  {
+    "id": "org-008",
+    "category": "org_bare_name_no_legal_form",
+    "text": "Współpracujemy z Delta od trzech lat na zasadach stałej umowy ramowej.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Delta" }
+    ]
+  },
+  {
+    "id": "org-009",
+    "category": "org_foundation",
+    "text": "Darowiznę przekazano na rzecz Fundacji Pomocna Dłoń.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Fundacji Pomocna Dłoń" }
+    ]
+  },
+  {
+    "id": "org-010",
+    "category": "org_association",
+    "text": "Wniosek złożyło Stowarzyszenie na rzecz Rozwoju Lokalnego.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Stowarzyszenie na rzecz Rozwoju Lokalnego" }
+    ]
+  },
+  {
+    "id": "org-011",
+    "category": "org_cooperative",
+    "text": "Spółdzielnia Mieszkaniowa Zacisze ogłosiła przetarg na remont dachu.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Spółdzielnia Mieszkaniowa Zacisze" }
+    ]
+  },
+  {
+    "id": "org-012",
+    "category": "org_public_institution_acronym",
+    "text": "Składkę należy przekazać do ZUS w terminie do 15 dnia miesiąca.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "ZUS" }
+    ]
+  },
+  {
+    "id": "org-013",
+    "category": "org_public_institution_acronym",
+    "text": "Wniosek o interpretację podatkową złożono do US właściwego dla siedziby firmy.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "US" }
+    ]
+  },
+  {
+    "id": "org-014",
+    "category": "org_public_institution_acronym",
+    "text": "Sprawa została zgłoszona do UOKiK w związku z podejrzeniem naruszenia zbiorowych interesów konsumentów.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "UOKiK" }
+    ]
+  },
+  {
+    "id": "org-015",
+    "category": "org_public_institution_full_name_with_location",
+    "text": "Pismo skierowano do Urzędu Skarbowego w Krakowie.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Urzędu Skarbowego w Krakowie" }
+    ]
+  },
+  {
+    "id": "org-016",
+    "category": "org_public_institution_full_name_with_location",
+    "text": "Sprawę rozpatruje Sąd Rejonowy dla Warszawy-Śródmieścia.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Sąd Rejonowy dla Warszawy-Śródmieścia" }
+    ]
+  },
+  {
+    "id": "org-017",
+    "category": "org_foreign_legal_form",
+    "text": "Kontrahent niemiecki działa pod nazwą Nordbau GmbH.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Nordbau GmbH" }
+    ]
+  },
+  {
+    "id": "org-018",
+    "category": "org_foreign_legal_form",
+    "text": "Umowę zawarto z brytyjską spółką Trident Ltd.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Trident Ltd." }
+    ]
+  },
+  {
+    "id": "org-019",
+    "category": "org_foreign_legal_form",
+    "text": "Amerykański partner biznesowy to Brightline LLC.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Brightline LLC" }
+    ]
+  },
+  {
+    "id": "org-020",
+    "category": "org_person_collision_surname_in_name",
+    "text": "Firma Kowalski Sp. z o.o. złożyła ofertę w przetargu.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Kowalski Sp. z o.o." }
+    ]
+  },
+  {
+    "id": "org-021",
+    "category": "org_person_collision_surname_in_name",
+    "text": "Zamówienie zrealizowała firma Nowak i Wspólnicy Sp.j.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Nowak i Wspólnicy Sp.j." }
+    ]
+  },
+  {
+    "id": "org-022",
+    "category": "org_person_both_distinguished",
+    "text": "Jan Kowalski, prowadzący działalność pod firmą 'JK Serwis', podpisał umowę osobiście.",
+    "entities": [
+      { "type": "PERSON", "value": "Jan Kowalski" },
+      { "type": "ORGANIZATION", "value": "JK Serwis" }
+    ]
+  },
+  {
+    "id": "org-023",
+    "category": "org_person_both_distinguished",
+    "text": "Anna Nowak reprezentuje spółkę Delta Consulting Sp. z o.o. jako pełnomocnik.",
+    "entities": [
+      { "type": "PERSON", "value": "Anna Nowak" },
+      { "type": "ORGANIZATION", "value": "Delta Consulting Sp. z o.o." }
+    ]
+  },
+  {
+    "id": "org-024",
+    "category": "org_person_surname_ambiguous_true_negative",
+    "text": "W dokumencie wspomniano firmę Nowak.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Nowak" }
+    ]
+  },
+  {
+    "id": "org-025",
+    "category": "org_acronym_brand",
+    "text": "Klient posiada rachunek w PKO od kilkunastu lat.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "PKO" }
+    ]
+  },
+  {
+    "id": "org-026",
+    "category": "org_acronym_brand",
+    "text": "Polisa ubezpieczeniowa wykupiona została w PZU.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "PZU" }
+    ]
+  },
+  {
+    "id": "org-027",
+    "category": "org_all_caps",
+    "text": "W piśmie urzędowym wpisano: ABC SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ, zgodnie z danymi rejestrowymi.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "ABC SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ" }
+    ]
+  },
+  {
+    "id": "org-028",
+    "category": "org_ocr_split",
+    "text": "Dostawcą jest ABC Sp. z\no.o., zgodnie z danymi w umowie — numer przeniesiony ze skanu i złamany na końcu linii.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "ABC Sp. z o.o." }
+    ]
+  },
+  {
+    "id": "org-029",
+    "category": "org_glued_with_nip",
+    "text": "ABCSp.zo.o.NIP1180000019 to ciąg wklejony bez separacji z systemu źródłowego.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "ABCSp.zo.o." },
+      { "type": "NIP", "value": "1180000019" }
+    ]
+  },
+  {
+    "id": "org-030",
+    "category": "org_quoted_brand_name",
+    "text": "Umowę podpisano w imieniu firmy \"Kowalski\" S.A., zarejestrowanej pod tą nazwą handlową.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "\"Kowalski\" S.A." }
+    ]
+  },
+  {
+    "id": "org-031",
+    "category": "org_brand_vs_legal_name",
+    "text": "Sieć sklepów Żabka Polska Sp. z o.o. ogłosiła plany ekspansji na kolejny rok.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Żabka Polska Sp. z o.o." }
+    ]
+  },
+  {
+    "id": "org-032",
+    "category": "org_former_name_historical",
+    "text": "Spółka, dawniej działająca pod firmą Stal-Bud Sp. z o.o., zmieniła nazwę na MetalTech S.A.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Stal-Bud Sp. z o.o." },
+      { "type": "ORGANIZATION", "value": "MetalTech S.A." }
+    ]
+  },
+  {
+    "id": "org-033",
+    "category": "org_department_internal_true_negative",
+    "text": "Zapytanie zostało przekazane do działu sprzedaży w celu dalszego rozpatrzenia.",
+    "entities": []
+  },
+  {
+    "id": "org-034",
+    "category": "org_department_internal_true_negative",
+    "text": "Decyzję w tej sprawie podejmuje zarząd spółki na najbliższym posiedzeniu.",
+    "entities": []
+  },
+  {
+    "id": "org-035",
+    "category": "org_generic_service_true_negative",
+    "text": "Przesyłkę odebrał kurier w godzinach porannych.",
+    "entities": []
+  },
+  {
+    "id": "org-036",
+    "category": "org_false_positive_trap",
+    "text": "Pole 'nazwa firmy': nie dotyczy — zgłoszenie złożone przez osobę fizyczną.",
+    "entities": []
+  },
+  {
+    "id": "org-037",
+    "category": "org_false_positive_trap",
+    "text": "Wnioskodawca nie prowadzi działalności gospodarczej i nie posiada nazwy firmy do wskazania.",
+    "entities": []
+  },
+  {
+    "id": "org-038",
+    "category": "org_multiple_in_document",
+    "text": "Umowę zawarto pomiędzy ABC Sp. z o.o. a XYZ S.A.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "ABC Sp. z o.o." },
+      { "type": "ORGANIZATION", "value": "XYZ S.A." }
+    ]
+  },
+  {
+    "id": "org-039",
+    "category": "org_multiple_in_document",
+    "text": "W przetargu wzięły udział trzy podmioty: Delta Sp. z o.o., Budex Sp.k. oraz Trans-Pol Sp.j.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Delta Sp. z o.o." },
+      { "type": "ORGANIZATION", "value": "Budex Sp.k." },
+      { "type": "ORGANIZATION", "value": "Trans-Pol Sp.j." }
+    ]
+  },
+  {
+    "id": "org-040",
+    "category": "org_dual_form_full_and_short_same_doc",
+    "text": "Spółka ABC spółka z ograniczoną odpowiedzialnością, zwana dalej ABC Sp. z o.o., zawiera niniejszą umowę.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "ABC spółka z ograniczoną odpowiedzialnością" },
+      { "type": "ORGANIZATION", "value": "ABC Sp. z o.o." }
+    ]
+  },
+  {
+    "id": "org-041",
+    "category": "org_label_prefix",
+    "text": "Proszę podać pełną nazwę firmy: Delta Consulting Sp. z o.o., zgodnie z instrukcją formularza.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Delta Consulting Sp. z o.o." }
+    ]
+  },
+  {
+    "id": "org-042",
+    "category": "org_label_no_space",
+    "text": "Firma:ABC Sp. z o.o. (brak spacji po dwukropku, format wygenerowany automatycznie).",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "ABC Sp. z o.o." }
+    ]
+  },
+  {
+    "id": "org-043",
+    "category": "org_public_institution_acronym",
+    "text": "Kurs walutowy publikowany jest przez NBP każdego dnia roboczego.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "NBP" }
+    ]
+  },
+  {
+    "id": "org-044",
+    "category": "org_public_institution_acronym",
+    "text": "Dane rejestrowe podmiotu można zweryfikować w KRS.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "KRS" }
+    ]
+  },
+  {
+    "id": "org-045",
+    "category": "org_public_institution_acronym",
+    "text": "Statystyki dotyczące zatrudnienia publikuje GUS.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "GUS" }
+    ]
+  },
+  {
+    "id": "org-046",
+    "category": "org_public_institution_full_name_no_location",
+    "text": "Sprawa trafiła do Naczelnego Sądu Administracyjnego.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Naczelnego Sądu Administracyjnego" }
+    ]
+  },
+  {
+    "id": "org-047",
+    "category": "org_foreign_legal_form",
+    "text": "Francuski dostawca działa pod nazwą Lumière SARL.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Lumière SARL" }
+    ]
+  },
+  {
+    "id": "org-048",
+    "category": "org_foreign_legal_form",
+    "text": "Amerykańska centrala partnera to Skyline Inc.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Skyline Inc." }
+    ]
+  },
+  {
+    "id": "org-049",
+    "category": "org_acronym_brand",
+    "text": "Umowa na dostawę energii zawarta została z PGE.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "PGE" }
+    ]
+  },
+  {
+    "id": "org-050",
+    "category": "org_person_collision_surname_in_name",
+    "text": "Podpis złożył przedstawiciel firmy Wilk Sp. z o.o., działający w jej imieniu.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Wilk Sp. z o.o." }
+    ]
+  }
+]

@@ -1,0 +1,222 @@
+[
+  {
+    "id": "regon-001",
+    "category": "regon_basic_9digit",
+    "text": "Numer REGON: 191045425 widnieje w danych rejestrowych podmiotu.",
+    "entities": [
+      { "type": "REGON", "value": "191045425" }
+    ]
+  },
+  {
+    "id": "regon-002",
+    "category": "regon_basic_9digit",
+    "text": "W formularzu podano REGON 330051022 jako identyfikator statystyczny.",
+    "entities": [
+      { "type": "REGON", "value": "330051022" }
+    ]
+  },
+  {
+    "id": "regon-003",
+    "category": "regon_basic_14digit",
+    "text": "REGON jednostki lokalnej: 19104542500019, powiązany z podmiotem głównym.",
+    "entities": [
+      { "type": "REGON", "value": "19104542500019" }
+    ]
+  },
+  {
+    "id": "regon-004",
+    "category": "regon_basic_14digit",
+    "text": "Numer REGON oddziału to 55500012500028, zgodnie z wpisem w rejestrze.",
+    "entities": [
+      { "type": "REGON", "value": "55500012500028" }
+    ]
+  },
+  {
+    "id": "regon-005",
+    "category": "regon_spaces",
+    "text": "Dane rejestrowe: REGON 191 045 425, prosimy zweryfikować przed wysyłką dokumentu.",
+    "entities": [
+      { "type": "REGON", "value": "191 045 425" }
+    ]
+  },
+  {
+    "id": "regon-006",
+    "category": "regon_spaces",
+    "text": "REGON jednostki lokalnej zapisany jako 1910 4542 5000 19 wymaga ujednolicenia formatu.",
+    "entities": [
+      { "type": "REGON", "value": "1910 4542 5000 19" }
+    ]
+  },
+  {
+    "id": "regon-007",
+    "category": "regon_ocr_split",
+    "text": "REGON: 555000-\n125 (numer przeniesiony ze skanu, złamany na końcu linii).",
+    "entities": [
+      { "type": "REGON", "value": "555000-125" }
+    ]
+  },
+  {
+    "id": "regon-008",
+    "category": "regon_leading_zero",
+    "text": "REGON: 012345675 — proszę zwrócić uwagę na wiodące zero przy imporcie do arkusza kalkulacyjnego.",
+    "entities": [
+      { "type": "REGON", "value": "012345675" }
+    ]
+  },
+  {
+    "id": "regon-009",
+    "category": "regon_leading_zero_stripped",
+    "text": "Po imporcie z arkusza numer REGON wyświetlił się jako 12345675 (bez wiodącego zera), co uniemożliwiło poprawną walidację.",
+    "entities": []
+  },
+  {
+    "id": "regon-010",
+    "category": "regon_invalid_checksum",
+    "text": "REGON 191045426 nie przechodzi walidacji sumy kontrolnej, mimo poprawnego formatu.",
+    "entities": []
+  },
+  {
+    "id": "regon-011",
+    "category": "regon_invalid_checksum",
+    "text": "System odrzucił zgłoszenie z numerem REGON 19104542500011 z powodu niezgodności cyfry kontrolnej jednostki lokalnej.",
+    "entities": []
+  },
+  {
+    "id": "regon-012",
+    "category": "regon_test_placeholder_true_negative",
+    "text": "W dokumentacji testowej użyto przykładowego numeru REGON: 000000000 do celów integracyjnych.",
+    "entities": []
+  },
+  {
+    "id": "regon-013",
+    "category": "regon_test_placeholder_true_negative",
+    "text": "Numer testowy w środowisku sandbox: REGON 00000000000000 nie odpowiada rzeczywistemu podmiotowi.",
+    "entities": []
+  },
+  {
+    "id": "regon-014",
+    "category": "regon_tutorial_example_true_negative",
+    "text": "Przykład z dokumentacji API: walidacja formatu na numerze REGON 123456785.",
+    "entities": [
+      { "type": "REGON", "value": "123456785" }
+    ]
+  },
+  {
+    "id": "regon-015",
+    "category": "regon_numeric_distractor",
+    "text": "Numer referencyjny 1910454251 różni się o jedną cyfrę od numeru REGON 191045425 podanego w tym samym dokumencie.",
+    "entities": [
+      { "type": "REGON", "value": "191045425" }
+    ]
+  },
+  {
+    "id": "regon-016",
+    "category": "regon_numeric_distractor",
+    "text": "Ciąg 19104542512 pojawia się obok numeru REGON 191045425 w tej samej tabeli, lecz stanowi inny rodzaj identyfikatora.",
+    "entities": [
+      { "type": "REGON", "value": "191045425" }
+    ]
+  },
+  {
+    "id": "regon-017",
+    "category": "regon_numeric_distractor",
+    "text": "Numer wewnętrzny 33-00-51-02-3 różni się formatem zapisu od numeru REGON 330051022 widniejącego w tym samym wierszu.",
+    "entities": [
+      { "type": "REGON", "value": "330051022" }
+    ]
+  },
+  {
+    "id": "regon-018",
+    "category": "regon_false_positive_trap",
+    "text": "Pole REGON: nie dotyczy (podmiot zagraniczny nieposiadający wpisu w polskim rejestrze).",
+    "entities": []
+  },
+  {
+    "id": "regon-019",
+    "category": "regon_false_positive_trap",
+    "text": "Osoba fizyczna nieprowadząca działalności gospodarczej nie posiada numeru REGON.",
+    "entities": []
+  },
+  {
+    "id": "regon-020",
+    "category": "regon_multiple_in_document",
+    "text": "Podmiot główny posiada REGON 191045425, natomiast jego jednostka lokalna widnieje pod numerem 19104542500019.",
+    "entities": [
+      { "type": "REGON", "value": "191045425" },
+      { "type": "REGON", "value": "19104542500019" }
+    ]
+  },
+  {
+    "id": "regon-021",
+    "category": "regon_multiple_in_document",
+    "text": "W piśmie wymieniono dwa numery REGON: 330051022 oraz 555000125, odpowiadające dwóm różnym podmiotom.",
+    "entities": [
+      { "type": "REGON", "value": "330051022" },
+      { "type": "REGON", "value": "555000125" }
+    ]
+  },
+  {
+    "id": "regon-022",
+    "category": "regon_glued_no_spacing",
+    "text": "REGON123456785numerZgloszenia9988 to ciąg wklejony bez separacji z systemu źródłowego.",
+    "entities": [
+      { "type": "REGON", "value": "123456785" }
+    ]
+  },
+  {
+    "id": "regon-023",
+    "category": "regon_substring_valid_9_within_14",
+    "text": "Numer REGON jednostki lokalnej 19104542500019 zawiera w pierwszych dziewięciu cyfrach poprawny REGON podmiotu głównego, co nie powinno skutkować wykryciem dwóch osobnych numerów.",
+    "entities": [
+      { "type": "REGON", "value": "19104542500019" }
+    ]
+  },
+  {
+    "id": "regon-024",
+    "category": "regon_internal_consistency_invalid",
+    "text": "REGON 19104542700010 przechodzi walidację sumy kontrolnej całego numeru czternastocyfrowego, mimo że pierwsze dziewięć cyfr nie stanowi poprawnego REGON-u podmiotu głównego.",
+    "entities": []
+  },
+  {
+    "id": "regon-025",
+    "category": "regon_label_prefix",
+    "text": "Proszę podać numer REGON podmiotu: 555000125, zgodnie z instrukcją formularza.",
+    "entities": [
+      { "type": "REGON", "value": "555000125" }
+    ]
+  },
+  {
+    "id": "regon-026",
+    "category": "regon_label_no_space",
+    "text": "REGON:123456785 (brak spacji po dwukropku, format wygenerowany automatycznie).",
+    "entities": [
+      { "type": "REGON", "value": "123456785" }
+    ]
+  },
+  {
+    "id": "regon-027",
+    "category": "regon_short_legacy_format",
+    "text": "W archiwalnym dokumencie sprzed reformy numer REGON zapisano w skróconym, siedmiocyfrowym formacie: 1234567.",
+    "entities": []
+  },
+  {
+    "id": "regon-028",
+    "category": "regon_mixed_separators",
+    "text": "REGON zapisany nieregularnie jako 191-045 425 pojawił się w piśmie przepisanym ręcznie z formularza papierowego.",
+    "entities": [
+      { "type": "REGON", "value": "191-045 425" }
+    ]
+  },
+  {
+    "id": "regon-029",
+    "category": "regon_invalid_checksum",
+    "text": "Zgłoszenie zawiera REGON 330051023, który nie przechodzi walidacji sumy kontrolnej.",
+    "entities": []
+  },
+  {
+    "id": "regon-030",
+    "category": "regon_test_placeholder_true_negative",
+    "text": "Numer testowy w środowisku deweloperskim: REGON 111111111 nie odpowiada rzeczywistemu podmiotowi.",
+    "entities": []
+  }
+]

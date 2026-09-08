@@ -17,7 +17,7 @@ piast-gate sits between your app and any LLM. It strips PII from a prompt before
 
 ## How it works
 
-1. **Detect** — `PERSON`, `LOCATION`, `ORGANIZATION` (NER, Polish-tuned), `EMAIL`, `PHONE`, `DATE`, `PESEL`, `NIP`, `REGON`, `BANK_ACCOUNT`
+1. **Detect** — `PERSON`, `LOCATION`, `ORGANIZATION` (NER, Polish-tuned), `EMAIL`, `PHONE`, `PESEL`, `NIP`, `REGON`, `BANK_ACCOUNT`
 2. **Anonymize** — each match is swapped for a placeholder before the request reaches the model
 3. **Deanonymize** — placeholders in the response are swapped back for the original values
 

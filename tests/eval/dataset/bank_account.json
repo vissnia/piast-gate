@@ -1,0 +1,231 @@
+[
+  {
+    "id": "bank-001",
+    "category": "bank_account_nrb_basic",
+    "text": "Numer konta: 65109016650000000103737343 podany do zwrotu środków.",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "65109016650000000103737343" }
+    ]
+  },
+  {
+    "id": "bank-002",
+    "category": "bank_account_nrb_basic",
+    "text": "Proszę o przelew na rachunek 19102010260000079210200271.",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "19102010260000079210200271" }
+    ]
+  },
+  {
+    "id": "bank-003",
+    "category": "bank_account_iban_basic",
+    "text": "Pełny numer IBAN: PL05105000990000009007300140, wymagany przy przelewach zagranicznych.",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "PL05105000990000009007300140" }
+    ]
+  },
+  {
+    "id": "bank-004",
+    "category": "bank_account_iban_basic",
+    "text": "Rachunek do wpłaty: PL27114020040000350297423651.",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "PL27114020040000350297423651" }
+    ]
+  },
+  {
+    "id": "bank-005",
+    "category": "bank_account_nrb_grouped_spaces",
+    "text": "Numer konta: 65 1090 1665 0000 0001 0373 7343, prosimy zweryfikować przed realizacją przelewu.",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "65 1090 1665 0000 0001 0373 7343" }
+    ]
+  },
+  {
+    "id": "bank-006",
+    "category": "bank_account_nrb_grouped_spaces",
+    "text": "Rachunek bankowy: 19 1020 1026 0000 0792 1020 0271.",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "19 1020 1026 0000 0792 1020 0271" }
+    ]
+  },
+  {
+    "id": "bank-007",
+    "category": "bank_account_iban_grouped_spaces",
+    "text": "Pełny IBAN: PL05 1050 0099 0000 0090 0730 0140, standardowe grupowanie co cztery znaki.",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "PL05 1050 0099 0000 0090 0730 0140" }
+    ]
+  },
+  {
+    "id": "bank-008",
+    "category": "bank_account_dashes",
+    "text": "Numer konta zapisany z myślnikami: 65-1090-1665-0000-0001-0373-7343.",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "65-1090-1665-0000-0001-0373-7343" }
+    ]
+  },
+  {
+    "id": "bank-009",
+    "category": "bank_account_lowercase_prefix",
+    "text": "pl38109000010000000000123456 to numer rachunku podany małymi literami w eksporcie danych.",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "pl38109000010000000000123456" }
+    ]
+  },
+  {
+    "id": "bank-010",
+    "category": "bank_account_irregular_grouping",
+    "text": "Numer konta przepisany ręcznie z potwierdzenia przelewu: 6510 9016 6500 0000 0103 7373 43.",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "6510 9016 6500 0000 0103 7373 43" }
+    ]
+  },
+  {
+    "id": "bank-011",
+    "category": "bank_account_invalid_checksum",
+    "text": "Numer konta 65109016650000000103737344 nie przechodzi walidacji sumy kontrolnej mod-97.",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "65109016650000000103737344" }
+    ]
+  },
+  {
+    "id": "bank-012",
+    "category": "bank_account_invalid_checksum",
+    "text": "System odrzucił przelew z powodu błędnej cyfry kontrolnej numeru PL06105000990000009007300140.",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "PL06105000990000009007300140" }
+    ]
+  },
+  {
+    "id": "bank-013",
+    "category": "bank_account_ocr_split",
+    "text": "Numer konta: 65109016650000000103737-\n343 (numer przeniesiony ze skanu, złamany na końcu linii).",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "65109016650000000103737-343" }
+    ]
+  },
+  {
+    "id": "bank-014",
+    "category": "bank_account_glued_no_spacing",
+    "text": "konto:65109016650000000103737343numerZgloszenia2024 to ciąg wklejony bez separacji z formularza.",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "65109016650000000103737343" }
+    ]
+  },
+  {
+    "id": "bank-015",
+    "category": "bank_account_test_placeholder_true_negative",
+    "text": "W dokumentacji testowej użyto przykładowego numeru konta: PL00000000000000000000000000 do celów integracyjnych.",
+    "entities": []
+  },
+  {
+    "id": "bank-016",
+    "category": "bank_account_test_placeholder_true_negative",
+    "text": "Numer testowy w środowisku sandbox: 00000000000000000000000000 nie odpowiada rzeczywistemu rachunkowi.",
+    "entities": []
+  },
+  {
+    "id": "bank-017",
+    "category": "bank_account_false_positive_trap",
+    "text": "Pole 'numer konta': nie dotyczy — płatność realizowana wyłącznie gotówką.",
+    "entities": []
+  },
+  {
+    "id": "bank-018",
+    "category": "bank_account_false_positive_trap",
+    "text": "Zwrot środków niemożliwy, ponieważ wnioskodawca nie podał numeru rachunku bankowego.",
+    "entities": []
+  },
+  {
+    "id": "bank-019",
+    "category": "bank_account_bic_swift_true_negative",
+    "text": "Kod BIC/SWIFT banku: WBKPPLPP, wymagany przy przelewach zagranicznych obok numeru IBAN.",
+    "entities": []
+  },
+  {
+    "id": "bank-020",
+    "category": "bank_account_card_number_true_negative",
+    "text": "Numer karty płatniczej 4532 0151 1283 0366 różni się formatem od numeru rachunku bankowego.",
+    "entities": []
+  },
+  {
+    "id": "bank-021",
+    "category": "bank_account_numeric_distractor",
+    "text": "Numer referencyjny zgłoszenia 651090166500000001037373 różni się o dwie cyfry od numeru konta 65109016650000000103737343 podanego w tym samym dokumencie.",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "65109016650000000103737343" }
+    ]
+  },
+  {
+    "id": "bank-022",
+    "category": "bank_account_numeric_distractor",
+    "text": "Ciąg 191020102600000792102002 pojawia się obok pełnego numeru rachunku 19102010260000079210200271, lecz stanowi inny rodzaj identyfikatora.",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "19102010260000079210200271" }
+    ]
+  },
+  {
+    "id": "bank-023",
+    "category": "bank_account_virtual_subaccount",
+    "text": "Rachunek wirtualny wygenerowany dla tej płatności: PL38109000010000000000123456, aktywny wyłącznie dla tej transakcji.",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "PL38109000010000000000123456" }
+    ]
+  },
+  {
+    "id": "bank-024",
+    "category": "bank_account_multiple_in_document",
+    "text": "Dokument zawiera dwa numery rachunków: 65109016650000000103737343 do wpłaty oraz 19102010260000079210200271 do zwrotu środków.",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "65109016650000000103737343" },
+      { "type": "BANK_ACCOUNT", "value": "19102010260000079210200271" }
+    ]
+  },
+  {
+    "id": "bank-025",
+    "category": "bank_account_multiple_in_document",
+    "text": "W umowie wymieniono numery kont: PL05105000990000009007300140, PL27114020040000350297423651 oraz PL72106000760000320001236741, przypisane do trzech różnych stron.",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "PL05105000990000009007300140" },
+      { "type": "BANK_ACCOUNT", "value": "PL27114020040000350297423651" },
+      { "type": "BANK_ACCOUNT", "value": "PL72106000760000320001236741" }
+    ]
+  },
+  {
+    "id": "bank-026",
+    "category": "bank_account_label_prefix",
+    "text": "Proszę dokonać wpłaty na numer konta bankowego: 65109016650000000103737343, zgodnie z instrukcją formularza.",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "65109016650000000103737343" }
+    ]
+  },
+  {
+    "id": "bank-027",
+    "category": "bank_account_label_no_space",
+    "text": "Konto:19102010260000079210200271 (brak spacji po dwukropku, format wygenerowany automatycznie).",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "19102010260000079210200271" }
+    ]
+  },
+  {
+    "id": "bank-028",
+    "category": "bank_account_foreign_iban",
+    "text": "Zagraniczny numer IBAN kontrahenta: DE89370400440532013000, dwadzieścia dwa znaki zamiast dwudziestu ośmiu jak w Polsce.",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "DE89370400440532013000" }
+    ]
+  },
+  {
+    "id": "bank-029",
+    "category": "bank_account_internal_bank_code_mismatch",
+    "text": "Numer konta 72106000760000320001236741 przechodzi walidację sumy kontrolnej całości, mimo że numer rozliczeniowy banku w pierwszych ośmiu cyfrach nie figuruje w rejestrze NBP.",
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "72106000760000320001236741" }
+    ]
+  },
+  {
+    "id": "bank-030",
+    "category": "bank_account_tutorial_example_true_negative",
+    "text": "Przykład z dokumentacji API bankowości: format numeru konta przedstawiono na numerze PL61109010140000071219812874.",
+    "entities": []
+  }
+]

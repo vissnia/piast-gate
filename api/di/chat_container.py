@@ -5,7 +5,6 @@ from api.di.detector_container import (
     get_phone_detector,
     get_pesel_detector,
     get_bank_account_detector,
-    get_date_detector,
     get_nip_detector,
     get_regon_detector,
 )
@@ -14,7 +13,6 @@ from infrastructure.detectors.phone_detector import PhoneDetector
 from infrastructure.detectors.email_detector import EmailDetector
 from infrastructure.detectors.pesel_detector import PeselDetector
 from infrastructure.detectors.bank_account_detector import BankAccountDetector
-from infrastructure.detectors.date_detector import DateDetector
 from infrastructure.detectors.nip_detector import NipDetector
 from infrastructure.detectors.regon_detector import RegonDetector
 from infrastructure.detectors.pii_pl import PiiPlDetector
@@ -41,7 +39,6 @@ def get_anonymizer_service(
     bank_account_detector: BankAccountDetector = Depends(get_bank_account_detector),
     pesel_detector: PeselDetector = Depends(get_pesel_detector),
     phone_detector: PhoneDetector = Depends(get_phone_detector),
-    date_detector: DateDetector = Depends(get_date_detector),
     nip_detector: NipDetector = Depends(get_nip_detector),
     regon_detector: RegonDetector = Depends(get_regon_detector),
 ) -> AnonymizerService:
@@ -51,14 +48,13 @@ def get_anonymizer_service(
         bank_account_detector,
         pesel_detector,
         phone_detector,
-        date_detector,
         nip_detector,
         regon_detector,
         gazetteer_detector,
     ]
     return AnonymizerService(detectors)
 
-_SLOW_DETECTOR_TYPES = (PiiPlDetector, DateDetector, GazetteerDetector)
+_SLOW_DETECTOR_TYPES = (PiiPlDetector, GazetteerDetector)
 
 def get_hallucination_guard(
     anonymizer: AnonymizerService = Depends(get_anonymizer_service),

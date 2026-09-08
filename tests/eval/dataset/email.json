@@ -1,0 +1,233 @@
+[
+  {
+    "id": "email-001",
+    "category": "email_basic",
+    "text": "Adres e-mail: jan.kowalski@firma.pl podany w formularzu kontaktowym.",
+    "entities": [
+      { "type": "EMAIL", "value": "jan.kowalski@firma.pl" }
+    ]
+  },
+  {
+    "id": "email-002",
+    "category": "email_basic",
+    "text": "Proszę o kontakt na adres anna.nowak@poczta.pl w sprawie zgłoszenia.",
+    "entities": [
+      { "type": "EMAIL", "value": "anna.nowak@poczta.pl" }
+    ]
+  },
+  {
+    "id": "email-003",
+    "category": "email_plus_alias",
+    "text": "Faktury proszę wysyłać na adres jan.kowalski+faktury@firma.pl.",
+    "entities": [
+      { "type": "EMAIL", "value": "jan.kowalski+faktury@firma.pl" }
+    ]
+  },
+  {
+    "id": "email-004",
+    "category": "email_underscore_dash",
+    "text": "Adres kontaktowy: jan_kowalski@firma.pl, prosimy o potwierdzenie odbioru.",
+    "entities": [
+      { "type": "EMAIL", "value": "jan_kowalski@firma.pl" }
+    ]
+  },
+  {
+    "id": "email-005",
+    "category": "email_underscore_dash",
+    "text": "W zgłoszeniu podano adres jan-kowalski@firma.pl jako dane do korespondencji.",
+    "entities": [
+      { "type": "EMAIL", "value": "jan-kowalski@firma.pl" }
+    ]
+  },
+  {
+    "id": "email-006",
+    "category": "email_numeric_local",
+    "text": "Adres e-mail jkowalski42@firma.pl widnieje w danych rejestracyjnych konta.",
+    "entities": [
+      { "type": "EMAIL", "value": "jkowalski42@firma.pl" }
+    ]
+  },
+  {
+    "id": "email-007",
+    "category": "email_mixed_case",
+    "text": "Kontakt: Jan.Kowalski@Firma.PL, wielkość liter zapisana niekonsekwentnie.",
+    "entities": [
+      { "type": "EMAIL", "value": "Jan.Kowalski@Firma.PL" }
+    ]
+  },
+  {
+    "id": "email-008",
+    "category": "email_quoted_local_part",
+    "text": "Adres zapisany zgodnie z RFC jako \"jan kowalski\"@firma.pl pojawił się w starym eksporcie danych.",
+    "entities": [
+      { "type": "EMAIL", "value": "\"jan kowalski\"@firma.pl" }
+    ]
+  },
+  {
+    "id": "email-009",
+    "category": "email_subdomain",
+    "text": "Wiadomość wysłana z adresu jan.kowalski@mail.firma.com.pl wymaga weryfikacji nadawcy.",
+    "entities": [
+      { "type": "EMAIL", "value": "jan.kowalski@mail.firma.com.pl" }
+    ]
+  },
+  {
+    "id": "email-010",
+    "category": "email_short_tld",
+    "text": "Kontakt: jan.kowalski@startup.io, podany w stopce wiadomości.",
+    "entities": [
+      { "type": "EMAIL", "value": "jan.kowalski@startup.io" }
+    ]
+  },
+  {
+    "id": "email-011",
+    "category": "email_domain_hyphen",
+    "text": "Adres kontaktowy: jan.kowalski@firma-abc.pl, prosimy o potwierdzenie.",
+    "entities": [
+      { "type": "EMAIL", "value": "jan.kowalski@firma-abc.pl" }
+    ]
+  },
+  {
+    "id": "email-012",
+    "category": "email_ip_domain",
+    "text": "Techniczny adres testowy user@[192.168.1.1] pojawił się w logach systemowych.",
+    "entities": [
+      { "type": "EMAIL", "value": "user@[192.168.1.1]" }
+    ]
+  },
+  {
+    "id": "email-013",
+    "category": "email_angle_brackets_header",
+    "text": "W nagłówku wiadomości widnieje adres w formacie z nazwą wyświetlaną: Dział Obsługi Klienta <kontakt@firma.pl>.",
+    "entities": [
+      { "type": "EMAIL", "value": "kontakt@firma.pl" }
+    ]
+  },
+  {
+    "id": "email-014",
+    "category": "email_angle_brackets_header",
+    "text": "Odpowiedz proszę bezpośrednio na adres wskazany w nagłówku: Zespół Sprzedaży <sprzedaz@firma.pl>.",
+    "entities": [
+      { "type": "EMAIL", "value": "sprzedaz@firma.pl" }
+    ]
+  },
+  {
+    "id": "email-015",
+    "category": "email_label_prefix_no_space",
+    "text": "email:jan.kowalski@firma.pl (brak spacji po dwukropku, format wygenerowany automatycznie).",
+    "entities": [
+      { "type": "EMAIL", "value": "jan.kowalski@firma.pl" }
+    ]
+  },
+  {
+    "id": "email-016",
+    "category": "email_masked_at_dot",
+    "text": "Adres zapisany w formie zamaskowanej: jan (at) firma (dot) pl, spotykany w treściach chroniących przed botami spamowymi.",
+    "entities": [
+      { "type": "EMAIL", "value": "jan (at) firma (dot) pl" }
+    ]
+  },
+  {
+    "id": "email-017",
+    "category": "email_masked_at_dot",
+    "text": "Kontakt zapisany jako jan[at]firma.pl w stopce ogłoszenia.",
+    "entities": [
+      { "type": "EMAIL", "value": "jan[at]firma.pl" }
+    ]
+  },
+  {
+    "id": "email-018",
+    "category": "email_ocr_split",
+    "text": "Adres e-mail: jan.kowal-\nski@firma.pl (numer przeniesiony ze skanu, złamany na końcu linii).",
+    "entities": [
+      { "type": "EMAIL", "value": "jan.kowal-ski@firma.pl" }
+    ]
+  },
+  {
+    "id": "email-019",
+    "category": "email_glued_no_spacing",
+    "text": "kontakt:jan.kowalski@firma.plnumerzgloszenia2024 to ciąg wklejony bez separacji z formularza.",
+    "entities": [
+      { "type": "EMAIL", "value": "jan.kowalski@firma.pl" }
+    ]
+  },
+  {
+    "id": "email-020",
+    "category": "email_tutorial_example_true_negative",
+    "text": "Przykład z dokumentacji API: format adresu e-mail to jan.kowalski@example.com.",
+    "entities": [
+      { "type": "EMAIL", "value": "jan.kowalski@example.com" }
+    ]
+  },
+  {
+    "id": "email-021",
+    "category": "email_tutorial_example_true_negative",
+    "text": "W instrukcji użytkownika podano przykładowy adres: uzytkownik@example.org.",
+    "entities": [
+      { "type": "EMAIL", "value": "uzytkownik@example.org" }
+    ]
+  },
+  {
+    "id": "email-022",
+    "category": "email_role_functional_true_negative",
+    "text": "Wiadomości systemowe wysyłane są automatycznie z adresu noreply@firma.pl.",
+    "entities": [
+      { "type": "EMAIL", "value": "noreply@firma.pl" }
+    ]
+  },
+  {
+    "id": "email-023",
+    "category": "email_role_functional_true_negative",
+    "text": "W razie problemów technicznych proszę o kontakt na adres admin@firma.pl.",
+    "entities": [
+            { "type": "EMAIL", "value": "admin@firma.pl" }
+    ]
+  },
+  {
+    "id": "email-024",
+    "category": "email_false_positive_trap",
+    "text": "Pole 'adres e-mail': brak — wnioskodawca nie podał danych kontaktowych drogą elektroniczną.",
+    "entities": []
+  },
+  {
+    "id": "email-025",
+    "category": "email_false_positive_trap",
+    "text": "Osoba zgłaszająca nie posiada adresu e-mail i preferuje kontakt telefoniczny.",
+    "entities": []
+  },
+  {
+    "id": "email-026",
+    "category": "email_invalid_format_true_negative",
+    "text": "Ciąg jan.kowalski#firma.pl pojawił się w dokumencie, lecz nie jest poprawnym adresem e-mail z powodu błędnego znaku.",
+    "entities": []
+  },
+  {
+    "id": "email-027",
+    "category": "email_invalid_format_true_negative",
+    "text": "Zapis jan@@firma.pl zawiera podwójny znak małpy i nie stanowi poprawnego adresu e-mail.",
+    "entities": []
+  },
+  {
+    "id": "email-028",
+    "category": "email_invalid_format_true_negative",
+    "text": "Wpis jan.kowalski@firmapl jest niepoprawny, ponieważ w domenie brakuje kropki przed końcówką.",
+    "entities": []
+  },
+  {
+    "id": "email-029",
+    "category": "email_multiple_in_document",
+    "text": "W stopce wiadomości podano dwa adresy: jan.kowalski@firma.pl oraz anna.nowak@firma.pl, odpowiadające dwóm różnym osobom kontaktowym.",
+    "entities": [
+      { "type": "EMAIL", "value": "jan.kowalski@firma.pl" },
+      { "type": "EMAIL", "value": "anna.nowak@firma.pl" }
+    ]
+  },
+  {
+    "id": "email-030",
+    "category": "email_mailto_link",
+    "text": "Formularz zawiera odnośnik mailto:jan.kowalski@firma.pl?subject=Zgloszenie, prowadzący bezpośrednio do programu pocztowego.",
+    "entities": [
+      { "type": "EMAIL", "value": "jan.kowalski@firma.pl" }
+    ]
+  }
+]

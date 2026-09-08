@@ -1,0 +1,229 @@
+[
+  {
+    "id": "pesel-001",
+    "category": "pesel_basic",
+    "text": "Numer PESEL 85072212339 wpisany we wniosku wymaga potwierdzenia zgodności z dokumentem tożsamości.",
+    "entities": [
+      { "type": "PESEL", "value": "85072212339" }
+    ]
+  },
+  {
+    "id": "pesel-002",
+    "category": "pesel_basic",
+    "text": "W formularzu zgłoszeniowym podano PESEL: 78113044440.",
+    "entities": [
+      { "type": "PESEL", "value": "78113044440" }
+    ]
+  },
+  {
+    "id": "pesel-003",
+    "category": "pesel_spaces",
+    "text": "Dane osobowe: PESEL 99 09 09 1112 3, prosimy o weryfikację przed przetworzeniem wniosku.",
+    "entities": [
+      { "type": "PESEL", "value": "99 09 09 1112 3" }
+    ]
+  },
+  {
+    "id": "pesel-004",
+    "category": "pesel_spaces",
+    "text": "PESEL: 85 07 22 1233 9 należy podać w polu identyfikacyjnym.",
+    "entities": [
+      { "type": "PESEL", "value": "85 07 22 1233 9" }
+    ]
+  },
+  {
+    "id": "pesel-005",
+    "category": "pesel_date_segment_hyphen",
+    "text": "PESEL zapisany jako 052315-67898 w starym systemie kadrowym wymaga konwersji do formatu bez separatora.",
+    "entities": [
+      { "type": "PESEL", "value": "052315-67898" }
+    ]
+  },
+  {
+    "id": "pesel-006",
+    "category": "pesel_ocr_split",
+    "text": "PESEL: 850722-\n12339 (numer przeniesiony ze skanu wniosku, złamany na końcu linii).",
+    "entities": [
+      { "type": "PESEL", "value": "850722-12339" }
+    ]
+  },
+  {
+    "id": "pesel-007",
+    "category": "pesel_leading_zero",
+    "text": "PESEL: 03011522233 — proszę zwrócić uwagę na wiodące zero przy imporcie do arkusza kalkulacyjnego, które bywa automatycznie usuwane.",
+    "entities": [
+      { "type": "PESEL", "value": "03011522233" }
+    ]
+  },
+  {
+    "id": "pesel-008",
+    "category": "pesel_leading_zero_stripped",
+    "text": "Po imporcie z arkusza numer PESEL wyświetlił się jako 3011522233 (bez wiodącego zera), co uniemożliwiło poprawną walidację.",
+    "entities": []
+  },
+  {
+    "id": "pesel-009",
+    "category": "pesel_century_month_shift",
+    "text": "PESEL 05231567898 zawiera oznaczenie miesiąca przesunięte o dwadzieścia ze względu na rok urodzenia po 2000, co bywa błędnie odrzucane przez proste walidatory zakresu 01-12.",
+    "entities": [
+      { "type": "PESEL", "value": "05231567898" }
+    ]
+  },
+  {
+    "id": "pesel-010",
+    "category": "pesel_century_month_shift",
+    "text": "PESEL 55861020203 koduje miesiąc podniesiony o osiemdziesiąt, co wskazuje na osobę urodzoną w XIX wieku.",
+    "entities": [
+      { "type": "PESEL", "value": "55861020203" }
+    ]
+  },
+  {
+    "id": "pesel-011",
+    "category": "pesel_leap_year_day",
+    "text": "PESEL 00222945617 zawiera dzień 29 lutego roku przestępnego, co powinno przejść walidację poprawności daty.",
+    "entities": [
+      { "type": "PESEL", "value": "00222945617" }
+    ]
+  },
+  {
+    "id": "pesel-012",
+    "category": "pesel_numeric_distractor",
+    "text": "Numer referencyjny 8507221233 różni się o jedną cyfrę od numeru PESEL 85072212339 podanego w tym samym wniosku.",
+    "entities": [
+      { "type": "PESEL", "value": "85072212339" }
+    ]
+  },
+  {
+    "id": "pesel-013",
+    "category": "pesel_numeric_distractor",
+    "text": "Numer referencyjny 990909111 widnieje obok numeru PESEL 99090911123 w tej samej rubryce formularza.",
+    "entities": [
+      { "type": "PESEL", "value": "99090911123" }
+    ]
+  },
+  {
+    "id": "pesel-014",
+    "category": "pesel_numeric_distractor",
+    "text": "Seria i numer dokumentu ABC123456 znajdują się bezpośrednio nad numerem PESEL 78113044440 w tabeli danych osobowych.",
+    "entities": [
+      { "type": "PESEL", "value": "78113044440" }
+    ]
+  },
+  {
+    "id": "pesel-015",
+    "category": "pesel_numeric_distractor",
+    "text": "Ciąg cyfr 0102030405060708091011 pojawia się w tym samym dokumencie co PESEL 03011522233, lecz stanowi inny rodzaj identyfikatora.",
+    "entities": [
+      { "type": "PESEL", "value": "03011522233" }
+    ]
+  },
+  {
+    "id": "pesel-016",
+    "category": "pesel_invalid_checksum",
+    "text": "PESEL 44051401352 nie przechodzi walidacji sumy kontrolnej, mimo poprawnego formatu.",
+    "entities": []
+  },
+  {
+    "id": "pesel-017",
+    "category": "pesel_invalid_checksum",
+    "text": "System odrzucił zgłoszenie z numerem PESEL 85072212335 z powodu niezgodności cyfry kontrolnej.",
+    "entities": []
+  },
+  {
+    "id": "pesel-018",
+    "category": "pesel_test_placeholder_true_negative",
+    "text": "W dokumentacji testowej użyto przykładowego numeru PESEL: 00000000000 do celów integracyjnych.",
+    "entities": []
+  },
+  {
+    "id": "pesel-019",
+    "category": "pesel_test_placeholder_true_negative",
+    "text": "Numer testowy w środowisku sandbox: PESEL 11111111111 nie odpowiada rzeczywistej osobie.",
+    "entities": []
+  },
+  {
+    "id": "pesel-020",
+    "category": "pesel_tutorial_example_true_negative",
+    "text": "Przykład z podręcznika programisty: walidacja formatu na numerze PESEL 44051401359.",
+    "entities": [
+      { "type": "PESEL", "value": "44051401359" }
+    ]
+  },
+  {
+    "id": "pesel-021",
+    "category": "pesel_false_positive_trap",
+    "text": "Formularz zawiera pole PESEL: nie dotyczy — wnioskodawca nie posiada polskiego numeru ewidencyjnego.",
+    "entities": []
+  },
+  {
+    "id": "pesel-022",
+    "category": "pesel_false_positive_trap",
+    "text": "Cudzoziemiec nieposiadający numeru PESEL może złożyć wniosek na podstawie innego dokumentu tożsamości.",
+    "entities": []
+  },
+  {
+    "id": "pesel-023",
+    "category": "pesel_masked_partial_true_negative",
+    "text": "W dokumencie źródłowym numer widnieje już częściowo zamaskowany jako 85072212***, co utrudnia jego pełną identyfikację.",
+    "entities": []
+  },
+  {
+    "id": "pesel-024",
+    "category": "pesel_multiple_in_document",
+    "text": "Wniosek rodzinny zawiera dwa numery PESEL: 85072212339 oraz 05231567898, odpowiadające dwóm różnym wnioskodawcom.",
+    "entities": [
+      { "type": "PESEL", "value": "85072212339" },
+      { "type": "PESEL", "value": "05231567898" }
+    ]
+  },
+  {
+    "id": "pesel-025",
+    "category": "pesel_multiple_in_document",
+    "text": "W tabeli uczestników znajdują się numery PESEL 78113044440, 99090911123 oraz 03011522233.",
+    "entities": [
+      { "type": "PESEL", "value": "78113044440" },
+      { "type": "PESEL", "value": "99090911123" },
+      { "type": "PESEL", "value": "03011522233" }
+    ]
+  },
+  {
+    "id": "pesel-026",
+    "category": "pesel_glued_no_spacing",
+    "text": "PESEL85072212339numer_wniosku778812 to ciąg wklejony bez separacji z systemu źródłowego.",
+    "entities": [
+      { "type": "PESEL", "value": "85072212339" }
+    ]
+  },
+  {
+    "id": "pesel-027",
+    "category": "pesel_glued_no_spacing",
+    "text": "Wklejony ciąg 0301152223399 zawiera prawdopodobnie PESEL 03011522233 z dodatkowymi cyframi na końcu wynikającymi z błędu kopiowania.",
+    "entities": [
+      { "type": "PESEL", "value": "03011522233" }
+    ]
+  },
+  {
+    "id": "pesel-028",
+    "category": "pesel_date_segment_dots",
+    "text": "Numer PESEL zapisany w starym formularzu jako 78.11.30.4444.0 wymaga konwersji do formatu cyfrowego bez kropek.",
+    "entities": [
+      { "type": "PESEL", "value": "78.11.30.4444.0" }
+    ]
+  },
+  {
+    "id": "pesel-029",
+    "category": "pesel_label_prefix",
+    "text": "Proszę podać numer PESEL wnioskodawcy: 99090911123, zgodnie z instrukcją formularza.",
+    "entities": [
+      { "type": "PESEL", "value": "99090911123" }
+    ]
+  },
+  {
+    "id": "pesel-030",
+    "category": "pesel_label_no_space",
+    "text": "PESEL:78113044440 (brak spacji po dwukropku, format wygenerowany automatycznie).",
+    "entities": [
+      { "type": "PESEL", "value": "78113044440" }
+    ]
+  }
+]

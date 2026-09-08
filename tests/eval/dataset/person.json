@@ -1,0 +1,397 @@
+[
+  {
+    "id": "person-001",
+    "category": "person_nominative",
+    "text": "Jan Kowalski złożył podpis pod dokumentem w obecności świadków.",
+    "entities": [
+      { "type": "PERSON", "value": "Jan Kowalski" }
+    ]
+  },
+  {
+    "id": "person-002",
+    "category": "person_nominative",
+    "text": "Anna Nowak potwierdziła odbiór przesyłki osobiście.",
+    "entities": [
+      { "type": "PERSON", "value": "Anna Nowak" }
+    ]
+  },
+  {
+    "id": "person-003",
+    "category": "person_genitive",
+    "text": "Do wniosku dołączono kopię dowodu osobistego Jana Kowalskiego.",
+    "entities": [
+      { "type": "PERSON", "value": "Jana Kowalskiego" }
+    ]
+  },
+  {
+    "id": "person-004",
+    "category": "person_genitive",
+    "text": "Dane kontaktowe Anny Nowak zostały zaktualizowane w systemie.",
+    "entities": [
+      { "type": "PERSON", "value": "Anny Nowak" }
+    ]
+  },
+  {
+    "id": "person-005",
+    "category": "person_dative",
+    "text": "Dokumenty przekazano Janowi Kowalskiemu do dalszego rozpatrzenia.",
+    "entities": [
+      { "type": "PERSON", "value": "Janowi Kowalskiemu" }
+    ]
+  },
+  {
+    "id": "person-006",
+    "category": "person_dative",
+    "text": "Annie Nowak wysłano potwierdzenie rejestracji.",
+    "entities": [
+      { "type": "PERSON", "value": "Annie Nowak" }
+    ]
+  },
+  {
+    "id": "person-007",
+    "category": "person_accusative",
+    "text": "Sekretariat poinformował Jana Kowalskiego o terminie rozprawy.",
+    "entities": [
+      { "type": "PERSON", "value": "Jana Kowalskiego" }
+    ]
+  },
+  {
+    "id": "person-008",
+    "category": "person_accusative",
+    "text": "Poproszono Annę Nowak o dostarczenie brakujących dokumentów.",
+    "entities": [
+      { "type": "PERSON", "value": "Annę Nowak" }
+    ]
+  },
+  {
+    "id": "person-009",
+    "category": "person_instrumental",
+    "text": "Rozmowę przeprowadzono z Janem Kowalskim w obecności pełnomocnika.",
+    "entities": [
+      { "type": "PERSON", "value": "Janem Kowalskim" }
+    ]
+  },
+  {
+    "id": "person-010",
+    "category": "person_instrumental",
+    "text": "Umowa została podpisana z Anną Nowak w siedzibie kancelarii.",
+    "entities": [
+      { "type": "PERSON", "value": "Anną Nowak" }
+    ]
+  },
+  {
+    "id": "person-011",
+    "category": "person_locative",
+    "text": "W protokole wspomniano o Janie Kowalskim jako świadku zdarzenia.",
+    "entities": [
+      { "type": "PERSON", "value": "Janie Kowalskim" }
+    ]
+  },
+  {
+    "id": "person-012",
+    "category": "person_locative",
+    "text": "W aktach sprawy znajduje się notatka o Annie Nowak.",
+    "entities": [
+      { "type": "PERSON", "value": "Annie Nowak" }
+    ]
+  },
+  {
+    "id": "person-013",
+    "category": "person_vocative",
+    "text": "Janie Kowalski, proszę potwierdzić odbiór korespondencji!",
+    "entities": [
+      { "type": "PERSON", "value": "Janie Kowalski" }
+    ]
+  },
+  {
+    "id": "person-014",
+    "category": "person_female_surname_declension",
+    "text": "Katarzyna Lewandowska złożyła wniosek o wydanie zaświadczenia.",
+    "entities": [
+      { "type": "PERSON", "value": "Katarzyna Lewandowska" }
+    ]
+  },
+  {
+    "id": "person-015",
+    "category": "person_female_surname_declension",
+    "text": "Pismo skierowano do Katarzyny Lewandowskiej w trybie pilnym.",
+    "entities": [
+      { "type": "PERSON", "value": "Katarzyny Lewandowskiej" }
+    ]
+  },
+  {
+    "id": "person-016",
+    "category": "person_indeclinable_female_surname",
+    "text": "Z Anną Nowak skontaktowano się telefonicznie w sprawie wizyty, samo nazwisko pozostaje nieodmienne w każdym przypadku.",
+    "entities": [
+      { "type": "PERSON", "value": "Anną Nowak" }
+    ]
+  },
+  {
+    "id": "person-017",
+    "category": "person_surname_first_order",
+    "text": "W tabeli zgłoszeń widnieje wpis: Kowalski Jan, zgłoszenie oznaczone jako priorytetowe.",
+    "entities": [
+      { "type": "PERSON", "value": "Kowalski Jan" }
+    ]
+  },
+  {
+    "id": "person-018",
+    "category": "person_surname_first_order",
+    "text": "Lista obecności zawiera wpis: Nowak Anna.",
+    "entities": [
+      { "type": "PERSON", "value": "Nowak Anna" }
+    ]
+  },
+  {
+    "id": "person-019",
+    "category": "person_first_name_only",
+    "text": "Jan potwierdził odbiór dokumentów jeszcze tego samego dnia.",
+    "entities": [
+      { "type": "PERSON", "value": "Jan" }
+    ]
+  },
+  {
+    "id": "person-020",
+    "category": "person_surname_only_with_honorific",
+    "text": "Pan Kowalski zgłosił się osobiście do sekretariatu w celu wyjaśnienia sprawy.",
+    "entities": [
+      { "type": "PERSON", "value": "Kowalski" }
+    ]
+  },
+  {
+    "id": "person-021",
+    "category": "person_initial_first_name",
+    "text": "J. Kowalski złożył wyjaśnienia w formie pisemnej.",
+    "entities": [
+      { "type": "PERSON", "value": "J. Kowalski" }
+    ]
+  },
+  {
+    "id": "person-022",
+    "category": "person_initial_first_name",
+    "text": "Dokument podpisany przez A. Nowak.",
+    "entities": [
+      { "type": "PERSON", "value": "A. Nowak" }
+    ]
+  },
+  {
+    "id": "person-023",
+    "category": "person_initials_both",
+    "text": "Skrót J. Kowalski widnieje przy podpisie na końcu dokumentu zamiast pełnego imienia i nazwiska.",
+    "entities": [
+      { "type": "PERSON", "value": "J. Kowalski" }
+    ]
+  },
+  {
+    "id": "person-024",
+    "category": "person_compound_surname_hyphen",
+    "text": "Ewa Kowalska-Nowak reprezentowała stronę podczas negocjacji.",
+    "entities": [
+      { "type": "PERSON", "value": "Ewa Kowalska-Nowak" }
+    ]
+  },
+  {
+    "id": "person-025",
+    "category": "person_compound_surname_hyphen",
+    "text": "Umowę podpisano w imieniu Tomasza Wójcika-Zawadzkiego.",
+    "entities": [
+      { "type": "PERSON", "value": "Tomasza Wójcika-Zawadzkiego" }
+    ]
+  },
+  {
+    "id": "person-026",
+    "category": "person_dual_surname_maiden_married",
+    "text": "W dokumencie wymieniono Annę Nowak, z domu Kowalską, jako stronę umowy.",
+    "entities": [
+      { "type": "PERSON", "value": "Annę Nowak" },
+      { "type": "PERSON", "value": "Kowalską" }
+    ]
+  },
+  {
+    "id": "person-027",
+    "category": "person_foreign_prefix_surname",
+    "text": "Kontrahent reprezentowany był przez Klausa von Brauna podczas spotkania.",
+    "entities": [
+      { "type": "PERSON", "value": "Klausa von Brauna" }
+    ]
+  },
+  {
+    "id": "person-028",
+    "category": "person_title_prefix",
+    "text": "Dokument podpisał dr Jan Kowalski, zgodnie z pełnomocnictwem.",
+    "entities": [
+      { "type": "PERSON", "value": "Jan Kowalski" }
+    ]
+  },
+  {
+    "id": "person-029",
+    "category": "person_title_prefix",
+    "text": "Opinię sporządziła mgr inż. Anna Nowak.",
+    "entities": [
+      { "type": "PERSON", "value": "Anna Nowak" }
+    ]
+  },
+  {
+    "id": "person-030",
+    "category": "person_title_prefix",
+    "text": "Ekspertyzę podpisał prof. dr hab. Piotr Wiśniewski.",
+    "entities": [
+      { "type": "PERSON", "value": "Piotr Wiśniewski" }
+    ]
+  },
+  {
+    "id": "person-031",
+    "category": "person_honorific_prefix",
+    "text": "Pan Kowalski poprosił o przesunięcie terminu spotkania.",
+    "entities": [
+      { "type": "PERSON", "value": "Kowalski" }
+    ]
+  },
+  {
+    "id": "person-032",
+    "category": "person_honorific_prefix",
+    "text": "Pani Anna zgłosiła się do biura obsługi klienta.",
+    "entities": [
+      { "type": "PERSON", "value": "Anna" }
+    ]
+  },
+  {
+    "id": "person-033",
+    "category": "person_diminutive",
+    "text": "Jaś obiecał dostarczyć brakujące dokumenty do piątku.",
+    "entities": [
+      { "type": "PERSON", "value": "Jaś" }
+    ]
+  },
+  {
+    "id": "person-034",
+    "category": "person_diminutive",
+    "text": "Kasia potwierdziła udział w spotkaniu telefonicznie.",
+    "entities": [
+      { "type": "PERSON", "value": "Kasia" }
+    ]
+  },
+  {
+    "id": "person-035",
+    "category": "person_diminutive",
+    "text": "Piotrek przesłał poprawiony wniosek jeszcze tego samego wieczoru.",
+    "entities": [
+      { "type": "PERSON", "value": "Piotrek" }
+    ]
+  },
+  {
+    "id": "person-036",
+    "category": "person_homonym_surname_common_word",
+    "text": "Pan Kowal złożył reklamację dotyczącą zamówienia.",
+    "entities": [
+      { "type": "PERSON", "value": "Kowal" }
+    ]
+  },
+  {
+    "id": "person-037",
+    "category": "person_homonym_surname_common_word",
+    "text": "Nazwisko Wilk pojawia się w rejestrze wśród zgłaszających.",
+    "entities": [
+      { "type": "PERSON", "value": "Wilk" }
+    ]
+  },
+  {
+    "id": "person-038",
+    "category": "person_surname_in_company_name_true_negative",
+    "text": "Firma Kowalski Sp. z o.o. złożyła ofertę w przetargu.",
+    "entities": [
+      { "type": "ORGANIZATION", "value": "Kowalski Sp. z o.o." }
+    ]
+  },
+  
+  {
+    "id": "person-039",
+    "category": "person_historical_fictional_reference_true_negative",
+    "text": "Produkt o nazwie 'Kolumb' został wprowadzony na rynek w zeszłym kwartale.",
+    "entities": []
+  },
+  {
+    "id": "person-040",
+    "category": "person_glued_no_spacing",
+    "text": "JanKowalski to ciąg wklejony bez separacji z systemu źródłowego, reprezentujący imię i nazwisko wnioskodawcy.",
+    "entities": [
+      { "type": "PERSON", "value": "JanKowalski" }
+    ]
+  },
+  {
+    "id": "person-041",
+    "category": "person_ocr_split",
+    "text": "Dokument podpisał Jan Kowal-\nski zgodnie z pełnomocnictwem, złamane na końcu linii skanu.",
+    "entities": [
+      { "type": "PERSON", "value": "Jan Kowal-ski" }
+    ]
+  },
+  {
+    "id": "person-042",
+    "category": "person_all_caps",
+    "text": "W formularzu urzędowym wpisano: KOWALSKI JAN, zgodnie z danymi z dowodu osobistego.",
+    "entities": [
+      { "type": "PERSON", "value": "KOWALSKI JAN" }
+    ]
+  },
+  {
+    "id": "person-043",
+    "category": "person_transliterated_no_diacritics",
+    "text": "W eksporcie danych nazwisko wnioskodawcy zapisano jako Wozniak, ponieważ system nie obsługiwał polskich znaków diakrytycznych.",
+    "entities": [
+      { "type": "PERSON", "value": "Wozniak" }
+    ]
+  },
+  {
+    "id": "person-044",
+    "category": "person_false_positive_trap",
+    "text": "Pole 'imię i nazwisko': nie dotyczy — zgłoszenie złożone przez podmiot zbiorowy.",
+    "entities": []
+  },
+  {
+    "id": "person-045",
+    "category": "person_false_positive_trap",
+    "text": "Dane osobowe wnioskodawcy są niepełne, brak podanego imienia i nazwiska w formularzu.",
+    "entities": []
+  },
+  {
+    "id": "person-046",
+    "category": "person_multiple_in_document",
+    "text": "Stronami umowy są Jan Kowalski oraz Anna Nowak, reprezentujący odpowiednio sprzedającego i kupującego.",
+    "entities": [
+      { "type": "PERSON", "value": "Jan Kowalski" },
+      { "type": "PERSON", "value": "Anna Nowak" }
+    ]
+  },
+  {
+    "id": "person-047",
+    "category": "person_multiple_in_document",
+    "text": "Na liście świadków wpisano: Piotr Wiśniewski, Tomasz Wójcik oraz Katarzyna Lewandowska.",
+    "entities": [
+      { "type": "PERSON", "value": "Piotr Wiśniewski" },
+      { "type": "PERSON", "value": "Tomasz Wójcik" },
+      { "type": "PERSON", "value": "Katarzyna Lewandowska" }
+    ]
+  },
+  {
+    "id": "person-048",
+    "category": "person_role_only_true_negative",
+    "text": "Kierownik działu potwierdził przyjęcie zgłoszenia do realizacji.",
+    "entities": []
+  },
+  {
+    "id": "person-049",
+    "category": "person_role_only_true_negative",
+    "text": "Osoba odpowiedzialna za projekt przekazała dokumentację do archiwum.",
+    "entities": []
+  },
+  {
+    "id": "person-050",
+    "category": "person_nickname_unrelated_to_name",
+    "text": "W nieformalnej korespondencji użyto pseudonimu 'Lisek' zamiast pełnego imienia i nazwiska adresata.",
+    "entities": [
+      { "type": "PERSON", "value": "Lisek" }
+    ]
+  }
+]

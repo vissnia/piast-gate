@@ -8,7 +8,6 @@ class PIIType(Enum):
     PERSON = auto()
     LOCATION = auto()
     ORGANIZATION = auto()
-    DATE = auto()
     BANK_ACCOUNT = auto()
     NIP = auto()
     REGON = auto()

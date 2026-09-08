@@ -1,0 +1,400 @@
+[
+  {
+    "id": "location-001",
+    "category": "location_full_address_basic",
+    "text": "Adres zamieszkania: ul. Polna 3, 30-001 Kraków.",
+    "entities": [
+      { "type": "LOCATION", "value": "ul. Polna 3, 30-001 Kraków" }
+    ]
+  },
+  {
+    "id": "location-002",
+    "category": "location_full_address_basic",
+    "text": "Korespondencję proszę kierować na adres: ul. Długa 15, 00-238 Warszawa.",
+    "entities": [
+      { "type": "LOCATION", "value": "ul. Długa 15, 00-238 Warszawa" }
+    ]
+  },
+  {
+    "id": "location-003",
+    "category": "location_full_address_basic",
+    "text": "Siedziba firmy mieści się pod adresem ul. Kwiatowa 7, 61-001 Poznań.",
+    "entities": [
+      { "type": "LOCATION", "value": "ul. Kwiatowa 7, 61-001 Poznań" }
+    ]
+  },
+  {
+    "id": "location-004",
+    "category": "location_full_address_reversed_order",
+    "text": "Adres: 30-001 Kraków, ul. Polna 3.",
+    "entities": [
+      { "type": "LOCATION", "value": "30-001 Kraków, ul. Polna 3" }
+    ]
+  },
+  {
+    "id": "location-005",
+    "category": "location_street_prefix_al",
+    "text": "Biuro znajduje się przy al. Niepodległości 12, 02-653 Warszawa.",
+    "entities": [
+      { "type": "LOCATION", "value": "al. Niepodległości 12, 02-653 Warszawa" }
+    ]
+  },
+  {
+    "id": "location-006",
+    "category": "location_street_prefix_pl",
+    "text": "Spotkanie odbędzie się przy pl. Wolności 4, 61-738 Poznań.",
+    "entities": [
+      { "type": "LOCATION", "value": "pl. Wolności 4, 61-738 Poznań" }
+    ]
+  },
+  {
+    "id": "location-007",
+    "category": "location_street_prefix_os",
+    "text": "Mieszkanie znajduje się na os. Słoneczne 9, 31-215 Kraków.",
+    "entities": [
+      { "type": "LOCATION", "value": "os. Słoneczne 9, 31-215 Kraków" }
+    ]
+  },
+  {
+    "id": "location-008",
+    "category": "location_building_number_letter",
+    "text": "Adres do doręczeń: ul. Leśna 12A, 40-001 Katowice.",
+    "entities": [
+      { "type": "LOCATION", "value": "ul. Leśna 12A, 40-001 Katowice" }
+    ]
+  },
+  {
+    "id": "location-009",
+    "category": "location_building_apartment_number_slash",
+    "text": "Adres zamieszkania: ul. Polna 12/3, 30-001 Kraków.",
+    "entities": [
+      { "type": "LOCATION", "value": "ul. Polna 12/3, 30-001 Kraków" }
+    ]
+  },
+  {
+    "id": "location-010",
+    "category": "location_building_apartment_number_m",
+    "text": "Adres korespondencyjny: ul. Polna 12 m. 3, 30-001 Kraków.",
+    "entities": [
+      { "type": "LOCATION", "value": "ul. Polna 12 m. 3, 30-001 Kraków" }
+    ]
+  },
+  {
+    "id": "location-011",
+    "category": "location_postal_code_no_dash",
+    "text": "Adres: ul. Polna 3, 30001 Kraków (kod pocztowy zapisany bez myślnika).",
+    "entities": [
+      { "type": "LOCATION", "value": "ul. Polna 3, 30001 Kraków" }
+    ]
+  },
+  {
+    "id": "location-012",
+    "category": "location_city_only",
+    "text": "Wnioskodawca zamieszkuje w Krakowie.",
+    "entities": [
+      { "type": "LOCATION", "value": "Krakowie" }
+    ]
+  },
+  {
+    "id": "location-013",
+    "category": "location_city_only",
+    "text": "Spotkanie zaplanowano w Poznaniu.",
+    "entities": [
+      { "type": "LOCATION", "value": "Poznaniu" }
+    ]
+  },
+  {
+    "id": "location-014",
+    "category": "location_voivodeship_only",
+    "text": "Podmiot prowadzi działalność na terenie województwa małopolskiego.",
+    "entities": [
+      { "type": "LOCATION", "value": "województwa małopolskiego" }
+    ]
+  },
+  {
+    "id": "location-015",
+    "category": "location_powiat_only",
+    "text": "Nieruchomość położona jest w powiecie nowosądeckim.",
+    "entities": [
+      { "type": "LOCATION", "value": "powiecie nowosądeckim" }
+    ]
+  },
+  {
+    "id": "location-016",
+    "category": "location_gmina_only",
+    "text": "Inwestycja realizowana jest na terenie gminy Chełmiec.",
+    "entities": [
+      { "type": "LOCATION", "value": "gminy Chełmiec" }
+    ]
+  },
+  {
+    "id": "location-017",
+    "category": "location_full_administrative_hierarchy",
+    "text": "Adres: woj. małopolskie, powiat nowosądecki, gmina Chełmiec, miejscowość Marcinkowice.",
+    "entities": [
+      { "type": "LOCATION", "value": "woj. małopolskie" },
+      { "type": "LOCATION", "value": "powiat nowosądecki" },
+      { "type": "LOCATION", "value": "gmina Chełmiec" },
+      { "type": "LOCATION", "value": "miejscowość Marcinkowice" }
+    ]
+  },
+  {
+    "id": "location-018",
+    "category": "location_organization_collision_true_negative",
+    "text": "Pismo skierowano do Urzędu Skarbowego w Krakowie.",
+    "entities": []
+  },
+  {
+    "id": "location-019",
+    "category": "location_organization_collision_true_negative",
+    "text": "Sprawę rozpatruje Sąd Rejonowy dla Warszawy-Śródmieścia.",
+    "entities": []
+  },
+  {
+    "id": "location-020",
+    "category": "location_homonym_ambiguous_true_negative",
+    "text": "W dokumencie wspomniano Wolę, bez dalszego kontekstu wskazującego, o jaki obszar chodzi.",
+    "entities": []
+  },
+  {
+    "id": "location-021",
+    "category": "location_homonym_with_context",
+    "text": "Nieruchomość znajduje się na Woli w Warszawie.",
+    "entities": [
+      { "type": "LOCATION", "value": "Woli w Warszawie" }
+    ]
+  },
+  {
+    "id": "location-022",
+    "category": "location_company_vs_residential_same_doc",
+    "text": "Adres zamieszkania wnioskodawcy: ul. Kwiatowa 5, 30-002 Kraków, natomiast adres siedziby firmy to ul. Przemysłowa 10, 31-500 Kraków.",
+    "entities": [
+      { "type": "LOCATION", "value": "ul. Kwiatowa 5, 30-002 Kraków" },
+      { "type": "LOCATION", "value": "ul. Przemysłowa 10, 31-500 Kraków" }
+    ]
+  },
+  {
+    "id": "location-023",
+    "category": "location_foreign_address_basic",
+    "text": "Adres kontrahenta: Musterstraße 12, 10115 Berlin, Niemcy.",
+    "entities": [
+      { "type": "LOCATION", "value": "Musterstraße 12, 10115 Berlin, Niemcy" }
+    ]
+  },
+  {
+    "id": "location-024",
+    "category": "location_foreign_address_basic",
+    "text": "Korespondencję proszę kierować na adres: 221B Baker Street, London NW1 6XE.",
+    "entities": [
+      { "type": "LOCATION", "value": "221B Baker Street, London NW1 6XE" }
+    ]
+  },
+  {
+    "id": "location-025",
+    "category": "location_country_name_only",
+    "text": "Firma prowadzi działalność na terenie Niemiec.",
+    "entities": [
+      { "type": "LOCATION", "value": "Niemiec" }
+    ]
+  },
+  {
+    "id": "location-026",
+    "category": "location_country_name_only",
+    "text": "Kontrahent pochodzi z Francji.",
+    "entities": [
+      { "type": "LOCATION", "value": "Francji" }
+    ]
+  },
+  {
+    "id": "location-027",
+    "category": "location_glued_no_spacing",
+    "text": "ul.Polna3,30-001Kraków to ciąg wklejony bez separacji z formularza.",
+    "entities": [
+      { "type": "LOCATION", "value": "ul.Polna3,30-001Kraków" }
+    ]
+  },
+  {
+    "id": "location-028",
+    "category": "location_ocr_split",
+    "text": "Adres: ul. Polna 3, 30-\n001 Kraków (numer przeniesiony ze skanu, złamany na końcu linii).",
+    "entities": [
+      { "type": "LOCATION", "value": "ul. Polna 3, 30-001 Kraków" }
+    ]
+  },
+  {
+    "id": "location-029",
+    "category": "location_all_caps",
+    "text": "W formularzu urzędowym wpisano: UL. POLNA 3, 30-001 KRAKÓW, zgodnie z danymi z dowodu osobistego.",
+    "entities": [
+      { "type": "LOCATION", "value": "UL. POLNA 3, 30-001 KRAKÓW" }
+    ]
+  },
+  {
+    "id": "location-030",
+    "category": "location_false_positive_trap_generic_office",
+    "text": "Spotkanie odbędzie się w biurze, szczegóły zostaną przesłane później.",
+    "entities": []
+  },
+  {
+    "id": "location-031",
+    "category": "location_false_positive_trap_remote",
+    "text": "Praca będzie wykonywana zdalnie, bez konieczności stawiennictwa w siedzibie firmy.",
+    "entities": []
+  },
+  {
+    "id": "location-032",
+    "category": "location_false_positive_trap_nie_dotyczy",
+    "text": "Pole 'adres': nie dotyczy — dokument nie wymaga podania lokalizacji.",
+    "entities": []
+  },
+  {
+    "id": "location-033",
+    "category": "location_multiple_addresses_residential_correspondence",
+    "text": "Adres zamieszkania: ul. Kwiatowa 5, 30-002 Kraków. Adres do korespondencji: ul. Skrzynkowa 8, 31-000 Kraków.",
+    "entities": [
+      { "type": "LOCATION", "value": "ul. Kwiatowa 5, 30-002 Kraków" },
+      { "type": "LOCATION", "value": "ul. Skrzynkowa 8, 31-000 Kraków" }
+    ]
+  },
+  {
+    "id": "location-034",
+    "category": "location_multiple_addresses_parties",
+    "text": "Strony umowy mają siedziby pod adresami: ul. Przemysłowa 10, 31-500 Kraków oraz ul. Fabryczna 3, 90-001 Łódź.",
+    "entities": [
+      { "type": "LOCATION", "value": "ul. Przemysłowa 10, 31-500 Kraków" },
+      { "type": "LOCATION", "value": "ul. Fabryczna 3, 90-001 Łódź" }
+    ]
+  },
+  {
+    "id": "location-035",
+    "category": "location_historical_previous_address",
+    "text": "Poprzedni adres wnioskodawcy to ul. Ogrodowa 2, 00-001 Warszawa, obecny adres to ul. Parkowa 9, 02-001 Warszawa.",
+    "entities": [
+      { "type": "LOCATION", "value": "ul. Ogrodowa 2, 00-001 Warszawa" },
+      { "type": "LOCATION", "value": "ul. Parkowa 9, 02-001 Warszawa" }
+    ]
+  },
+  {
+    "id": "location-036",
+    "category": "location_label_prefix",
+    "text": "Proszę podać adres zamieszkania: ul. Polna 3, 30-001 Kraków, zgodnie z instrukcją formularza.",
+    "entities": [
+      { "type": "LOCATION", "value": "ul. Polna 3, 30-001 Kraków" }
+    ]
+  },
+  {
+    "id": "location-037",
+    "category": "location_label_no_space",
+    "text": "Adres:ul. Polna 3, 30-001 Kraków (brak spacji po dwukropku, format wygenerowany automatycznie).",
+    "entities": [
+      { "type": "LOCATION", "value": "ul. Polna 3, 30-001 Kraków" }
+    ]
+  },
+  {
+    "id": "location-038",
+    "category": "location_postal_code_city_only_no_street",
+    "text": "Dokumenty należy przesłać na adres: 30-001 Kraków.",
+    "entities": [
+      { "type": "LOCATION", "value": "30-001 Kraków" }
+    ]
+  },
+  {
+    "id": "location-039",
+    "category": "location_multiple_administrative_units",
+    "text": "Inwestycja obejmuje teren gminy Chełmiec oraz sąsiedniej gminy Łącko.",
+    "entities": [
+      { "type": "LOCATION", "value": "gminy Chełmiec" },
+      { "type": "LOCATION", "value": "gminy Łącko" }
+    ]
+  },
+  {
+    "id": "location-040",
+    "category": "location_voivodeship_powiat_combo",
+    "text": "Nieruchomość znajduje się w województwie małopolskim, w powiecie nowosądeckim.",
+    "entities": [
+      { "type": "LOCATION", "value": "województwie małopolskim" },
+      { "type": "LOCATION", "value": "powiecie nowosądeckim" }
+    ]
+  },
+  {
+    "id": "location-041",
+    "category": "location_village_homonym_with_voivodeship",
+    "text": "Miejscowość Wilków znajduje się w województwie lubelskim.",
+    "entities": [
+      { "type": "LOCATION", "value": "Wilków" },
+      { "type": "LOCATION", "value": "województwie lubelskim" }
+    ]
+  },
+  {
+    "id": "location-042",
+    "category": "location_foreign_address_basic",
+    "text": "Adres dostawcy: 12 Rue de Paris, 75001 Paris, Francja.",
+    "entities": [
+      { "type": "LOCATION", "value": "12 Rue de Paris, 75001 Paris, Francja" }
+    ]
+  },
+  {
+    "id": "location-043",
+    "category": "location_district_within_city",
+    "text": "Biuro znajduje się na Mokotowie w Warszawie.",
+    "entities": [
+      { "type": "LOCATION", "value": "Mokotowie w Warszawie" }
+    ]
+  },
+  {
+    "id": "location-044",
+    "category": "location_village_with_gmina_context",
+    "text": "Wnioskodawca zamieszkuje w miejscowości Podgórze, gmina Wieliczka.",
+    "entities": [
+      { "type": "LOCATION", "value": "miejscowości Podgórze, gmina Wieliczka" }
+    ]
+  },
+  {
+    "id": "location-045",
+    "category": "location_full_three_level_hierarchy",
+    "text": "Nieruchomość położona jest w miejscowości Rzepiennik Biskupi, powiat gorlicki, województwo małopolskie.",
+    "entities": [
+      { "type": "LOCATION", "value": "miejscowości Rzepiennik Biskupi, powiat gorlicki, województwo małopolskie" }
+    ]
+  },
+  {
+    "id": "location-046",
+    "category": "location_country_name_only",
+    "text": "Spółka zarejestrowana jest w Wielkiej Brytanii.",
+    "entities": [
+      { "type": "LOCATION", "value": "Wielkiej Brytanii" }
+    ]
+  },
+  {
+    "id": "location-047",
+    "category": "location_multiple_countries",
+    "text": "Kontrahenci pochodzą z Niemiec oraz z Francji.",
+    "entities": [
+      { "type": "LOCATION", "value": "Niemiec" },
+      { "type": "LOCATION", "value": "Francji" }
+    ]
+  },
+  {
+    "id": "location-048",
+    "category": "location_zam_abbreviation",
+    "text": "Wnioskodawca, zam. ul. Polna 3, 30-001 Kraków, złożył wniosek o wydanie zaświadczenia.",
+    "entities": [
+      { "type": "LOCATION", "value": "ul. Polna 3, 30-001 Kraków" }
+    ]
+  },
+  {
+    "id": "location-049",
+    "category": "location_false_positive_trap_no_fixed_address",
+    "text": "Adres siedziby: brak stałego adresu, działalność prowadzona wyłącznie online.",
+    "entities": []
+  },
+  {
+    "id": "location-050",
+    "category": "location_multiple_cities_in_document",
+    "text": "Delegacja obejmuje wyjazd do Krakowa oraz do Poznania w tym samym tygodniu.",
+    "entities": [
+      { "type": "LOCATION", "value": "Krakowa" },
+      { "type": "LOCATION", "value": "Poznania" }
+    ]
+  }
+]

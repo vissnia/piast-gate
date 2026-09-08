@@ -10,7 +10,6 @@ if str(ROOT) not in sys.path:
 
 from domain.services.anonymizer_service import AnonymizerService
 from infrastructure.detectors.bank_account_detector import BankAccountDetector
-from infrastructure.detectors.date_detector import DateDetector
 from infrastructure.detectors.email_detector import EmailDetector
 from infrastructure.detectors.nip_detector import NipDetector
 from infrastructure.detectors.pesel_detector import PeselDetector
@@ -19,7 +18,7 @@ from infrastructure.detectors.regon_detector import RegonDetector
 from infrastructure.detectors.pii_pl.detector import PiiPlDetector
 from infrastructure.detectors.gazetteer import GazetteerDetector
 
-DEFAULT_DATASET = Path(__file__).parent / "dataset.json"
+DATASET_DIR = Path(__file__).parent / "dataset"
 
 
 def build_service() -> AnonymizerService:
@@ -28,7 +27,6 @@ def build_service() -> AnonymizerService:
         PhoneDetector(),
         PeselDetector(),
         BankAccountDetector(),
-        DateDetector(),
         NipDetector(),
         RegonDetector(),
         PiiPlDetector(),
@@ -39,6 +37,22 @@ def build_service() -> AnonymizerService:
 
 def load_dataset(path: Path) -> list[dict]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def load_dataset_dir(path: Path) -> list[dict]:
+    files = sorted(path.glob("*.json"))
+    if not files:
+        raise SystemExit(f"No dataset files found in {path}")
+
+    examples: list[dict] = []
+    seen: set = set()
+    for file in files:
+        for ex in load_dataset(file):
+            if ex.get("id") in seen:
+                continue
+            seen.add(ex.get("id"))
+            examples.append(ex)
+    return examples
 
 
 def evaluate(service: AnonymizerService, examples: list[dict], category: str | None):
@@ -114,12 +128,17 @@ def main() -> None:
         sys.stdout.reconfigure(encoding="utf-8")
 
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--dataset", type=Path, default=DEFAULT_DATASET, help="Path to the eval dataset JSON file.")
+    parser.add_argument(
+        "--dataset-dir",
+        type=Path,
+        default=DATASET_DIR,
+        help="Directory of per-class dataset JSON files (merged, deduped by id).",
+    )
     parser.add_argument("--category", type=str, default=None, help="Only run examples with this category.")
     parser.add_argument("-v", "--verbose", action="store_true", help="Print per-example misses/false positives.")
     args = parser.parse_args()
 
-    examples = load_dataset(args.dataset)
+    examples = load_dataset_dir(args.dataset_dir)
     service = build_service()
     per_type, failures = evaluate(service, examples, args.category)
     print_report(per_type, failures, args.verbose)
