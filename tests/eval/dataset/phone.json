@@ -1,0 +1,235 @@
+[
+  {
+    "id": "phone-001",
+    "category": "phone_mobile_basic",
+    "text": "Numer telefonu: 512345678 podany w formularzu kontaktowym.",
+    "entities": [
+      { "type": "PHONE", "value": "512345678" }
+    ]
+  },
+  {
+    "id": "phone-002",
+    "category": "phone_mobile_basic",
+    "text": "W wiadomości podano telefon 678912345 do kontaktu.",
+    "entities": [
+      { "type": "PHONE", "value": "678912345" }
+    ]
+  },
+  {
+    "id": "phone-003",
+    "category": "phone_landline_basic",
+    "text": "Numer stacjonarny: 122345678 (kierunkowy wliczony w ciąg cyfr).",
+    "entities": [
+      { "type": "PHONE", "value": "122345678" }
+    ]
+  },
+  {
+    "id": "phone-004",
+    "category": "phone_landline_basic",
+    "text": "Telefon biurowy 224567890 należy wybierać w godzinach pracy.",
+    "entities": [
+      { "type": "PHONE", "value": "224567890" }
+    ]
+  },
+  {
+    "id": "phone-005",
+    "category": "phone_spaces_3_3_3",
+    "text": "Kontakt: 512 345 678, prosimy dzwonić po godzinie 10.",
+    "entities": [
+      { "type": "PHONE", "value": "512 345 678" }
+    ]
+  },
+  {
+    "id": "phone-006",
+    "category": "phone_spaces_3_3_3",
+    "text": "Numer telefonu 678 912 345 podany w zgłoszeniu wymaga potwierdzenia.",
+    "entities": [
+      { "type": "PHONE", "value": "678 912 345" }
+    ]
+  },
+  {
+    "id": "phone-007",
+    "category": "phone_spaces_2_3_2_2",
+    "text": "Telefon stacjonarny: 12 234 56 78, dostępny w dni robocze.",
+    "entities": [
+      { "type": "PHONE", "value": "12 234 56 78" }
+    ]
+  },
+  {
+    "id": "phone-008",
+    "category": "phone_spaces_2_3_2_2",
+    "text": "Numer 22 456 78 90 zapisany w starym formacie stacjonarnym.",
+    "entities": [
+      { "type": "PHONE", "value": "22 456 78 90" }
+    ]
+  },
+  {
+    "id": "phone-009",
+    "category": "phone_dashes",
+    "text": "Telefon: 512-345-678, prosimy o kontakt po weekendzie.",
+    "entities": [
+      { "type": "PHONE", "value": "512-345-678" }
+    ]
+  },
+  {
+    "id": "phone-010",
+    "category": "phone_dashes",
+    "text": "Numer 22-456-78-90 zapisany z myślnikami zamiast spacji.",
+    "entities": [
+      { "type": "PHONE", "value": "22-456-78-90" }
+    ]
+  },
+  {
+    "id": "phone-011",
+    "category": "phone_dots",
+    "text": "Kontakt: 512.345.678, numer podany w podpisie wiadomości.",
+    "entities": [
+      { "type": "PHONE", "value": "512.345.678" }
+    ]
+  },
+  {
+    "id": "phone-012",
+    "category": "phone_parentheses_area_code",
+    "text": "Telefon stacjonarny (12) 345-67-89 dostępny od poniedziałku do piątku.",
+    "entities": [
+      { "type": "PHONE", "value": "(12) 345-67-89" }
+    ]
+  },
+  {
+    "id": "phone-013",
+    "category": "phone_country_code_plus48",
+    "text": "Numer kontaktowy: +48 512 345 678, prosimy dzwonić w sprawie zamówienia.",
+    "entities": [
+      { "type": "PHONE", "value": "+48 512 345 678" }
+    ]
+  },
+  {
+    "id": "phone-014",
+    "category": "phone_country_code_plus48",
+    "text": "Telefon: +48512345678 bez spacji po prefiksie kraju.",
+    "entities": [
+      { "type": "PHONE", "value": "+48512345678" }
+    ]
+  },
+  {
+    "id": "phone-015",
+    "category": "phone_country_code_0048",
+    "text": "Stary format zapisu numeru: 0048 512 345 678, spotykany w archiwalnych dokumentach.",
+    "entities": [
+      { "type": "PHONE", "value": "0048 512 345 678" }
+    ]
+  },
+  {
+    "id": "phone-016",
+    "category": "phone_country_code_no_plus",
+    "text": "Numer 48512345678 sklejony z prefiksem kraju bez znaku plus.",
+    "entities": [
+      { "type": "PHONE", "value": "48512345678" }
+    ]
+  },
+  {
+    "id": "phone-017",
+    "category": "phone_true_negative_emergency",
+    "text": "W nagłych przypadkach należy dzwonić pod numer alarmowy 112.",
+    "entities": []
+  },
+  {
+    "id": "phone-018",
+    "category": "phone_true_negative_emergency",
+    "text": "Numer pogotowia ratunkowego to 999, a straży pożarnej 998.",
+    "entities": []
+  },
+  {
+    "id": "phone-019",
+    "category": "phone_true_negative_infoline",
+    "text": "Infolinia firmowa dostępna pod numerem 800 123 456 przez całą dobę.",
+    "entities": []
+  },
+  {
+    "id": "phone-020",
+    "category": "phone_true_negative_infoline",
+    "text": "Numer 801 234 567 to ogólnopolska linia informacyjna urzędu, opłata jak za połączenie lokalne.",
+    "entities": [
+      { "type": "PHONE", "value": "801 234 567" }
+    ]
+  },
+  {
+    "id": "phone-021",
+    "category": "phone_numeric_distractor",
+    "text": "Numer referencyjny zgłoszenia 512345679 różni się o jedną cyfrę od numeru telefonu 512345678 podanego w tym samym formularzu.",
+    "entities": [
+      { "type": "PHONE", "value": "512345678" }
+    ]
+  },
+  {
+    "id": "phone-022",
+    "category": "phone_numeric_distractor",
+    "text": "Ciąg 678912344 pojawia się obok numeru telefonu 678912345 w tej samej tabeli, lecz stanowi inny rodzaj identyfikatora.",
+    "entities": [
+      { "type": "PHONE", "value": "678912345" }
+    ]
+  },
+  {
+    "id": "phone-023",
+    "category": "phone_false_positive_trap",
+    "text": "Pole 'telefon kontaktowy': brak — wnioskodawca nie podał numeru.",
+    "entities": []
+  },
+  {
+    "id": "phone-024",
+    "category": "phone_false_positive_trap",
+    "text": "Tel: — (nie dotyczy, zgłoszenie złożone wyłącznie drogą elektroniczną).",
+    "entities": []
+  },
+  {
+    "id": "phone-025",
+    "category": "phone_glued_no_spacing",
+    "text": "tel.512345678zgloszenie2024 to ciąg wklejony bez separacji z formularza.",
+    "entities": [
+      { "type": "PHONE", "value": "512345678" }
+    ]
+  },
+  {
+    "id": "phone-026",
+    "category": "phone_ocr_split",
+    "text": "Telefon: 512-345-\n678 (numer przeniesiony ze skanu, złamany na końcu linii).",
+    "entities": [
+      { "type": "PHONE", "value": "512-345-678" }
+    ]
+  },
+  {
+    "id": "phone-027",
+    "category": "phone_multiple_in_document",
+    "text": "W stopce dokumentu podano dwa numery: 512 345 678 oraz 22 456 78 90, odpowiadające dwóm różnym osobom kontaktowym.",
+    "entities": [
+      { "type": "PHONE", "value": "512 345 678" },
+      { "type": "PHONE", "value": "22 456 78 90" }
+    ]
+  },
+  {
+    "id": "phone-028",
+    "category": "phone_multiple_in_document",
+    "text": "Formularz zgłoszeniowy zawiera numery telefonów 678 912 345, 512 345 678 oraz 22 234 56 78 przypisane do kolejnych zgłaszających.",
+    "entities": [
+      { "type": "PHONE", "value": "678 912 345" },
+      { "type": "PHONE", "value": "512 345 678" },
+      { "type": "PHONE", "value": "22 234 56 78" }
+    ]
+  },
+  {
+    "id": "phone-029",
+    "category": "phone_label_prefix",
+    "text": "Proszę podać numer telefonu do kontaktu: 512 345 678, zgodnie z instrukcją formularza.",
+    "entities": [
+      { "type": "PHONE", "value": "512 345 678" }
+    ]
+  },
+  {
+    "id": "phone-030",
+    "category": "phone_label_no_space",
+    "text": "Telefon:678912345 (brak spacji po dwukropku, format wygenerowany automatycznie).",
+    "entities": [
+      { "type": "PHONE", "value": "678912345" }
+    ]
+  }
+]

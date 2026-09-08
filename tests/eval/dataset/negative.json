@@ -1,0 +1,62 @@
+[
+  {
+    "id": "negative-001",
+    "category": "negative_no_pii",
+    "text": "Pogoda dzisiaj jest bardzo ładna i słoneczna.",
+    "entities": []
+  },
+  {
+    "id": "negative-002",
+    "category": "negative_short_digit_sequence",
+    "text": "Kod pocztowy to 12345, proszę sprawdzić w systemie.",
+    "entities": []
+  },
+  {
+    "id": "negative-003",
+    "category": "negative_ten_digit_sequence",
+    "text": "Numer zgłoszenia to 9001011234, nie jest to numer PESEL.",
+    "entities": []
+  },
+  {
+    "id": "negative-004",
+    "category": "negative_capitalized_common_word",
+    "text": "Ostrożnie z tym urządzeniem, może być gorące.",
+    "entities": []
+  },
+  {
+    "id": "negative-005",
+    "category": "negative_invoice_number",
+    "text": "Numer faktury FV/2024/00187 został wysłany do księgowości.",
+    "entities": []
+  },
+  {
+    "id": "negative-006",
+    "category": "negative_capitalized_common_word",
+    "text": "Szybko sprawdź, czy drukarka ma jeszcze papier.",
+    "entities": []
+  },
+  {
+    "id": "negative-007",
+    "category": "negative_invalid_email_format",
+    "text": "Napis na wizytówce brzmiał: kontakt(at)firma bez działającego adresu.",
+    "entities": []
+  },
+  {
+    "id": "negative-008",
+    "category": "negative_short_extension_number",
+    "text": "Wewnętrzny numer działu to 123.",
+    "entities": []
+  },
+  {
+    "id": "negative-009",
+    "category": "negative_pesel_invalid_checksum",
+    "text": "Numer referencyjny zgłoszenia to 90010112345, to nie jest PESEL.",
+    "entities": []
+  },
+  {
+    "id": "negative-010",
+    "category": "negative_nip_invalid_checksum",
+    "text": "Numer zamówienia 1234567890 został przyjęty do realizacji.",
+    "entities": []
+  }
+]

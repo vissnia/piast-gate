@@ -1,0 +1,1685 @@
+[
+  {
+    "id": "mix-001",
+    "category": "mix_numeric_collision_nip_regon",
+    "text": "Dane rejestrowe podmiotu: NIP 526-000-12-46, REGON 191045425.",
+    "entities": [
+      {
+        "type": "NIP",
+        "value": "526-000-12-46"
+      },
+      {
+        "type": "REGON",
+        "value": "191045425"
+      }
+    ]
+  },
+  {
+    "id": "mix-002",
+    "category": "mix_numeric_collision_nip_regon",
+    "text": "Formularz zgłoszeniowy zawiera NIP 118-000-00-19 oraz REGON 012345675 tej samej firmy.",
+    "entities": [
+      {
+        "type": "NIP",
+        "value": "118-000-00-19"
+      },
+      {
+        "type": "REGON",
+        "value": "012345675"
+      }
+    ]
+  },
+  {
+    "id": "mix-003",
+    "category": "mix_numeric_collision_nip_regon",
+    "text": "W KRS figurują dane: NIP: 700-001-02-03, REGON: 555000125.",
+    "entities": [
+      {
+        "type": "NIP",
+        "value": "700-001-02-03"
+      },
+      {
+        "type": "REGON",
+        "value": "555000125"
+      }
+    ]
+  },
+  {
+    "id": "mix-004",
+    "category": "mix_numeric_collision_nip_regon",
+    "text": "Faktura zawiera numer NIP 526-000-12-46 oraz REGON jednostki lokalnej 19104542500019.",
+    "entities": [
+      {
+        "type": "NIP",
+        "value": "526-000-12-46"
+      },
+      {
+        "type": "REGON",
+        "value": "19104542500019"
+      }
+    ]
+  },
+  {
+    "id": "mix-005",
+    "category": "mix_numeric_collision_nip_regon",
+    "text": "Sprzedawca: NIP 118-000-00-19, REGON 330051022, dane zgodne z CEIDG.",
+    "entities": [
+      {
+        "type": "NIP",
+        "value": "118-000-00-19"
+      },
+      {
+        "type": "REGON",
+        "value": "330051022"
+      }
+    ]
+  },
+  {
+    "id": "mix-006",
+    "category": "mix_numeric_collision_nip_pesel",
+    "text": "Jednoosobowa działalność gospodarcza: NIP 526-000-12-46, PESEL właściciela 85072212339.",
+    "entities": [
+      {
+        "type": "NIP",
+        "value": "526-000-12-46"
+      },
+      {
+        "type": "PESEL",
+        "value": "85072212339"
+      }
+    ]
+  },
+  {
+    "id": "mix-007",
+    "category": "mix_numeric_collision_nip_pesel",
+    "text": "Wniosek CEIDG zawiera NIP 118-000-00-19 oraz PESEL wnioskodawcy 05231567898.",
+    "entities": [
+      {
+        "type": "NIP",
+        "value": "118-000-00-19"
+      },
+      {
+        "type": "PESEL",
+        "value": "05231567898"
+      }
+    ]
+  },
+  {
+    "id": "mix-008",
+    "category": "mix_numeric_collision_nip_pesel",
+    "text": "Zgłoszenie do ZUS: PESEL płatnika 00222945617, NIP działalności 700-001-02-03.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "ZUS"
+      },
+      {
+        "type": "PESEL",
+        "value": "00222945617"
+      },
+      {
+        "type": "NIP",
+        "value": "700-001-02-03"
+      }
+    ]
+  },
+  {
+    "id": "mix-009",
+    "category": "mix_numeric_collision_nip_pesel",
+    "text": "Formularz aktualizacyjny: NIP 526-000-12-46, PESEL 03011522233 (wiodące zero zachowane).",
+    "entities": [
+      {
+        "type": "NIP",
+        "value": "526-000-12-46"
+      },
+      {
+        "type": "PESEL",
+        "value": "03011522233"
+      }
+    ]
+  },
+  {
+    "id": "mix-010",
+    "category": "mix_numeric_collision_nip_pesel",
+    "text": "Dane osoby fizycznej prowadzącej działalność: PESEL 78113044440, NIP 118-000-00-19.",
+    "entities": [
+      {
+        "type": "PESEL",
+        "value": "78113044440"
+      },
+      {
+        "type": "NIP",
+        "value": "118-000-00-19"
+      }
+    ]
+  },
+  {
+    "id": "mix-011",
+    "category": "mix_numeric_collision_pesel_regon",
+    "text": "Wpis zawiera PESEL wnioskodawcy 99090911123 oraz REGON działalności 191045425.",
+    "entities": [
+      {
+        "type": "PESEL",
+        "value": "99090911123"
+      },
+      {
+        "type": "REGON",
+        "value": "191045425"
+      }
+    ]
+  },
+  {
+    "id": "mix-012",
+    "category": "mix_numeric_collision_pesel_regon",
+    "text": "Dane rejestrowe: REGON 012345675, PESEL osoby prowadzącej 55861020203.",
+    "entities": [
+      {
+        "type": "REGON",
+        "value": "012345675"
+      },
+      {
+        "type": "PESEL",
+        "value": "55861020203"
+      }
+    ]
+  },
+  {
+    "id": "mix-013",
+    "category": "mix_numeric_collision_pesel_regon",
+    "text": "Formularz ZUS: REGON płatnika 330051022, PESEL 00222945617.",
+    "entities": [
+      {
+        "type": "REGON",
+        "value": "330051022"
+      },
+      {
+        "type": "PESEL",
+        "value": "00222945617"
+      }
+    ]
+  },
+  {
+    "id": "mix-014",
+    "category": "mix_numeric_collision_phone_nip",
+    "text": "Kontakt: tel. 512345678, NIP firmy 526-000-12-46.",
+    "entities": [
+      {
+        "type": "PHONE",
+        "value": "512345678"
+      },
+      {
+        "type": "NIP",
+        "value": "526-000-12-46"
+      }
+    ]
+  },
+  {
+    "id": "mix-015",
+    "category": "mix_numeric_collision_phone_nip",
+    "text": "Dane kontaktowe: telefon 678912345, NIP 118-000-00-19.",
+    "entities": [
+      {
+        "type": "PHONE",
+        "value": "678912345"
+      },
+      {
+        "type": "NIP",
+        "value": "118-000-00-19"
+      }
+    ]
+  },
+  {
+    "id": "mix-016",
+    "category": "mix_numeric_collision_phone_nip",
+    "text": "Numer 122345678 to telefon stacjonarny, różny od numeru NIP 700-001-02-03 widniejącego obok.",
+    "entities": [
+      {
+        "type": "PHONE",
+        "value": "122345678"
+      },
+      {
+        "type": "NIP",
+        "value": "700-001-02-03"
+      }
+    ]
+  },
+  {
+    "id": "mix-017",
+    "category": "mix_numeric_collision_phone_nip",
+    "text": "Formularz zawiera telefon 224567890 oraz NIP kontrahenta 526-000-12-46 w tej samej linijce.",
+    "entities": [
+      {
+        "type": "PHONE",
+        "value": "224567890"
+      },
+      {
+        "type": "NIP",
+        "value": "526-000-12-46"
+      }
+    ]
+  },
+  {
+    "id": "mix-018",
+    "category": "mix_numeric_collision_phone_pesel",
+    "text": "Kontakt: tel. 512345678, PESEL wnioskodawcy 85072212339.",
+    "entities": [
+      {
+        "type": "PHONE",
+        "value": "512345678"
+      },
+      {
+        "type": "PESEL",
+        "value": "85072212339"
+      }
+    ]
+  },
+  {
+    "id": "mix-019",
+    "category": "mix_numeric_collision_phone_pesel",
+    "text": "Numer telefonu 678912345 podano obok numeru PESEL 05231567898 w tym samym wierszu formularza.",
+    "entities": [
+      {
+        "type": "PHONE",
+        "value": "678912345"
+      },
+      {
+        "type": "PESEL",
+        "value": "05231567898"
+      }
+    ]
+  },
+  {
+    "id": "mix-020",
+    "category": "mix_numeric_collision_phone_pesel",
+    "text": "Dane kontaktowe: telefon 122345678, PESEL 99090911123.",
+    "entities": [
+      {
+        "type": "PHONE",
+        "value": "122345678"
+      },
+      {
+        "type": "PESEL",
+        "value": "99090911123"
+      }
+    ]
+  },
+  {
+    "id": "mix-021",
+    "category": "mix_numeric_collision_phone_regon",
+    "text": "Kontakt do firmy: tel. 224567890, REGON 191045425.",
+    "entities": [
+      {
+        "type": "PHONE",
+        "value": "224567890"
+      },
+      {
+        "type": "REGON",
+        "value": "191045425"
+      }
+    ]
+  },
+  {
+    "id": "mix-022",
+    "category": "mix_numeric_collision_phone_regon",
+    "text": "Numer telefonu 512345678 różni się od numeru REGON 012345675 podanego niżej.",
+    "entities": [
+      {
+        "type": "PHONE",
+        "value": "512345678"
+      },
+      {
+        "type": "REGON",
+        "value": "012345675"
+      }
+    ]
+  },
+  {
+    "id": "mix-023",
+    "category": "mix_numeric_collision_phone_regon",
+    "text": "Dane rejestrowe: REGON 555000125, telefon kontaktowy 678912345.",
+    "entities": [
+      {
+        "type": "REGON",
+        "value": "555000125"
+      },
+      {
+        "type": "PHONE",
+        "value": "678912345"
+      }
+    ]
+  },
+  {
+    "id": "mix-024",
+    "category": "mix_numeric_collision_triple",
+    "text": "Wniosek CEIDG: NIP 526-000-12-46, REGON 191045425, PESEL wnioskodawcy 85072212339.",
+    "entities": [
+      {
+        "type": "NIP",
+        "value": "526-000-12-46"
+      },
+      {
+        "type": "REGON",
+        "value": "191045425"
+      },
+      {
+        "type": "PESEL",
+        "value": "85072212339"
+      }
+    ]
+  },
+  {
+    "id": "mix-025",
+    "category": "mix_numeric_collision_triple",
+    "text": "Dane rejestrowe jednoosobowej działalności: PESEL 05231567898, NIP 118-000-00-19, REGON 012345675.",
+    "entities": [
+      {
+        "type": "PESEL",
+        "value": "05231567898"
+      },
+      {
+        "type": "NIP",
+        "value": "118-000-00-19"
+      },
+      {
+        "type": "REGON",
+        "value": "012345675"
+      }
+    ]
+  },
+  {
+    "id": "mix-026",
+    "category": "mix_numeric_collision_triple",
+    "text": "Formularz aktualizacyjny zawiera: REGON 330051022, NIP 700-001-02-03, PESEL 78113044440.",
+    "entities": [
+      {
+        "type": "REGON",
+        "value": "330051022"
+      },
+      {
+        "type": "NIP",
+        "value": "700-001-02-03"
+      },
+      {
+        "type": "PESEL",
+        "value": "78113044440"
+      }
+    ]
+  },
+  {
+    "id": "mix-027",
+    "category": "mix_numeric_collision_triple",
+    "text": "Zgłoszenie do US: NIP 526-000-12-46, REGON 555000125, PESEL płatnika 99090911123.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "US"
+      },
+      {
+        "type": "NIP",
+        "value": "526-000-12-46"
+      },
+      {
+        "type": "REGON",
+        "value": "555000125"
+      },
+      {
+        "type": "PESEL",
+        "value": "99090911123"
+      }
+    ]
+  },
+  {
+    "id": "mix-028",
+    "category": "mix_numeric_collision_quadruple",
+    "text": "Pełne dane rejestrowe: NIP 118-000-00-19, REGON 191045425, PESEL 00222945617, telefon kontaktowy 512345678.",
+    "entities": [
+      {
+        "type": "NIP",
+        "value": "118-000-00-19"
+      },
+      {
+        "type": "REGON",
+        "value": "191045425"
+      },
+      {
+        "type": "PESEL",
+        "value": "00222945617"
+      },
+      {
+        "type": "PHONE",
+        "value": "512345678"
+      }
+    ]
+  },
+  {
+    "id": "mix-029",
+    "category": "mix_numeric_collision_quadruple",
+    "text": "Formularz zgłoszeniowy: PESEL 03011522233, NIP 700-001-02-03, REGON 012345675, tel. 678912345.",
+    "entities": [
+      {
+        "type": "PESEL",
+        "value": "03011522233"
+      },
+      {
+        "type": "NIP",
+        "value": "700-001-02-03"
+      },
+      {
+        "type": "REGON",
+        "value": "012345675"
+      },
+      {
+        "type": "PHONE",
+        "value": "678912345"
+      }
+    ]
+  },
+  {
+    "id": "mix-030",
+    "category": "mix_numeric_collision_quadruple",
+    "text": "Dokument rejestracyjny zawiera: REGON 555000125, NIP 526-000-12-46, telefon 224567890, PESEL 55861020203.",
+    "entities": [
+      {
+        "type": "REGON",
+        "value": "555000125"
+      },
+      {
+        "type": "NIP",
+        "value": "526-000-12-46"
+      },
+      {
+        "type": "PHONE",
+        "value": "224567890"
+      },
+      {
+        "type": "PESEL",
+        "value": "55861020203"
+      }
+    ]
+  },
+  {
+    "id": "mix-031",
+    "category": "mix_bankaccount_nip",
+    "text": "Dane do przelewu: numer konta 65109016650000000103737343, NIP odbiorcy 526-000-12-46.",
+    "entities": [
+      {
+        "type": "BANK_ACCOUNT",
+        "value": "65109016650000000103737343"
+      },
+      {
+        "type": "NIP",
+        "value": "526-000-12-46"
+      }
+    ]
+  },
+  {
+    "id": "mix-032",
+    "category": "mix_bankaccount_nip",
+    "text": "Rachunek bankowy PL05105000990000009007300140 oraz NIP kontrahenta 118-000-00-19 widnieją na fakturze.",
+    "entities": [
+      {
+        "type": "BANK_ACCOUNT",
+        "value": "PL05105000990000009007300140"
+      },
+      {
+        "type": "NIP",
+        "value": "118-000-00-19"
+      }
+    ]
+  },
+  {
+    "id": "mix-033",
+    "category": "mix_bankaccount_nip",
+    "text": "Numer konta do zwrotu: PL27114020040000350297423651, NIP firmy: 700-001-02-03.",
+    "entities": [
+      {
+        "type": "BANK_ACCOUNT",
+        "value": "PL27114020040000350297423651"
+      },
+      {
+        "type": "NIP",
+        "value": "700-001-02-03"
+      }
+    ]
+  },
+  {
+    "id": "mix-034",
+    "category": "mix_bankaccount_nip",
+    "text": "Faktura zawiera: NIP 526-000-12-46, numer rachunku 19102010260000079210200271.",
+    "entities": [
+      {
+        "type": "NIP",
+        "value": "526-000-12-46"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "value": "19102010260000079210200271"
+      }
+    ]
+  },
+  {
+    "id": "mix-035",
+    "category": "mix_bankaccount_regon",
+    "text": "Dane firmy: REGON 191045425, numer konta bankowego PL38109000010000000000123456.",
+    "entities": [
+      {
+        "type": "REGON",
+        "value": "191045425"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "value": "PL38109000010000000000123456"
+      }
+    ]
+  },
+  {
+    "id": "mix-036",
+    "category": "mix_bankaccount_regon",
+    "text": "Rachunek do wpłaty: 72106000760000320001236741, REGON kontrahenta: 012345675.",
+    "entities": [
+      {
+        "type": "BANK_ACCOUNT",
+        "value": "72106000760000320001236741"
+      },
+      {
+        "type": "REGON",
+        "value": "012345675"
+      }
+    ]
+  },
+  {
+    "id": "mix-037",
+    "category": "mix_bankaccount_regon",
+    "text": "Dane rejestrowe: REGON 555000125, numer konta PL72106000760000320001236741 (ten sam, co u innego kontrahenta w dokumencie).",
+    "entities": [
+      {
+        "type": "REGON",
+        "value": "555000125"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "value": "PL72106000760000320001236741"
+      }
+    ]
+  },
+  {
+    "id": "mix-038",
+    "category": "mix_bankaccount_pesel",
+    "text": "Dokument zawiera PESEL 85072212339 oraz numer konta 65109016650000000103737343 tej samej osoby.",
+    "entities": [
+      {
+        "type": "PESEL",
+        "value": "85072212339"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "value": "65109016650000000103737343"
+      }
+    ]
+  },
+  {
+    "id": "mix-039",
+    "category": "mix_bankaccount_pesel",
+    "text": "Zwrot środków na konto PL05105000990000009007300140, PESEL wnioskodawcy: 05231567898.",
+    "entities": [
+      {
+        "type": "BANK_ACCOUNT",
+        "value": "PL05105000990000009007300140"
+      },
+      {
+        "type": "PESEL",
+        "value": "05231567898"
+      }
+    ]
+  },
+  {
+    "id": "mix-040",
+    "category": "mix_bankaccount_pesel",
+    "text": "Numer rachunku PL38109000010000000000123456 oraz PESEL 99090911123 widnieją w tym samym wierszu tabeli.",
+    "entities": [
+      {
+        "type": "BANK_ACCOUNT",
+        "value": "PL38109000010000000000123456"
+      },
+      {
+        "type": "PESEL",
+        "value": "99090911123"
+      }
+    ]
+  },
+  {
+    "id": "mix-041",
+    "category": "mix_person_organization_collision",
+    "text": "Jan Kowalski, prowadzący działalność pod firmą Kowalski Sp. z o.o., podpisał umowę osobiście.",
+    "entities": [
+      {
+        "type": "PERSON",
+        "value": "Jan Kowalski"
+      },
+      {
+        "type": "ORGANIZATION",
+        "value": "Kowalski Sp. z o.o."
+      }
+    ]
+  },
+  {
+    "id": "mix-042",
+    "category": "mix_person_organization_collision",
+    "text": "Anna Nowak reprezentuje spółkę Nowak i Wspólnicy Sp.j. jako pełnomocnik.",
+    "entities": [
+      {
+        "type": "PERSON",
+        "value": "Anna Nowak"
+      },
+      {
+        "type": "ORGANIZATION",
+        "value": "Nowak i Wspólnicy Sp.j."
+      }
+    ]
+  },
+  {
+    "id": "mix-043",
+    "category": "mix_person_organization_collision",
+    "text": "Umowę w imieniu ABC Sp. z o.o. podpisał Piotr Wiśniewski.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "ABC Sp. z o.o."
+      },
+      {
+        "type": "PERSON",
+        "value": "Piotr Wiśniewski"
+      }
+    ]
+  },
+  {
+    "id": "mix-044",
+    "category": "mix_person_organization_collision",
+    "text": "Firma Kowal Sp. z o.o. złożyła ofertę, reprezentowana przez Tomasza Wójcika.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "Kowal Sp. z o.o."
+      },
+      {
+        "type": "PERSON",
+        "value": "Tomasza Wójcika"
+      }
+    ]
+  },
+  {
+    "id": "mix-045",
+    "category": "mix_person_organization_collision",
+    "text": "W dokumencie wspomniano Nowak — bez dalszego kontekstu nie wiadomo, czy chodzi o osobę, czy o firmę Nowak Sp. z o.o. wymienioną wcześniej.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "Nowak Sp. z o.o."
+      }
+    ]
+  },
+  {
+    "id": "mix-046",
+    "category": "mix_person_organization_collision",
+    "text": "Katarzyna Lewandowska założyła jednoosobową działalność pod nazwą 'KL Design'.",
+    "entities": [
+      {
+        "type": "PERSON",
+        "value": "Katarzyna Lewandowska"
+      },
+      {
+        "type": "ORGANIZATION",
+        "value": "KL Design"
+      }
+    ]
+  },
+  {
+    "id": "mix-047",
+    "category": "mix_person_organization_collision",
+    "text": "Reprezentantem Delta Consulting Sp. z o.o. jest Anna Nowak, zgodnie z wpisem do KRS.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "Delta Consulting Sp. z o.o."
+      },
+      {
+        "type": "PERSON",
+        "value": "Anna Nowak"
+      }
+    ]
+  },
+  {
+    "id": "mix-048",
+    "category": "mix_person_organization_collision",
+    "text": "Wilk Sp. z o.o. oraz Jan Kowalski są stronami tej samej umowy.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "Wilk Sp. z o.o."
+      },
+      {
+        "type": "PERSON",
+        "value": "Jan Kowalski"
+      }
+    ]
+  },
+  {
+    "id": "mix-049",
+    "category": "mix_person_organization_collision",
+    "text": "Podpis złożył Piotr Wiśniewski w imieniu XYZ S.A.",
+    "entities": [
+      {
+        "type": "PERSON",
+        "value": "Piotr Wiśniewski"
+      },
+      {
+        "type": "ORGANIZATION",
+        "value": "XYZ S.A."
+      }
+    ]
+  },
+  {
+    "id": "mix-050",
+    "category": "mix_person_organization_collision",
+    "text": "Nazwisko Nowak pojawia się dwukrotnie: raz jako nazwa firmy Nowak Sp.k., raz jako nazwisko świadka Tomasza Nowaka.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "Nowak Sp.k."
+      },
+      {
+        "type": "PERSON",
+        "value": "Tomasza Nowaka"
+      }
+    ]
+  },
+  {
+    "id": "mix-051",
+    "category": "mix_person_organization_collision",
+    "text": "Kowalski Sp. z o.o. zatrudnia Annę Nowak na stanowisku kierowniczym.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "Kowalski Sp. z o.o."
+      },
+      {
+        "type": "PERSON",
+        "value": "Annę Nowak"
+      }
+    ]
+  },
+  {
+    "id": "mix-052",
+    "category": "mix_person_organization_collision",
+    "text": "Jan Kowalski jest jedynym wspólnikiem spółki JK Investments Sp. z o.o.",
+    "entities": [
+      {
+        "type": "PERSON",
+        "value": "Jan Kowalski"
+      },
+      {
+        "type": "ORGANIZATION",
+        "value": "JK Investments Sp. z o.o."
+      }
+    ]
+  },
+  {
+    "id": "mix-053",
+    "category": "mix_person_organization_collision",
+    "text": "Świadkiem podpisania umowy przez ABC Sp. z o.o. był Tomasz Wójcik.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "ABC Sp. z o.o."
+      },
+      {
+        "type": "PERSON",
+        "value": "Tomasz Wójcik"
+      }
+    ]
+  },
+  {
+    "id": "mix-054",
+    "category": "mix_person_organization_collision",
+    "text": "Firma Lis Sp. z o.o. oraz osoba fizyczna Piotr Lis nie są tym samym podmiotem, mimo identycznego nazwiska.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "Lis Sp. z o.o."
+      },
+      {
+        "type": "PERSON",
+        "value": "Piotr Lis"
+      }
+    ]
+  },
+  {
+    "id": "mix-055",
+    "category": "mix_person_organization_collision",
+    "text": "Katarzyna Lewandowska podpisała umowę w imieniu własnym oraz w imieniu firmy Lewandowska Consulting.",
+    "entities": [
+      {
+        "type": "PERSON",
+        "value": "Katarzyna Lewandowska"
+      },
+      {
+        "type": "ORGANIZATION",
+        "value": "Lewandowska Consulting"
+      }
+    ]
+  },
+  {
+    "id": "mix-056",
+    "category": "mix_location_organization_collision",
+    "text": "Pismo skierowano do Urzędu Skarbowego w Krakowie, dotyczące nieruchomości przy ul. Polnej 3, 30-001 Kraków.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "Urzędu Skarbowego w Krakowie"
+      },
+      {
+        "type": "LOCATION",
+        "value": "ul. Polnej 3, 30-001 Kraków"
+      }
+    ]
+  },
+  {
+    "id": "mix-057",
+    "category": "mix_location_organization_collision",
+    "text": "Sąd Rejonowy dla Warszawy-Śródmieścia rozpatruje sprawę dotyczącą lokalu przy ul. Długiej 15, 00-238 Warszawa.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "Sąd Rejonowy dla Warszawy-Śródmieścia"
+      },
+      {
+        "type": "LOCATION",
+        "value": "ul. Długiej 15, 00-238 Warszawa"
+      }
+    ]
+  },
+  {
+    "id": "mix-058",
+    "category": "mix_location_organization_collision",
+    "text": "Siedziba ABC Sp. z o.o. mieści się w Poznaniu, dokładny adres to ul. Kwiatowa 7, 61-001 Poznań.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "ABC Sp. z o.o."
+      },
+      {
+        "type": "LOCATION",
+        "value": "Poznaniu"
+      },
+      {
+        "type": "LOCATION",
+        "value": "ul. Kwiatowa 7, 61-001 Poznań"
+      }
+    ]
+  },
+  {
+    "id": "mix-059",
+    "category": "mix_location_organization_collision",
+    "text": "Delta Sp. z o.o. z siedzibą w Warszawie zawarła umowę najmu lokalu przy al. Niepodległości 12, 02-653 Warszawa.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "Delta Sp. z o.o."
+      },
+      {
+        "type": "LOCATION",
+        "value": "Warszawie"
+      },
+      {
+        "type": "LOCATION",
+        "value": "al. Niepodległości 12, 02-653 Warszawa"
+      }
+    ]
+  },
+  {
+    "id": "mix-060",
+    "category": "mix_location_organization_collision",
+    "text": "Spółdzielnia Mieszkaniowa Zacisze znajduje się na terenie gminy Chełmiec.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "Spółdzielnia Mieszkaniowa Zacisze"
+      },
+      {
+        "type": "LOCATION",
+        "value": "gminy Chełmiec"
+      }
+    ]
+  },
+  {
+    "id": "mix-061",
+    "category": "mix_location_organization_collision",
+    "text": "Fundacja Pomocna Dłoń prowadzi działalność na terenie województwa małopolskiego.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "Fundacja Pomocna Dłoń"
+      },
+      {
+        "type": "LOCATION",
+        "value": "województwa małopolskiego"
+      }
+    ]
+  },
+  {
+    "id": "mix-062",
+    "category": "mix_location_organization_collision",
+    "text": "Naczelny Sąd Administracyjny rozpatruje sprawę dotyczącą nieruchomości w Krakowie.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "Naczelny Sąd Administracyjny"
+      },
+      {
+        "type": "LOCATION",
+        "value": "Krakowie"
+      }
+    ]
+  },
+  {
+    "id": "mix-063",
+    "category": "mix_location_organization_collision",
+    "text": "Trans-Pol Sp.j. świadczy usługi transportowe na terenie powiatu nowosądeckiego.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "Trans-Pol Sp.j."
+      },
+      {
+        "type": "LOCATION",
+        "value": "powiatu nowosądeckiego"
+      }
+    ]
+  },
+  {
+    "id": "mix-064",
+    "category": "mix_location_organization_collision",
+    "text": "Nordbau GmbH z siedzibą w Berlinie realizuje projekt budowlany w Polsce.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "Nordbau GmbH"
+      },
+      {
+        "type": "LOCATION",
+        "value": "Berlinie"
+      },
+      {
+        "type": "LOCATION",
+        "value": "Polsce"
+      }
+    ]
+  },
+  {
+    "id": "mix-065",
+    "category": "mix_location_organization_collision",
+    "text": "Żabka Polska Sp. z o.o. otworzyła nowy sklep przy ul. Leśnej 12A, 40-001 Katowice.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "Żabka Polska Sp. z o.o."
+      },
+      {
+        "type": "LOCATION",
+        "value": "ul. Leśnej 12A, 40-001 Katowice"
+      }
+    ]
+  },
+  {
+    "id": "mix-066",
+    "category": "mix_email_phone_combo",
+    "text": "kontakt:jan.kowalski@firma.plNIP1180000019 to ciąg wklejony bez separacji z systemu.",
+    "entities": [
+      {
+        "type": "EMAIL",
+        "value": "jan.kowalski@firma.pl"
+      },
+      {
+        "type": "NIP",
+        "value": "1180000019"
+      }
+    ]
+  },
+  {
+    "id": "mix-067",
+    "category": "mix_email_phone_combo",
+    "text": "tel.512345678PESEL85072212339 pojawia się w wyeksportowanym pliku bez separatorów.",
+    "entities": [
+      {
+        "type": "PHONE",
+        "value": "512345678"
+      },
+      {
+        "type": "PESEL",
+        "value": "85072212339"
+      }
+    ]
+  },
+  {
+    "id": "mix-068",
+    "category": "mix_email_phone_combo",
+    "text": "Podpis: Jan Kowalski, e-mail: jan.kowalski@firma.pl, tel. 678912345.",
+    "entities": [
+      {
+        "type": "PERSON",
+        "value": "Jan Kowalski"
+      },
+      {
+        "type": "EMAIL",
+        "value": "jan.kowalski@firma.pl"
+      },
+      {
+        "type": "PHONE",
+        "value": "678912345"
+      }
+    ]
+  },
+  {
+    "id": "mix-069",
+    "category": "mix_email_phone_combo",
+    "text": "Kontakt do Anny Nowak: anna.nowak@firma.pl, telefon 224567890.",
+    "entities": [
+      {
+        "type": "PERSON",
+        "value": "Anny Nowak"
+      },
+      {
+        "type": "EMAIL",
+        "value": "anna.nowak@firma.pl"
+      },
+      {
+        "type": "PHONE",
+        "value": "224567890"
+      }
+    ]
+  },
+  {
+    "id": "mix-070",
+    "category": "mix_email_phone_combo",
+    "text": "Stopka wiadomości: Piotr Wiśniewski, ABC Sp. z o.o., piotr.wisniewski@abc.pl.",
+    "entities": [
+      {
+        "type": "PERSON",
+        "value": "Piotr Wiśniewski"
+      },
+      {
+        "type": "ORGANIZATION",
+        "value": "ABC Sp. z o.o."
+      },
+      {
+        "type": "EMAIL",
+        "value": "piotr.wisniewski@abc.pl"
+      }
+    ]
+  },
+  {
+    "id": "mix-071",
+    "category": "mix_email_phone_combo",
+    "text": "Dane kontaktowe firmy Delta Consulting Sp. z o.o.: tel. 122345678, e-mail: kontakt@delta.pl.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "Delta Consulting Sp. z o.o."
+      },
+      {
+        "type": "PHONE",
+        "value": "122345678"
+      },
+      {
+        "type": "EMAIL",
+        "value": "kontakt@delta.pl"
+      }
+    ]
+  },
+  {
+    "id": "mix-072",
+    "category": "mix_email_phone_combo",
+    "text": "Formularz zgłoszeniowy: e-mail jan.kowalski@firma.pl, NIP zgłaszającego 526-000-12-46.",
+    "entities": [
+      {
+        "type": "EMAIL",
+        "value": "jan.kowalski@firma.pl"
+      },
+      {
+        "type": "NIP",
+        "value": "526-000-12-46"
+      }
+    ]
+  },
+  {
+    "id": "mix-073",
+    "category": "mix_email_phone_combo",
+    "text": "Kontakt do wnioskodawcy: telefon 512345678, PESEL 05231567898, e-mail jan.kowalski@firma.pl.",
+    "entities": [
+      {
+        "type": "PHONE",
+        "value": "512345678"
+      },
+      {
+        "type": "PESEL",
+        "value": "05231567898"
+      },
+      {
+        "type": "EMAIL",
+        "value": "jan.kowalski@firma.pl"
+      }
+    ]
+  },
+  {
+    "id": "mix-074",
+    "category": "mix_email_phone_combo",
+    "text": "Dane rejestracyjne: REGON 191045425, e-mail kontaktowy: kontakt@abc.pl.",
+    "entities": [
+      {
+        "type": "REGON",
+        "value": "191045425"
+      },
+      {
+        "type": "EMAIL",
+        "value": "kontakt@abc.pl"
+      }
+    ]
+  },
+  {
+    "id": "mix-075",
+    "category": "mix_email_phone_combo",
+    "text": "Numer konta PL05105000990000009007300140 oraz e-mail do potwierdzeń: platnosci@firma.pl widnieją na fakturze.",
+    "entities": [
+      {
+        "type": "BANK_ACCOUNT",
+        "value": "PL05105000990000009007300140"
+      },
+      {
+        "type": "EMAIL",
+        "value": "platnosci@firma.pl"
+      }
+    ]
+  },
+  {
+    "id": "mix-076",
+    "category": "mix_business_document_multi_entity",
+    "text": "Sprzedawca: ABC Sp. z o.o., NIP 526-000-12-46, REGON 191045425, adres: ul. Polna 3, 30-001 Kraków. Osoba kontaktowa: Jan Kowalski, tel. 512345678.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "ABC Sp. z o.o."
+      },
+      {
+        "type": "NIP",
+        "value": "526-000-12-46"
+      },
+      {
+        "type": "REGON",
+        "value": "191045425"
+      },
+      {
+        "type": "LOCATION",
+        "value": "ul. Polna 3, 30-001 Kraków"
+      },
+      {
+        "type": "PERSON",
+        "value": "Jan Kowalski"
+      },
+      {
+        "type": "PHONE",
+        "value": "512345678"
+      }
+    ]
+  },
+  {
+    "id": "mix-077",
+    "category": "mix_business_document_multi_entity",
+    "text": "Nabywca: Anna Nowak, PESEL 85072212339, zamieszkała przy ul. Długiej 15, 00-238 Warszawa, e-mail anna.nowak@poczta.pl.",
+    "entities": [
+      {
+        "type": "PERSON",
+        "value": "Anna Nowak"
+      },
+      {
+        "type": "PESEL",
+        "value": "85072212339"
+      },
+      {
+        "type": "LOCATION",
+        "value": "ul. Długiej 15, 00-238 Warszawa"
+      },
+      {
+        "type": "EMAIL",
+        "value": "anna.nowak@poczta.pl"
+      }
+    ]
+  },
+  {
+    "id": "mix-078",
+    "category": "mix_business_document_multi_entity",
+    "text": "Umowa zawarta pomiędzy XYZ S.A. (NIP 118-000-00-19, ul. Kwiatowa 7, 61-001 Poznań) a Piotrem Wiśniewskim (PESEL 05231567898).",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "XYZ S.A."
+      },
+      {
+        "type": "NIP",
+        "value": "118-000-00-19"
+      },
+      {
+        "type": "LOCATION",
+        "value": "ul. Kwiatowa 7, 61-001 Poznań"
+      },
+      {
+        "type": "PERSON",
+        "value": "Piotrem Wiśniewskim"
+      },
+      {
+        "type": "PESEL",
+        "value": "05231567898"
+      }
+    ]
+  },
+  {
+    "id": "mix-079",
+    "category": "mix_business_document_multi_entity",
+    "text": "Faktura nr FV/2024/0012: Sprzedawca Delta Sp. z o.o., NIP 700-001-02-03, REGON 012345675, konto PL27114020040000350297423651.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "Delta Sp. z o.o."
+      },
+      {
+        "type": "NIP",
+        "value": "700-001-02-03"
+      },
+      {
+        "type": "REGON",
+        "value": "012345675"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "value": "PL27114020040000350297423651"
+      }
+    ]
+  },
+  {
+    "id": "mix-080",
+    "category": "mix_business_document_multi_entity",
+    "text": "Dane kontrahenta: Nordbau GmbH, Musterstraße 12, 10115 Berlin, Niemcy, tel. +48 512 345 678, e-mail kontakt@nordbau.de.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "Nordbau GmbH"
+      },
+      {
+        "type": "LOCATION",
+        "value": "Musterstraße 12, 10115 Berlin, Niemcy"
+      },
+      {
+        "type": "PHONE",
+        "value": "+48 512 345 678"
+      },
+      {
+        "type": "EMAIL",
+        "value": "kontakt@nordbau.de"
+      }
+    ]
+  },
+  {
+    "id": "mix-081",
+    "category": "mix_business_document_multi_entity",
+    "text": "Podpisano w imieniu Kowalski Sp. z o.o. przez Jana Kowalskiego, REGON firmy: 555000125, adres siedziby: ul. Kwiatowa 7, 61-001 Poznań.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "Kowalski Sp. z o.o."
+      },
+      {
+        "type": "PERSON",
+        "value": "Jana Kowalskiego"
+      },
+      {
+        "type": "REGON",
+        "value": "555000125"
+      },
+      {
+        "type": "LOCATION",
+        "value": "ul. Kwiatowa 7, 61-001 Poznań"
+      }
+    ]
+  },
+  {
+    "id": "mix-082",
+    "category": "mix_business_document_multi_entity",
+    "text": "Zgłoszenie do ZUS: płatnik Trans-Pol Sp.j., NIP 526-000-12-46, PESEL osoby zgłaszającej 99090911123, tel. kontaktowy 678912345.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "ZUS"
+      },
+      {
+        "type": "ORGANIZATION",
+        "value": "Trans-Pol Sp.j."
+      },
+      {
+        "type": "NIP",
+        "value": "526-000-12-46"
+      },
+      {
+        "type": "PESEL",
+        "value": "99090911123"
+      },
+      {
+        "type": "PHONE",
+        "value": "678912345"
+      }
+    ]
+  },
+  {
+    "id": "mix-083",
+    "category": "mix_business_document_multi_entity",
+    "text": "Wniosek CEIDG: Katarzyna Lewandowska, PESEL 55861020203, adres: os. Słoneczne 9, 31-215 Kraków, NIP działalności 118-000-00-19, REGON 330051022.",
+    "entities": [
+      {
+        "type": "PERSON",
+        "value": "Katarzyna Lewandowska"
+      },
+      {
+        "type": "PESEL",
+        "value": "55861020203"
+      },
+      {
+        "type": "LOCATION",
+        "value": "os. Słoneczne 9, 31-215 Kraków"
+      },
+      {
+        "type": "NIP",
+        "value": "118-000-00-19"
+      },
+      {
+        "type": "REGON",
+        "value": "330051022"
+      }
+    ]
+  },
+  {
+    "id": "mix-084",
+    "category": "mix_business_document_multi_entity",
+    "text": "Umowa najmu lokalu przy al. Niepodległości 12, 02-653 Warszawa zawarta pomiędzy Wynajmującym Budex Sp.k. a Najemcą Tomaszem Wójcikiem, PESEL 78113044440.",
+    "entities": [
+      {
+        "type": "LOCATION",
+        "value": "al. Niepodległości 12, 02-653 Warszawa"
+      },
+      {
+        "type": "ORGANIZATION",
+        "value": "Budex Sp.k."
+      },
+      {
+        "type": "PERSON",
+        "value": "Tomaszem Wójcikiem"
+      },
+      {
+        "type": "PESEL",
+        "value": "78113044440"
+      }
+    ]
+  },
+  {
+    "id": "mix-085",
+    "category": "mix_business_document_multi_entity",
+    "text": "Dane do przelewu: odbiorca ABC Sp. z o.o., numer konta 65109016650000000103737343, NIP 526-000-12-46, tytuł przelewu: faktura FV/2024/0012.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "ABC Sp. z o.o."
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "value": "65109016650000000103737343"
+      },
+      {
+        "type": "NIP",
+        "value": "526-000-12-46"
+      }
+    ]
+  },
+  {
+    "id": "mix-086",
+    "category": "mix_business_document_multi_entity",
+    "text": "Świadek zdarzenia: Piotr Wiśniewski, zam. ul. Leśna 12A, 40-001 Katowice, tel. 224567890, e-mail piotr.wisniewski@poczta.pl.",
+    "entities": [
+      {
+        "type": "PERSON",
+        "value": "Piotr Wiśniewski"
+      },
+      {
+        "type": "LOCATION",
+        "value": "ul. Leśna 12A, 40-001 Katowice"
+      },
+      {
+        "type": "PHONE",
+        "value": "224567890"
+      },
+      {
+        "type": "EMAIL",
+        "value": "piotr.wisniewski@poczta.pl"
+      }
+    ]
+  },
+  {
+    "id": "mix-087",
+    "category": "mix_business_document_multi_entity",
+    "text": "Formularz rejestracyjny spółki: Delta Consulting Sp. z o.o., REGON 19104542500019, adres: pl. Wolności 4, 61-738 Poznań, reprezentant: Anna Nowak.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "Delta Consulting Sp. z o.o."
+      },
+      {
+        "type": "REGON",
+        "value": "19104542500019"
+      },
+      {
+        "type": "LOCATION",
+        "value": "pl. Wolności 4, 61-738 Poznań"
+      },
+      {
+        "type": "PERSON",
+        "value": "Anna Nowak"
+      }
+    ]
+  },
+  {
+    "id": "mix-088",
+    "category": "mix_business_document_multi_entity",
+    "text": "Kontrahent zagraniczny: Trident Ltd., 221B Baker Street, London NW1 6XE, kontakt: john.smith@trident.co.uk.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "Trident Ltd."
+      },
+      {
+        "type": "LOCATION",
+        "value": "221B Baker Street, London NW1 6XE"
+      },
+      {
+        "type": "EMAIL",
+        "value": "john.smith@trident.co.uk"
+      }
+    ]
+  },
+  {
+    "id": "mix-089",
+    "category": "mix_business_document_multi_entity",
+    "text": "Sprzedawca: Wilk Sp. z o.o., NIP 700-001-02-03, adres: ul. Fabryczna 3, 90-001 Łódź. Nabywca: Jan Kowalski, PESEL 00222945617, tel. 512345678.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "Wilk Sp. z o.o."
+      },
+      {
+        "type": "NIP",
+        "value": "700-001-02-03"
+      },
+      {
+        "type": "LOCATION",
+        "value": "ul. Fabryczna 3, 90-001 Łódź"
+      },
+      {
+        "type": "PERSON",
+        "value": "Jan Kowalski"
+      },
+      {
+        "type": "PESEL",
+        "value": "00222945617"
+      },
+      {
+        "type": "PHONE",
+        "value": "512345678"
+      }
+    ]
+  },
+  {
+    "id": "mix-090",
+    "category": "mix_business_document_multi_entity",
+    "text": "Pełne dane rejestrowe jednoosobowej działalności: Tomasz Wójcik, NIP 118-000-00-19, REGON 012345675, PESEL 03011522233, adres: ul. Parkowa 9, 02-001 Warszawa, tel. 678912345, e-mail tomasz.wojcik@firma.pl.",
+    "entities": [
+      {
+        "type": "PERSON",
+        "value": "Tomasz Wójcik"
+      },
+      {
+        "type": "NIP",
+        "value": "118-000-00-19"
+      },
+      {
+        "type": "REGON",
+        "value": "012345675"
+      },
+      {
+        "type": "PESEL",
+        "value": "03011522233"
+      },
+      {
+        "type": "LOCATION",
+        "value": "ul. Parkowa 9, 02-001 Warszawa"
+      },
+      {
+        "type": "PHONE",
+        "value": "678912345"
+      },
+      {
+        "type": "EMAIL",
+        "value": "tomasz.wojcik@firma.pl"
+      }
+    ]
+  },
+  {
+    "id": "mix-091",
+    "category": "mix_date_collision",
+    "text": "Faktura nr FV/2024/01/15/003 zawiera datę wystawienia 15.01.2024 oraz NIP sprzedawcy 526-000-12-46.",
+    "entities": [
+      {
+        "type": "DATE",
+        "value": "15.01.2024"
+      },
+      {
+        "type": "NIP",
+        "value": "526-000-12-46"
+      }
+    ]
+  },
+  {
+    "id": "mix-092",
+    "category": "mix_date_collision",
+    "text": "Umowa zawarta dnia 15 stycznia 2024 roku pomiędzy ABC Sp. z o.o. a Janem Kowalskim.",
+    "entities": [
+      {
+        "type": "DATE",
+        "value": "15 stycznia 2024 roku"
+      },
+      {
+        "type": "ORGANIZATION",
+        "value": "ABC Sp. z o.o."
+      },
+      {
+        "type": "PERSON",
+        "value": "Janem Kowalskim"
+      }
+    ]
+  },
+  {
+    "id": "mix-093",
+    "category": "mix_date_collision",
+    "text": "Data urodzenia wnioskodawcy: 22.07.1985, PESEL: 85072212339.",
+    "entities": [
+      {
+        "type": "DATE",
+        "value": "22.07.1985"
+      },
+      {
+        "type": "PESEL",
+        "value": "85072212339"
+      }
+    ]
+  },
+  {
+    "id": "mix-094",
+    "category": "mix_date_collision",
+    "text": "Raport roczny 2024 zawiera dane finansowe spółki XYZ S.A. za rok obrotowy 2024.",
+    "entities": [
+      {
+        "type": "ORGANIZATION",
+        "value": "XYZ S.A."
+      }
+    ]
+  },
+  {
+    "id": "mix-095",
+    "category": "mix_date_collision",
+    "text": "Termin płatności faktury upływa 15.02.2024, numer konta do wpłaty: PL05105000990000009007300140.",
+    "entities": [
+      {
+        "type": "DATE",
+        "value": "15.02.2024"
+      },
+      {
+        "type": "BANK_ACCOUNT",
+        "value": "PL05105000990000009007300140"
+      }
+    ]
+  },
+  {
+    "id": "mix-096",
+    "category": "mix_ambiguous_multi_true_negative",
+    "text": "Formularz zawiera pola: imię i nazwisko - nie dotyczy, NIP - nie dotyczy, adres - nie dotyczy. Zgłoszenie złożone przez podmiot zbiorowy nieposiadający wskazanych danych.",
+    "entities": []
+  },
+  {
+    "id": "mix-097",
+    "category": "mix_ambiguous_multi_true_negative",
+    "text": "W dokumencie wspomniano Nowak oraz numer 512345678 bez wystarczającego kontekstu, by jednoznacznie określić, czy to nazwisko i telefon, czy inne dane.",
+    "entities": []
+  },
+  {
+    "id": "mix-098",
+    "category": "mix_ambiguous_multi_true_negative",
+    "text": "Ciąg 1180000019 oraz 122345678 pojawiają się obok siebie w eksporcie danych bez etykiet wskazujących ich typ.",
+    "entities": []
+  },
+  {
+    "id": "mix-099",
+    "category": "mix_ambiguous_multi_true_negative",
+    "text": "Osoba kontaktowa: brak danych. Firma: brak danych. Adres: brak danych.",
+    "entities": []
+  },
+  {
+    "id": "mix-100",
+    "category": "mix_ambiguous_multi_true_negative",
+    "text": "Numer 526-000-12-46 widnieje w dokumencie testowym wraz z numerem 191045425 — oba są przykładowymi wartościami z dokumentacji technicznej, nie danymi rzeczywistego podmiotu.",
+    "entities": []
+  }
+]

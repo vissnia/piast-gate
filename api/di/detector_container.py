@@ -5,7 +5,6 @@ from infrastructure.detectors.email_detector import EmailDetector
 from infrastructure.detectors.phone_detector import PhoneDetector
 from infrastructure.detectors.pesel_detector import PeselDetector
 from infrastructure.detectors.bank_account_detector import BankAccountDetector
-from infrastructure.detectors.date_detector import DateDetector
 from infrastructure.detectors.nip_detector import NipDetector
 from infrastructure.detectors.regon_detector import RegonDetector
 
@@ -32,10 +31,6 @@ def get_pesel_detector() -> PeselDetector:
 @lru_cache
 def get_bank_account_detector() -> BankAccountDetector:
     return BankAccountDetector()
-
-@lru_cache
-def get_date_detector() -> DateDetector:
-    return DateDetector()
 
 @lru_cache
 def get_nip_detector() -> NipDetector:

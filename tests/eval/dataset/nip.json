@@ -1,0 +1,226 @@
+[
+  {
+    "id": "nip-001",
+    "category": "nip_basic",
+    "text": "NIP dostawcy: 526-000-12-46, prosimy zweryfikować przed podpisaniem umowy.",
+    "entities": [
+      { "type": "NIP", "value": "526-000-12-46" }
+    ]
+  },
+  {
+    "id": "nip-002",
+    "category": "nip_basic",
+    "text": "Sprzedawca podał NIP 118-000-00-19 w formularzu rejestracyjnym, prosimy o weryfikację przed wysyłką faktury.",
+    "entities": [
+      { "type": "NIP", "value": "118-000-00-19" }
+    ]
+  },
+  {
+    "id": "nip-003",
+    "category": "nip_no_separators",
+    "text": "Numer NIP kontrahenta to 5260001246, proszę o potwierdzenie zgodności z KRS.",
+    "entities": [
+      { "type": "NIP", "value": "5260001246" }
+    ]
+  },
+  {
+    "id": "nip-004",
+    "category": "nip_no_separators",
+    "text": "Faktura VAT nr FV/2024/0012, NIP1180000019, kwota do zapłaty: 4 920,00 zł.",
+    "entities": [
+      { "type": "NIP", "value": "1180000019" }
+    ]
+  },
+  {
+    "id": "nip-005",
+    "category": "nip_spaces",
+    "text": "Dane do faktury: NIP 526 000 12 46, prosimy zweryfikować poprawność wpisanych danych rejestrowych.",
+    "entities": [
+      { "type": "NIP", "value": "526 000 12 46" }
+    ]
+  },
+  {
+    "id": "nip-006",
+    "category": "nip_spaces",
+    "text": "Proszę wystawić fakturę na NIP: 118 000 00 19.",
+    "entities": [
+      { "type": "NIP", "value": "118 000 00 19" }
+    ]
+  },
+  {
+    "id": "nip-007",
+    "category": "nip_mixed_separators",
+    "text": "NIP: 526-000 12-46 (przepisany ręcznie z wizytówki, proszę zweryfikować).",
+    "entities": [
+      { "type": "NIP", "value": "526-000 12-46" }
+    ]
+  },
+  {
+    "id": "nip-008",
+    "category": "nip_label_no_space",
+    "text": "NIP:526-000-12-46 (bez spacji po dwukropku, format ze starego systemu).",
+    "entities": [
+      { "type": "NIP", "value": "526-000-12-46" }
+    ]
+  },
+  {
+    "id": "nip-009",
+    "category": "nip_label_prefix",
+    "text": "Identyfikator podatkowy NIP nr 118-000-00-19 należy podać w tytule przelewu.",
+    "entities": [
+      { "type": "NIP", "value": "118-000-00-19" }
+    ]
+  },
+  {
+    "id": "nip-010",
+    "category": "nip_vat_eu_prefix",
+    "text": "Transakcja wewnątrzwspólnotowa, NIP UE nabywcy: PL5260001246.",
+    "entities": [
+      { "type": "NIP", "value": "PL5260001246" }
+    ]
+  },
+  {
+    "id": "nip-011",
+    "category": "nip_vat_eu_prefix",
+    "text": "Faktura eksportowa, kontrahent posługuje się numerem VAT-UE PL1180000019 przy odprawie celnej.",
+    "entities": [
+      { "type": "NIP", "value": "PL1180000019" }
+    ]
+  },
+  {
+    "id": "nip-012",
+    "category": "nip_foreign_prefix",
+    "text": "Kontrahent zagraniczny wskazał numer identyfikacji podatkowej DE123456789 na fakturze proforma.",
+    "entities": [
+      { "type": "NIP", "value": "DE123456789" }
+    ]
+  },
+  {
+    "id": "nip-013",
+    "category": "nip_numeric_distractor",
+    "text": "Dane firmy: NIP 526-000-12-46, numer w wewnętrznym systemie księgowym: 010-051-021.",
+    "entities": [
+      { "type": "NIP", "value": "526-000-12-46" }
+    ]
+  },
+  {
+    "id": "nip-014",
+    "category": "nip_numeric_distractor",
+    "text": "We wniosku podano numer referencyjny 92050112345 oraz NIP działalności 118-000-00-19.",
+    "entities": [
+      { "type": "NIP", "value": "118-000-00-19" }
+    ]
+  },
+  {
+    "id": "nip-015",
+    "category": "nip_numeric_distractor",
+    "text": "Numer referencyjny 526 001 246 różni się od numeru NIP firmy: 526-000-12-46.",
+    "entities": [
+      { "type": "NIP", "value": "526-000-12-46" }
+    ]
+  },
+  {
+    "id": "nip-016",
+    "category": "nip_numeric_distractor_true_negative",
+    "text": "Numer referencyjny transakcji to 91090166500000010373734, prosimy potwierdzić przed realizacją.",
+    "entities": []
+  },
+  {
+    "id": "nip-017",
+    "category": "nip_invalid_checksum",
+    "text": "NIP: 526-000-12-47 — proszę sprawdzić, bo faktura została odrzucona przez system księgowy.",
+    "entities": []
+  },
+  {
+    "id": "nip-018",
+    "category": "nip_invalid_checksum",
+    "text": "W zgłoszeniu podano NIP 111-111-11-13, który nie przechodzi walidacji sumy kontrolnej.",
+    "entities": []
+  },
+  {
+    "id": "nip-019",
+    "category": "nip_test_placeholder_true_negative",
+    "text": "W dokumentacji technicznej użyto przykładowego numeru NIP: 000-000-00-00 do testów integracyjnych.",
+    "entities": []
+  },
+  {
+    "id": "nip-020",
+    "category": "nip_test_placeholder_true_negative",
+    "text": "Numer testowy w środowisku sandbox: NIP 111-111-11-11 nie odpowiada rzeczywistemu podmiotowi.",
+    "entities": []
+  },
+  {
+    "id": "nip-021",
+    "category": "nip_tutorial_example_true_negative",
+    "text": "Przykład z dokumentacji API: walidacja formatu na numerze NIP 123-456-32-18.",
+    "entities": []
+  },
+  {
+    "id": "nip-022",
+    "category": "nip_multiple_in_document",
+    "text": "Sprzedawca posiada NIP 526-000-12-46. Nabywca w tej samej fakturze widnieje pod numerem NIP 118-000-00-19.",
+    "entities": [
+      { "type": "NIP", "value": "526-000-12-46" },
+      { "type": "NIP", "value": "118-000-00-19" }
+    ]
+  },
+  {
+    "id": "nip-023",
+    "category": "nip_multiple_in_document",
+    "text": "Umowa zawarta pomiędzy stronami o numerach NIP: 526-000-12-46 oraz 700-001-02-03.",
+    "entities": [
+      { "type": "NIP", "value": "526-000-12-46" },
+      { "type": "NIP", "value": "700-001-02-03" }
+    ]
+  },
+  {
+    "id": "nip-024",
+    "category": "nip_false_positive_trap",
+    "text": "Proszę o wystawienie faktury bez wskazania numeru NIP — klient indywidualny.",
+    "entities": []
+  },
+  {
+    "id": "nip-025",
+    "category": "nip_false_positive_trap",
+    "text": "Pole NIP: nie dotyczy (osoba fizyczna nieprowadząca działalności gospodarczej).",
+    "entities": []
+  },
+  {
+    "id": "nip-026",
+    "category": "nip_false_positive_trap",
+    "text": "Numer zamówienia: 526-000-12-46-A to nie jest NIP, lecz wewnętrzny numer referencyjny magazynu.",
+    "entities": []
+  },
+  {
+    "id": "nip-027",
+    "category": "nip_split_across_lines_ocr",
+    "text": "NIP: 526-000-\n12-46 (numer przeniesiony z zeskanowanego dokumentu, złamany na końcu linii).",
+    "entities": [
+      { "type": "NIP", "value": "526-000-12-46" }
+    ]
+  },
+  {
+    "id": "nip-028",
+    "category": "nip_sole_proprietor",
+    "text": "Faktura wystawiona przez osobę prowadzącą jednoosobową działalność gospodarczą, NIP 118-000-00-19, tożsamy z numerem identyfikacji podatkowej tej osoby fizycznej.",
+    "entities": [
+      { "type": "NIP", "value": "118-000-00-19" }
+    ]
+  },
+  {
+    "id": "nip-029",
+    "category": "nip_label_prefix",
+    "text": "Do celów fakturowania proszę wykorzystać NIP firmy: 700-001-02-03.",
+    "entities": [
+      { "type": "NIP", "value": "700-001-02-03" }
+    ]
+  },
+  {
+    "id": "nip-030",
+    "category": "nip_numeric_distractor",
+    "text": "W CEIDG figuruje wpis z NIP 700-001-02-03 oraz dodatkowym numerem rejestrowym 123456785, prosimy o zgodność danych.",
+    "entities": [
+      { "type": "NIP", "value": "700-001-02-03" }
+    ]
+  }
+]

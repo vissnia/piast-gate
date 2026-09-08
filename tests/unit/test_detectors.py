@@ -3,7 +3,6 @@ from infrastructure.detectors.email_detector import EmailDetector
 from infrastructure.detectors.phone_detector import PhoneDetector
 from infrastructure.detectors.pesel_detector import PeselDetector
 from infrastructure.detectors.bank_account_detector import BankAccountDetector
-from infrastructure.detectors.date_detector import DateDetector
 from infrastructure.detectors.nip_detector import NipDetector
 from infrastructure.detectors.regon_detector import RegonDetector
 from infrastructure.detectors.pii_pl.detector import PiiPlDetector
@@ -120,49 +119,6 @@ class TestPeselDetector:
     def test_empty_text_returns_no_tokens(self):
         detector = PeselDetector()
         assert detector.detect("") == []
-
-
-class TestDateDetector:
-    def test_detects_iso_date(self):
-        detector = DateDetector()
-        text = "Zgłoszenie zarejestrowano dnia 2024-01-15."
-        tokens = detector.detect(text)
-
-        assert len(tokens) == 1
-        assert tokens[0].type == PIIType.DATE
-        assert tokens[0].original_value == "2024-01-15"
-
-    def test_detects_numeric_dotted_date(self):
-        detector = DateDetector()
-        text = "Termin płatności upływa 31.12.2024."
-        tokens = detector.detect(text)
-
-        assert len(tokens) == 1
-        assert tokens[0].original_value == "31.12.2024"
-
-    def test_detects_polish_long_form_date(self):
-        detector = DateDetector()
-        text = "Umowa została podpisana 15 marca 2023 roku."
-        tokens = detector.detect(text)
-
-        assert len(tokens) == 1
-        assert tokens[0].original_value == "15 marca 2023 roku"
-
-    def test_does_not_include_preceding_word(self):
-        detector = DateDetector()
-        text = "Zgłoszenie z dnia 3 stycznia 2024 zostało przyjęte."
-        tokens = detector.detect(text)
-
-        assert len(tokens) == 1
-        assert tokens[0].original_value == "3 stycznia 2024"
-
-    def test_empty_text_returns_no_tokens(self):
-        detector = DateDetector()
-        assert detector.detect("") == []
-
-    def test_no_match_in_plain_text(self):
-        detector = DateDetector()
-        assert detector.detect("Nie ma tu żadnej daty.") == []
 
 
 class TestBankAccountDetector:
