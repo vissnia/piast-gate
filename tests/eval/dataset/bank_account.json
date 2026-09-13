@@ -226,6 +226,8 @@
     "id": "bank-030",
     "category": "bank_account_tutorial_example_true_negative",
     "text": "Przykład z dokumentacji API bankowości: format numeru konta przedstawiono na numerze PL61109010140000071219812874.",
-    "entities": []
+    "entities": [
+      { "type": "BANK_ACCOUNT", "value": "PL61109010140000071219812874" }
+    ]
   }
 ]

@@ -142,15 +142,27 @@ class TestBankAccountDetector:
         assert tokens[0].type == PIIType.BANK_ACCOUNT
         assert tokens[0].original_value == iban
 
-    def test_rejects_26_digits_with_invalid_checksum(self):
+    def test_detects_26_digits_with_invalid_checksum(self):
         detector = BankAccountDetector()
-        nrb = "12345678901234567890123456"
+        nrb = "12345678901234567890123457"
+        tokens = detector.detect(f"Numer konta:{nrb}.")
+
+        assert len(tokens) == 1
+        assert tokens[0].original_value == nrb
+
+    def test_detects_iban_style_number_with_invalid_checksum(self):
+        detector = BankAccountDetector()
+        iban = "PL61" + "12345678902"
+        tokens = detector.detect(f"IBAN:{iban}.")
+
+        assert len(tokens) == 1
+        assert tokens[0].original_value == iban
+
+    def test_rejects_repeated_digit_placeholder(self):
+        detector = BankAccountDetector()
+        nrb = "00000000000000000000000000"
         assert detector.detect(f"Numer konta:{nrb}.") == []
 
-    def test_rejects_iban_style_number_with_invalid_checksum(self):
-        detector = BankAccountDetector()
-        iban = "PL61" + "12345678901"
-        assert detector.detect(f"IBAN:{iban}.") == []
 
     def test_does_not_match_pesel_length_sequence(self):
         detector = BankAccountDetector()

@@ -47,19 +47,3 @@ def is_valid_regon(digits: str) -> bool:
     if checksum14 == 10:
         checksum14 = 0
     return checksum14 == int(digits[13])
-
-
-def is_valid_iban_checksum(code: str) -> bool:
-    """ISO 7064 MOD 97-10 check used by IBAN, and by Polish NRB once
-    prefixed with the "PL" country code (a Polish NRB is, by construction,
-    an IBAN's BBAN plus the same two check digits)."""
-    if len(code) < 4 or not code[:2].isalpha() or not code[2:4].isdigit():
-        return False
-
-    rearranged = code[4:] + code[:4]
-    try:
-        numeric = "".join(str(int(c, 36)) for c in rearranged.upper())
-    except ValueError:
-        return False
-
-    return int(numeric) % 97 == 1
