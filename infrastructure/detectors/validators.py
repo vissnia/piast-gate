@@ -34,6 +34,9 @@ def is_valid_regon(digits: str) -> bool:
     if not digits.isdigit() or len(digits) not in (9, 14):
         return False
 
+    if len(set(digits)) == 1:
+        return False
+
     checksum9 = sum(int(d) * w for d, w in zip(digits, _REGON9_WEIGHTS)) % 11
     if checksum9 == 10:
         checksum9 = 0
