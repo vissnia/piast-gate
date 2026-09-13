@@ -1,5 +1,5 @@
 from functools import lru_cache
-from infrastructure.detectors.pii_pl import PiiPlDetector
+from infrastructure.detectors.pii_pl import BaseNerDetector, create_pii_ner_detector
 from infrastructure.detectors.gazetteer import GazetteerDetector
 from infrastructure.detectors.email_detector import EmailDetector
 from infrastructure.detectors.phone_detector import PhoneDetector
@@ -9,8 +9,8 @@ from infrastructure.detectors.nip_detector import NipDetector
 from infrastructure.detectors.regon_detector import RegonDetector
 
 @lru_cache
-def get_pii_pl_detector() -> PiiPlDetector:
-    return PiiPlDetector()
+def get_pii_pl_detector() -> BaseNerDetector:
+    return create_pii_ner_detector()
 
 @lru_cache
 def get_gazetteer_detector() -> GazetteerDetector:

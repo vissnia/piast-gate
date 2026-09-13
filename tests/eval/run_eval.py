@@ -15,13 +15,13 @@ from infrastructure.detectors.nip_detector import NipDetector
 from infrastructure.detectors.pesel_detector import PeselDetector
 from infrastructure.detectors.phone_detector import PhoneDetector
 from infrastructure.detectors.regon_detector import RegonDetector
-from infrastructure.detectors.pii_pl.detector import PiiPlDetector
+from infrastructure.detectors.pii_pl import create_pii_ner_detector
 from infrastructure.detectors.gazetteer import GazetteerDetector
 
 DATASET_DIR = Path(__file__).parent / "dataset"
 
 
-def build_service() -> AnonymizerService:
+def build_service(ner_mode: str | None = None) -> AnonymizerService:
     detectors = [
         EmailDetector(),
         PeselDetector(),
@@ -29,7 +29,7 @@ def build_service() -> AnonymizerService:
         NipDetector(),
         RegonDetector(),
         PhoneDetector(),
-        PiiPlDetector(),
+        create_pii_ner_detector(ner_mode),
         GazetteerDetector(),
     ]
     return AnonymizerService(detectors)
@@ -135,11 +135,17 @@ def main() -> None:
         help="Directory of per-class dataset JSON files (merged, deduped by id).",
     )
     parser.add_argument("--category", type=str, default=None, help="Only run examples with this category.")
+    parser.add_argument(
+        "--ner-mode",
+        choices=["efficiency", "accuracy"],
+        default=None,
+        help="PERSON/LOCATION/ORGANIZATION detector to evaluate (defaults to the PII_NER_MODE setting).",
+    )
     parser.add_argument("-v", "--verbose", action="store_true", help="Print per-example misses/false positives.")
     args = parser.parse_args()
 
     examples = load_dataset_dir(args.dataset_dir)
-    service = build_service()
+    service = build_service(args.ner_mode)
     per_type, failures = evaluate(service, examples, args.category)
     print_report(per_type, failures, args.verbose)
 

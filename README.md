@@ -41,7 +41,12 @@ cp .env.example .env       # then set DEFAULT_MODEL's API key, e.g. GEMINI_API_K
 uv run uvicorn main:app --workers 4
 ```
 
-The Polish NER model is a spaCy pipeline loaded from disk at `models/pii_ner_model` (override with `PL_NER_MODEL_PATH`). It's not checked into the repo — place the pipeline directory there before first startup. No download happens at runtime. Re-run `tests/eval/run_eval.py` after swapping in a different model.
+PERSON/LOCATION/ORGANIZATION detection has two modes, set via `PII_NER_MODE`:
+
+- `efficiency` (default) — a spaCy pipeline loaded from disk at `models/pii_ner_model` (override with `PL_NER_MODEL_PATH`). It's not checked into the repo — place the pipeline directory there before first startup. No download happens at runtime.
+- `accuracy` — the [radlab/pii-pl-v1.0](https://huggingface.co/radlab/pii-pl-v1.0) HuggingFace transformer (override with `PII_NER_HF_MODEL`), downloaded from the Hub on first use. Slower per request, but more accurate. Requires the `accuracy` extra: `pip install -e ".[accuracy]"` (or `uv sync --extra accuracy`).
+
+Re-run `tests/eval/run_eval.py --ner-mode <mode>` after swapping in a different model to compare precision/recall.
 
 ```env
 LLM_PROVIDER=litellm
