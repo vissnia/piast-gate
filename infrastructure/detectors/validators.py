@@ -24,6 +24,9 @@ def is_valid_nip(digits: str) -> bool:
     if len(digits) != 10 or not digits.isdigit():
         return False
 
+    if len(set(digits)) == 1:
+        return False
+
     checksum = sum(int(d) * w for d, w in zip(digits, _NIP_WEIGHTS)) % 11
     return checksum != 10 and checksum == int(digits[9])
 
