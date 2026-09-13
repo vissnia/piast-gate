@@ -335,6 +335,54 @@ class TestPiiPlDetector:
         assert detector.detect("zwykły tekst bez PII") == []
 
 
+class TestNeverOrganizationFilter:
+    """NIP/REGON/KRS/CEIDG are registry-identifier labels the NER model
+    sometimes mistakes for a company name on their own; infrastructure/
+    detectors/pii_pl/never_organization.txt lists terms that must never
+    surface as an ORGANIZATION, shared by every BaseNerDetector subclass."""
+
+    def test_blocklisted_terms_are_dropped(self, monkeypatch):
+        text = "W KRS figurują dane: NIP: 700-001-02-03, REGON: 555000125, zgodnie z CEIDG."
+        terms = ["KRS", "NIP", "REGON", "CEIDG"]
+        spans = [("ORGANIZATION", text.index(term), text.index(term) + len(term)) for term in terms]
+        detector = _make_detector(monkeypatch, spans)
+
+        assert detector.detect(text) == []
+
+    def test_is_case_insensitive(self, monkeypatch):
+        text = "regon firmy to nie organizacja."
+        detector = _make_detector(monkeypatch, [("ORGANIZATION", 0, 5)])
+
+        assert detector.detect(text) == []
+
+    def test_does_not_drop_a_real_organization(self, monkeypatch):
+        text = "Sprzedawca: ABC Sp. z o.o."
+        detector = _make_detector(monkeypatch, [("ORGANIZATION", 12, 26)])
+
+        tokens = detector.detect(text)
+
+        assert [t.original_value for t in tokens] == ["ABC Sp. z o.o."]
+
+    def test_only_applies_to_organization_type(self, monkeypatch):
+        text = "NIP"
+        detector = _make_detector(monkeypatch, [("PERSON", 0, 3)])
+
+        tokens = detector.detect(text)
+
+        assert [t.original_value for t in tokens] == ["NIP"]
+
+    def test_hf_detector_also_filters_blocklisted_organizations(self, monkeypatch):
+        text = "Dane zgodne z CEIDG i REGON."
+        results = [
+            {"entity_group": "ORGANIZATION", "start": 14, "end": 19},
+            {"entity_group": "ORGANIZATION", "start": 22, "end": 27},
+        ]
+        monkeypatch.setattr(HfNerDetector, "_load_pipeline", lambda self: (lambda t: results))
+        detector = HfNerDetector()
+
+        assert detector.detect(text) == []
+
+
 class TestHfNerDetector:
     """The mapping/aggregation logic is shared with SpacyNerDetector via
     BaseNerDetector; these tests focus on translating the HF pipeline's

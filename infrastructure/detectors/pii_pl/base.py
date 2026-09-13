@@ -1,14 +1,26 @@
 import logging
 import threading
+from pathlib import Path
 from typing import List, Tuple
 
 from domain.entities.pii_token import PIIToken
+from domain.enums.pii_type import PIIType
 from domain.interfaces.pii_detector import PIIDetector
 from .mapping import ENTITY_MAPPING
 
 logger = logging.getLogger(__name__)
 
 RawEntity = Tuple[str, int, int, str]
+
+_NEVER_ORGANIZATION_PATH = Path(__file__).parent / "never_organization.txt"
+
+
+def _load_never_organization_terms() -> frozenset:
+    with _NEVER_ORGANIZATION_PATH.open(encoding="utf-8") as fh:
+        return frozenset(line.strip().upper() for line in fh if line.strip())
+
+
+NEVER_ORGANIZATION_TERMS = _load_never_organization_terms()
 
 
 class BaseNerDetector(PIIDetector):
@@ -34,6 +46,8 @@ class BaseNerDetector(PIIDetector):
         for label, start, end, value in entities:
             pii_type = ENTITY_MAPPING.get(label)
             if not pii_type:
+                continue
+            if pii_type is PIIType.ORGANIZATION and value.strip().upper() in NEVER_ORGANIZATION_TERMS:
                 continue
 
             tokens.append(PIIToken(
