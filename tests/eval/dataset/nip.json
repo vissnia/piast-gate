@@ -10,9 +10,9 @@
   {
     "id": "nip-002",
     "category": "nip_basic",
-    "text": "Sprzedawca podał NIP 118-000-00-19 w formularzu rejestracyjnym, prosimy o weryfikację przed wysyłką faktury.",
+    "text": "Sprzedawca podał NIP 118-000-00-18 w formularzu rejestracyjnym, prosimy o weryfikację przed wysyłką faktury.",
     "entities": [
-      { "type": "NIP", "value": "118-000-00-19" }
+      { "type": "NIP", "value": "118-000-00-18" }
     ]
   },
   {
@@ -26,9 +26,9 @@
   {
     "id": "nip-004",
     "category": "nip_no_separators",
-    "text": "Faktura VAT nr FV/2024/0012, NIP1180000019, kwota do zapłaty: 4 920,00 zł.",
+    "text": "Faktura VAT nr FV/2024/0012, NIP1180000018, kwota do zapłaty: 4 920,00 zł.",
     "entities": [
-      { "type": "NIP", "value": "1180000019" }
+      { "type": "NIP", "value": "1180000018" }
     ]
   },
   {
@@ -42,9 +42,9 @@
   {
     "id": "nip-006",
     "category": "nip_spaces",
-    "text": "Proszę wystawić fakturę na NIP: 118 000 00 19.",
+    "text": "Proszę wystawić fakturę na NIP: 118 000 00 18.",
     "entities": [
-      { "type": "NIP", "value": "118 000 00 19" }
+      { "type": "NIP", "value": "118 000 00 18" }
     ]
   },
   {
@@ -66,9 +66,9 @@
   {
     "id": "nip-009",
     "category": "nip_label_prefix",
-    "text": "Identyfikator podatkowy NIP nr 118-000-00-19 należy podać w tytule przelewu.",
+    "text": "Identyfikator podatkowy NIP nr 118-000-00-18 należy podać w tytule przelewu.",
     "entities": [
-      { "type": "NIP", "value": "118-000-00-19" }
+      { "type": "NIP", "value": "118-000-00-18" }
     ]
   },
   {
@@ -82,9 +82,9 @@
   {
     "id": "nip-011",
     "category": "nip_vat_eu_prefix",
-    "text": "Faktura eksportowa, kontrahent posługuje się numerem VAT-UE PL1180000019 przy odprawie celnej.",
+    "text": "Faktura eksportowa, kontrahent posługuje się numerem VAT-UE PL1180000018 przy odprawie celnej.",
     "entities": [
-      { "type": "NIP", "value": "PL1180000019" }
+      { "type": "NIP", "value": "PL1180000018" }
     ]
   },
   {
@@ -106,9 +106,9 @@
   {
     "id": "nip-014",
     "category": "nip_numeric_distractor",
-    "text": "We wniosku podano numer referencyjny 92050112345 oraz NIP działalności 118-000-00-19.",
+    "text": "We wniosku podano numer referencyjny 92050112345 oraz NIP działalności 118-000-00-18.",
     "entities": [
-      { "type": "NIP", "value": "118-000-00-19" }
+      { "type": "NIP", "value": "118-000-00-18" }
     ]
   },
   {
@@ -158,10 +158,10 @@
   {
     "id": "nip-022",
     "category": "nip_multiple_in_document",
-    "text": "Sprzedawca posiada NIP 526-000-12-46. Nabywca w tej samej fakturze widnieje pod numerem NIP 118-000-00-19.",
+    "text": "Sprzedawca posiada NIP 526-000-12-46. Nabywca w tej samej fakturze widnieje pod numerem NIP 118-000-00-18.",
     "entities": [
       { "type": "NIP", "value": "526-000-12-46" },
-      { "type": "NIP", "value": "118-000-00-19" }
+      { "type": "NIP", "value": "118-000-00-18" }
     ]
   },
   {
@@ -202,9 +202,9 @@
   {
     "id": "nip-028",
     "category": "nip_sole_proprietor",
-    "text": "Faktura wystawiona przez osobę prowadzącą jednoosobową działalność gospodarczą, NIP 118-000-00-19, tożsamy z numerem identyfikacji podatkowej tej osoby fizycznej.",
+    "text": "Faktura wystawiona przez osobę prowadzącą jednoosobową działalność gospodarczą, NIP 118-000-00-18, tożsamy z numerem identyfikacji podatkowej tej osoby fizycznej.",
     "entities": [
-      { "type": "NIP", "value": "118-000-00-19" }
+      { "type": "NIP", "value": "118-000-00-18" }
     ]
   },
   {

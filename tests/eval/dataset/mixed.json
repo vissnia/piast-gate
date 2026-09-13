@@ -17,11 +17,11 @@
   {
     "id": "mix-002",
     "category": "mix_numeric_collision_nip_regon",
-    "text": "Formularz zgłoszeniowy zawiera NIP 118-000-00-19 oraz REGON 012345675 tej samej firmy.",
+    "text": "Formularz zgłoszeniowy zawiera NIP 118-000-00-18 oraz REGON 012345675 tej samej firmy.",
     "entities": [
       {
         "type": "NIP",
-        "value": "118-000-00-19"
+        "value": "118-000-00-18"
       },
       {
         "type": "REGON",
@@ -62,11 +62,11 @@
   {
     "id": "mix-005",
     "category": "mix_numeric_collision_nip_regon",
-    "text": "Sprzedawca: NIP 118-000-00-19, REGON 330051022, dane zgodne z CEIDG.",
+    "text": "Sprzedawca: NIP 118-000-00-18, REGON 330051022, dane zgodne z CEIDG.",
     "entities": [
       {
         "type": "NIP",
-        "value": "118-000-00-19"
+        "value": "118-000-00-18"
       },
       {
         "type": "REGON",
@@ -92,11 +92,11 @@
   {
     "id": "mix-007",
     "category": "mix_numeric_collision_nip_pesel",
-    "text": "Wniosek CEIDG zawiera NIP 118-000-00-19 oraz PESEL wnioskodawcy 05231567898.",
+    "text": "Wniosek CEIDG zawiera NIP 118-000-00-18 oraz PESEL wnioskodawcy 05231567898.",
     "entities": [
       {
         "type": "NIP",
-        "value": "118-000-00-19"
+        "value": "118-000-00-18"
       },
       {
         "type": "PESEL",
@@ -141,7 +141,7 @@
   {
     "id": "mix-010",
     "category": "mix_numeric_collision_nip_pesel",
-    "text": "Dane osoby fizycznej prowadzącej działalność: PESEL 78113044440, NIP 118-000-00-19.",
+    "text": "Dane osoby fizycznej prowadzącej działalność: PESEL 78113044440, NIP 118-000-00-18.",
     "entities": [
       {
         "type": "PESEL",
@@ -149,7 +149,7 @@
       },
       {
         "type": "NIP",
-        "value": "118-000-00-19"
+        "value": "118-000-00-18"
       }
     ]
   },
@@ -216,7 +216,7 @@
   {
     "id": "mix-015",
     "category": "mix_numeric_collision_phone_nip",
-    "text": "Dane kontaktowe: telefon 678912345, NIP 118-000-00-19.",
+    "text": "Dane kontaktowe: telefon 678912345, NIP 118-000-00-18.",
     "entities": [
       {
         "type": "PHONE",
@@ -224,7 +224,7 @@
       },
       {
         "type": "NIP",
-        "value": "118-000-00-19"
+        "value": "118-000-00-18"
       }
     ]
   },
@@ -370,7 +370,7 @@
   {
     "id": "mix-025",
     "category": "mix_numeric_collision_triple",
-    "text": "Dane rejestrowe jednoosobowej działalności: PESEL 05231567898, NIP 118-000-00-19, REGON 012345675.",
+    "text": "Dane rejestrowe jednoosobowej działalności: PESEL 05231567898, NIP 118-000-00-18, REGON 012345675.",
     "entities": [
       {
         "type": "PESEL",
@@ -378,7 +378,7 @@
       },
       {
         "type": "NIP",
-        "value": "118-000-00-19"
+        "value": "118-000-00-18"
       },
       {
         "type": "REGON",
@@ -431,11 +431,11 @@
   {
     "id": "mix-028",
     "category": "mix_numeric_collision_quadruple",
-    "text": "Pełne dane rejestrowe: NIP 118-000-00-19, REGON 191045425, PESEL 00222945617, telefon kontaktowy 512345678.",
+    "text": "Pełne dane rejestrowe: NIP 118-000-00-18, REGON 191045425, PESEL 00222945617, telefon kontaktowy 512345678.",
     "entities": [
       {
         "type": "NIP",
-        "value": "118-000-00-19"
+        "value": "118-000-00-18"
       },
       {
         "type": "REGON",
@@ -515,7 +515,7 @@
   {
     "id": "mix-032",
     "category": "mix_bankaccount_nip",
-    "text": "Rachunek bankowy PL05105000990000009007300140 oraz NIP kontrahenta 118-000-00-19 widnieją na fakturze.",
+    "text": "Rachunek bankowy PL05105000990000009007300140 oraz NIP kontrahenta 118-000-00-18 widnieją na fakturze.",
     "entities": [
       {
         "type": "BANK_ACCOUNT",
@@ -523,7 +523,7 @@
       },
       {
         "type": "NIP",
-        "value": "118-000-00-19"
+        "value": "118-000-00-18"
       }
     ]
   },
@@ -1033,7 +1033,7 @@
   {
     "id": "mix-066",
     "category": "mix_email_phone_combo",
-    "text": "kontakt:jan.kowalski@firma.plNIP1180000019 to ciąg wklejony bez separacji z systemu.",
+    "text": "kontakt:jan.kowalski@firma.plNIP1180000018 to ciąg wklejony bez separacji z systemu.",
     "entities": [
       {
         "type": "EMAIL",
@@ -1041,7 +1041,7 @@
       },
       {
         "type": "NIP",
-        "value": "1180000019"
+        "value": "1180000018"
       }
     ]
   },
@@ -1257,7 +1257,7 @@
   {
     "id": "mix-078",
     "category": "mix_business_document_multi_entity",
-    "text": "Umowa zawarta pomiędzy XYZ S.A. (NIP 118-000-00-19, ul. Kwiatowa 7, 61-001 Poznań) a Piotrem Wiśniewskim (PESEL 05231567898).",
+    "text": "Umowa zawarta pomiędzy XYZ S.A. (NIP 118-000-00-18, ul. Kwiatowa 7, 61-001 Poznań) a Piotrem Wiśniewskim (PESEL 05231567898).",
     "entities": [
       {
         "type": "ORGANIZATION",
@@ -1265,7 +1265,7 @@
       },
       {
         "type": "NIP",
-        "value": "118-000-00-19"
+        "value": "118-000-00-18"
       },
       {
         "type": "LOCATION",
@@ -1380,7 +1380,7 @@
   {
     "id": "mix-083",
     "category": "mix_business_document_multi_entity",
-    "text": "Wniosek CEIDG: Katarzyna Lewandowska, PESEL 55861020203, adres: os. Słoneczne 9, 31-215 Kraków, NIP działalności 118-000-00-19, REGON 330051022.",
+    "text": "Wniosek CEIDG: Katarzyna Lewandowska, PESEL 55861020203, adres: os. Słoneczne 9, 31-215 Kraków, NIP działalności 118-000-00-18, REGON 330051022.",
     "entities": [
       {
         "type": "PERSON",
@@ -1396,7 +1396,7 @@
       },
       {
         "type": "NIP",
-        "value": "118-000-00-19"
+        "value": "118-000-00-18"
       },
       {
         "type": "REGON",
@@ -1545,7 +1545,7 @@
   {
     "id": "mix-090",
     "category": "mix_business_document_multi_entity",
-    "text": "Pełne dane rejestrowe jednoosobowej działalności: Tomasz Wójcik, NIP 118-000-00-19, REGON 012345675, PESEL 03011522233, adres: ul. Parkowa 9, 02-001 Warszawa, tel. 678912345, e-mail tomasz.wojcik@firma.pl.",
+    "text": "Pełne dane rejestrowe jednoosobowej działalności: Tomasz Wójcik, NIP 118-000-00-18, REGON 012345675, PESEL 03011522233, adres: ul. Parkowa 9, 02-001 Warszawa, tel. 678912345, e-mail tomasz.wojcik@firma.pl.",
     "entities": [
       {
         "type": "PERSON",
@@ -1553,7 +1553,7 @@
       },
       {
         "type": "NIP",
-        "value": "118-000-00-19"
+        "value": "118-000-00-18"
       },
       {
         "type": "REGON",
