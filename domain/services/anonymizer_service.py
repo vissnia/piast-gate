@@ -5,6 +5,7 @@ from typing import Callable, List, Tuple, Dict
 from domain.entities.pii_token import PIIToken
 from domain.interfaces.pii_detector import PIIDetector
 from domain.services.token_overlap import remove_overlapping_tokens
+from domain.services.location_merger import merge_location_spans
 
 logger = logging.getLogger(__name__)
 
@@ -32,7 +33,7 @@ class AnonymizerService:
         for detector in self.detectors:
             all_tokens.extend(detector.detect(text))
 
-        return remove_overlapping_tokens(all_tokens)
+        return merge_location_spans(text, remove_overlapping_tokens(all_tokens))
 
     def _assign_tokens(self, text: str, tokens: List[PIIToken], state_type_counters: Dict[str, int] = None, state_value_to_token_str: Dict[str, str] = None) -> Tuple[str, Dict[str, PIIToken]]:
         """
