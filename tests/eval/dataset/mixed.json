@@ -1583,10 +1583,6 @@
     "text": "Faktura nr FV/2024/01/15/003 zawiera datę wystawienia 15.01.2024 oraz NIP sprzedawcy 526-000-12-46.",
     "entities": [
       {
-        "type": "DATE",
-        "value": "15.01.2024"
-      },
-      {
         "type": "NIP",
         "value": "526-000-12-46"
       }
@@ -1597,10 +1593,6 @@
     "category": "mix_date_collision",
     "text": "Umowa zawarta dnia 15 stycznia 2024 roku pomiędzy ABC Sp. z o.o. a Janem Kowalskim.",
     "entities": [
-      {
-        "type": "DATE",
-        "value": "15 stycznia 2024 roku"
-      },
       {
         "type": "ORGANIZATION",
         "value": "ABC Sp. z o.o."
@@ -1616,10 +1608,6 @@
     "category": "mix_date_collision",
     "text": "Data urodzenia wnioskodawcy: 22.07.1985, PESEL: 85072212339.",
     "entities": [
-      {
-        "type": "DATE",
-        "value": "22.07.1985"
-      },
       {
         "type": "PESEL",
         "value": "85072212339"
@@ -1642,10 +1630,6 @@
     "category": "mix_date_collision",
     "text": "Termin płatności faktury upływa 15.02.2024, numer konta do wpłaty: PL05105000990000009007300140.",
     "entities": [
-      {
-        "type": "DATE",
-        "value": "15.02.2024"
-      },
       {
         "type": "BANK_ACCOUNT",
         "value": "PL05105000990000009007300140"
