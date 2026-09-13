@@ -218,7 +218,7 @@
     "category": "location_ocr_split",
     "text": "Adres: ul. Polna 3, 30-\n001 Kraków (numer przeniesiony ze skanu, złamany na końcu linii).",
     "entities": [
-      { "type": "LOCATION", "value": "ul. Polna 3, 30-001 Kraków" }
+      { "type": "LOCATION", "value": "ul. Polna 3, 30-\n001 Kraków" }
     ]
   },
   {
