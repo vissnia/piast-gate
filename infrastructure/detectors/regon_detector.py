@@ -6,9 +6,13 @@ from domain.interfaces.pii_detector import PIIDetector
 from infrastructure.detectors.validators import is_valid_regon
 from domain.services.token_overlap import remove_overlapping_tokens
 
+_SEPARATOR = r"[ \t\r\n\-]"
+_SEPARATOR_RE = re.compile(_SEPARATOR)
+_LINEBREAK_RE = re.compile(r"\r\n|\r|\n")
+
 _PATTERNS = [
-    re.compile(r"\b\d{14}\b"),
-    re.compile(r"\b\d{9}\b"),
+    re.compile(rf"(?<!\d)\d(?:{_SEPARATOR}*\d){{13}}(?!\d)"),
+    re.compile(rf"(?<!\d)\d(?:{_SEPARATOR}*\d){{8}}(?!\d)"),
 ]
 
 class RegonDetector(PIIDetector):
@@ -28,14 +32,15 @@ class RegonDetector(PIIDetector):
 
         for pattern in _PATTERNS:
             for match in pattern.finditer(text):
-                val = match.group()
-                if not is_valid_regon(val):
+                raw_val = match.group()
+                digits = _SEPARATOR_RE.sub("", raw_val)
+                if not is_valid_regon(digits):
                     continue
 
                 tokens.append(
                     PIIToken(
                         type=PIIType.REGON,
-                        original_value=val,
+                        original_value=_LINEBREAK_RE.sub("", raw_val),
                         token_str="",
                         start=match.start(),
                         end=match.end(),

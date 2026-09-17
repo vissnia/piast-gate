@@ -3,10 +3,26 @@ from typing import List
 from domain.entities.pii_token import PIIToken
 from domain.enums.pii_type import PIIType
 from domain.interfaces.pii_detector import PIIDetector
-from infrastructure.detectors.validators import is_valid_iban_checksum
 from domain.services.token_overlap import remove_overlapping_tokens
 
-_WHITESPACE = re.compile(r"[ \t]")
+_SEPARATOR = r"[ \t\r\n\-]"
+_SEPARATOR_RE = re.compile(_SEPARATOR)
+_LINEBREAK_RE = re.compile(r"\r\n|\r|\n")
+
+_NRB_PATTERN = re.compile(rf"(?<![A-Za-z0-9])\d(?:{_SEPARATOR}*\d){{25}}(?!\d)")
+_IBAN_PATTERN = re.compile(
+    rf"(?<![A-Za-z0-9])[A-Za-z]{{2}}\d{{2}}(?:{_SEPARATOR}*\d){{11,30}}(?![A-Za-z0-9])"
+)
+
+
+def _account_body(compact: str) -> str:
+    prefix_len = 4 if compact[:2].isalpha() else 2
+    return compact[prefix_len:]
+
+
+def _is_placeholder(body: str) -> bool:
+    return len(set(body)) == 1
+
 
 class BankAccountDetector(PIIDetector):
     """
@@ -25,24 +41,18 @@ class BankAccountDetector(PIIDetector):
         """
         tokens: List[PIIToken] = []
 
-        patterns = [
-            r"\b(?:\d[ \t]*){26}\b",
-            r"\b[A-Z]{2}[ \t]*\d{2}[ \t]*(?:[A-Z0-9][ \t]*){11,30}\b",
-        ]
-
-        for pattern in patterns:
-            for match in re.finditer(pattern, text):
+        for pattern in (_NRB_PATTERN, _IBAN_PATTERN):
+            for match in pattern.finditer(text):
                 raw_val = match.group()
-                compact = _WHITESPACE.sub("", raw_val)
+                compact = _SEPARATOR_RE.sub("", raw_val)
 
-                checksum_input = compact if compact[:2].isalpha() else "PL" + compact
-                if not is_valid_iban_checksum(checksum_input):
+                if _is_placeholder(_account_body(compact)):
                     continue
 
                 tokens.append(
                     PIIToken(
                         type=PIIType.BANK_ACCOUNT,
-                        original_value=raw_val,
+                        original_value=_LINEBREAK_RE.sub("", raw_val),
                         token_str="",
                         start=match.start(),
                         end=match.end(),

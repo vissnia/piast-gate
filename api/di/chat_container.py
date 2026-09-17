@@ -47,9 +47,9 @@ def get_anonymizer_service(
         email_detector,
         bank_account_detector,
         pesel_detector,
-        phone_detector,
         nip_detector,
         regon_detector,
+        phone_detector,
         gazetteer_detector,
     ]
     return AnonymizerService(detectors)

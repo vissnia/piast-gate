@@ -24,11 +24,11 @@ DATASET_DIR = Path(__file__).parent / "dataset"
 def build_service() -> AnonymizerService:
     detectors = [
         EmailDetector(),
-        PhoneDetector(),
         PeselDetector(),
         BankAccountDetector(),
         NipDetector(),
         RegonDetector(),
+        PhoneDetector(),
         PiiPlDetector(),
         GazetteerDetector(),
     ]

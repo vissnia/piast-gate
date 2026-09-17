@@ -228,10 +228,10 @@
   {
     "id": "org-029",
     "category": "org_glued_with_nip",
-    "text": "ABCSp.zo.o.NIP1180000019 to ciąg wklejony bez separacji z systemu źródłowego.",
+    "text": "ABCSp.zo.o.NIP1180000018 to ciąg wklejony bez separacji z systemu źródłowego.",
     "entities": [
       { "type": "ORGANIZATION", "value": "ABCSp.zo.o." },
-      { "type": "NIP", "value": "1180000019" }
+      { "type": "NIP", "value": "1180000018" }
     ]
   },
   {
