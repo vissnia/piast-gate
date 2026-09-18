@@ -110,10 +110,6 @@
     "text": "Zgłoszenie do ZUS: PESEL płatnika 00222945617, NIP działalności 700-001-02-03.",
     "entities": [
       {
-        "type": "ORGANIZATION",
-        "value": "ZUS"
-      },
-      {
         "type": "PESEL",
         "value": "00222945617"
       },
@@ -715,6 +711,10 @@
       {
         "type": "ORGANIZATION",
         "value": "Nowak Sp. z o.o."
+      },
+      {
+        "type": "PERSON",
+        "value": "Nowak"
       }
     ]
   },

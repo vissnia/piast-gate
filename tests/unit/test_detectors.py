@@ -1,3 +1,5 @@
+import pytest
+
 from domain.enums.pii_type import PIIType
 from infrastructure.detectors.email_detector import EmailDetector
 from infrastructure.detectors.phone_detector import PhoneDetector
@@ -5,7 +7,9 @@ from infrastructure.detectors.pesel_detector import PeselDetector
 from infrastructure.detectors.bank_account_detector import BankAccountDetector
 from infrastructure.detectors.nip_detector import NipDetector
 from infrastructure.detectors.regon_detector import RegonDetector
-from infrastructure.detectors.pii_pl.detector import PiiPlDetector
+from infrastructure.detectors.pii_pl import create_pii_ner_detector
+from infrastructure.detectors.pii_pl.spacy_detector import SpacyNerDetector
+from infrastructure.detectors.pii_pl.hf_detector import HfNerDetector
 
 
 class TestEmailDetector:
@@ -261,9 +265,9 @@ class _FakeNlp:
 
 
 def _make_detector(monkeypatch, spans):
-    """Builds a PiiPlDetector whose spaCy pipeline is stubbed to return fixed spans."""
-    monkeypatch.setattr(PiiPlDetector, "_load_nlp", lambda self: _FakeNlp(spans))
-    return PiiPlDetector()
+    """Builds a SpacyNerDetector whose spaCy pipeline is stubbed to return fixed spans."""
+    monkeypatch.setattr(SpacyNerDetector, "_load_nlp", lambda self: _FakeNlp(spans))
+    return SpacyNerDetector()
 
 
 class TestPiiPlDetector:
@@ -320,8 +324,8 @@ class TestPiiPlDetector:
                 calls.append(text)
                 return _FakeDoc([])
 
-        monkeypatch.setattr(PiiPlDetector, "_load_nlp", lambda self: _TrackingNlp())
-        detector = PiiPlDetector()
+        monkeypatch.setattr(SpacyNerDetector, "_load_nlp", lambda self: _TrackingNlp())
+        detector = SpacyNerDetector()
 
         assert detector.detect("") == []
         assert calls == []
@@ -329,4 +333,154 @@ class TestPiiPlDetector:
     def test_no_entities_returns_empty_list(self, monkeypatch):
         detector = _make_detector(monkeypatch, [])
         assert detector.detect("zwykły tekst bez PII") == []
+
+
+class TestNeverOrganizationFilter:
+    """NIP/REGON/KRS/CEIDG are registry-identifier labels the NER model
+    sometimes mistakes for a company name on their own; infrastructure/
+    detectors/pii_pl/never_organization.txt lists terms that must never
+    surface as an ORGANIZATION, shared by every BaseNerDetector subclass."""
+
+    def test_blocklisted_terms_are_dropped(self, monkeypatch):
+        text = "W KRS figurują dane: NIP: 700-001-02-03, REGON: 555000125, zgodnie z CEIDG."
+        terms = ["KRS", "NIP", "REGON", "CEIDG"]
+        spans = [("ORGANIZATION", text.index(term), text.index(term) + len(term)) for term in terms]
+        detector = _make_detector(monkeypatch, spans)
+
+        assert detector.detect(text) == []
+
+    def test_is_case_insensitive(self, monkeypatch):
+        text = "regon firmy to nie organizacja."
+        detector = _make_detector(monkeypatch, [("ORGANIZATION", 0, 5)])
+
+        assert detector.detect(text) == []
+
+    def test_does_not_drop_a_real_organization(self, monkeypatch):
+        text = "Sprzedawca: ABC Sp. z o.o."
+        detector = _make_detector(monkeypatch, [("ORGANIZATION", 12, 26)])
+
+        tokens = detector.detect(text)
+
+        assert [t.original_value for t in tokens] == ["ABC Sp. z o.o."]
+
+    def test_only_applies_to_organization_type(self, monkeypatch):
+        text = "NIP"
+        detector = _make_detector(monkeypatch, [("PERSON", 0, 3)])
+
+        tokens = detector.detect(text)
+
+        assert [t.original_value for t in tokens] == ["NIP"]
+
+    def test_hf_detector_also_filters_blocklisted_organizations(self, monkeypatch):
+        text = "Dane zgodne z CEIDG i REGON."
+        results = [
+            {"entity_group": "ORGANIZATION", "start": 14, "end": 19},
+            {"entity_group": "ORGANIZATION", "start": 22, "end": 27},
+        ]
+        monkeypatch.setattr(HfNerDetector, "_load_pipeline", lambda self: (lambda t: results))
+        detector = HfNerDetector()
+
+        assert detector.detect(text) == []
+
+
+class TestHfNerDetector:
+    """The mapping/aggregation logic is shared with SpacyNerDetector via
+    BaseNerDetector; these tests focus on translating the HF pipeline's
+    dict output (entity_group/start/end) into PIITokens."""
+
+    def _make_detector(self, monkeypatch, results):
+        monkeypatch.setattr(HfNerDetector, "_load_pipeline", lambda self: (lambda text: results))
+        return HfNerDetector()
+
+    def test_maps_person_location_organization_labels(self, monkeypatch):
+        text = "Jan Kowalski mieszka w Warszawie i pracuje w Acme."
+        results = [
+            {"entity_group": "PERSON", "start": 0, "end": 12},
+            {"entity_group": "LOCATION", "start": 23, "end": 32},
+            {"entity_group": "ORGANIZATION", "start": 45, "end": 49},
+        ]
+        detector = self._make_detector(monkeypatch, results)
+
+        tokens = detector.detect(text)
+
+        assert [(t.type, t.original_value) for t in tokens] == [
+            (PIIType.PERSON, "Jan Kowalski"),
+            (PIIType.LOCATION, "Warszawie"),
+            (PIIType.ORGANIZATION, "Acme"),
+        ]
+
+    def test_skips_unmapped_entity_labels(self, monkeypatch):
+        text = "Zadzwoń pod 123456789 w sprawie iPhone."
+        results = [
+            {"entity_group": "CONTACT/NUM", "start": 12, "end": 21},
+            {"entity_group": "PRODUCT", "start": 33, "end": 39},
+        ]
+        detector = self._make_detector(monkeypatch, results)
+
+        assert detector.detect(text) == []
+
+    def test_trims_leading_whitespace_the_tokenizer_folds_into_the_span(self, monkeypatch):
+        """Regression: this model's byte-level BPE tokenizer attributes the
+        space before a word to that word's token, so aggregated start/end
+        can include it (e.g. start/end covering " PKO BP" instead of "PKO
+        BP"). Left untrimmed, original_value and start/end both drift by
+        one, and the resulting text[start:end] no longer round-trips."""
+        text = "Jan Kowalski z firmy PKO BP mieszka w Warszawie."
+        results = [
+            {"entity_group": "PERSON", "start": 0, "end": 12},
+            {"entity_group": "ORGANIZATION", "start": 20, "end": 27},
+            {"entity_group": "LOCATION", "start": 37, "end": 47},
+        ]
+        detector = self._make_detector(monkeypatch, results)
+
+        tokens = detector.detect(text)
+
+        assert [(t.type, t.original_value) for t in tokens] == [
+            (PIIType.PERSON, "Jan Kowalski"),
+            (PIIType.ORGANIZATION, "PKO BP"),
+            (PIIType.LOCATION, "Warszawie"),
+        ]
+        for t in tokens:
+            assert text[t.start:t.end] == t.original_value
+
+    def test_empty_text_short_circuits_without_calling_model(self, monkeypatch):
+        calls = []
+        monkeypatch.setattr(
+            HfNerDetector, "_load_pipeline", lambda self: (lambda text: calls.append(text))
+        )
+        detector = HfNerDetector()
+
+        assert detector.detect("") == []
+        assert calls == []
+
+    def test_missing_transformers_raises_helpful_error(self, monkeypatch):
+        import builtins
+
+        real_import = builtins.__import__
+
+        def _fake_import(name, *args, **kwargs):
+            if name == "transformers":
+                raise ImportError("no module named transformers")
+            return real_import(name, *args, **kwargs)
+
+        monkeypatch.setattr(builtins, "__import__", _fake_import)
+
+        with pytest.raises(ImportError, match="accuracy"):
+            HfNerDetector()
+
+
+class TestCreatePiiNerDetector:
+    def test_efficiency_mode_builds_spacy_detector(self, monkeypatch):
+        monkeypatch.setattr(SpacyNerDetector, "_load_nlp", lambda self: _FakeNlp([]))
+        detector = create_pii_ner_detector("efficiency")
+        assert isinstance(detector, SpacyNerDetector)
+
+    def test_accuracy_mode_builds_hf_detector(self, monkeypatch):
+        monkeypatch.setattr(HfNerDetector, "_load_pipeline", lambda self: (lambda text: []))
+        detector = create_pii_ner_detector("accuracy")
+        assert isinstance(detector, HfNerDetector)
+
+    def test_unknown_mode_raises(self):
+        with pytest.raises(ValueError, match="bogus"):
+            create_pii_ner_detector("bogus")
 

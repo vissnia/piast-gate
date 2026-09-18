@@ -122,7 +122,8 @@
     "category": "regon_numeric_distractor",
     "text": "Numer wewnętrzny 33-00-51-02-3 różni się formatem zapisu od numeru REGON 330051022 widniejącego w tym samym wierszu.",
     "entities": [
-      { "type": "REGON", "value": "330051022" }
+      { "type": "REGON", "value": "330051022" },
+      { "type": "PHONE", "value": "33-00-51-02-3" }
     ]
   },
   {

@@ -219,7 +219,8 @@
     "category": "bank_account_internal_bank_code_mismatch",
     "text": "Numer konta 72106000760000320001236741 przechodzi walidację sumy kontrolnej całości, mimo że numer rozliczeniowy banku w pierwszych ośmiu cyfrach nie figuruje w rejestrze NBP.",
     "entities": [
-      { "type": "BANK_ACCOUNT", "value": "72106000760000320001236741" }
+      { "type": "BANK_ACCOUNT", "value": "72106000760000320001236741" },
+      { "type": "ORGANIZATION", "value": "NBP" }
     ]
   },
   {

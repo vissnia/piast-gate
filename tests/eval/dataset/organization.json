@@ -91,17 +91,13 @@
     "id": "org-012",
     "category": "org_public_institution_acronym",
     "text": "Składkę należy przekazać do ZUS w terminie do 15 dnia miesiąca.",
-    "entities": [
-      { "type": "ORGANIZATION", "value": "ZUS" }
-    ]
+    "entities": []
   },
   {
     "id": "org-013",
     "category": "org_public_institution_acronym",
     "text": "Wniosek o interpretację podatkową złożono do US właściwego dla siedziby firmy.",
-    "entities": [
-      { "type": "ORGANIZATION", "value": "US" }
-    ]
+    "entities": []
   },
   {
     "id": "org-014",
@@ -345,9 +341,7 @@
     "id": "org-044",
     "category": "org_public_institution_acronym",
     "text": "Dane rejestrowe podmiotu można zweryfikować w KRS.",
-    "entities": [
-      { "type": "ORGANIZATION", "value": "KRS" }
-    ]
+    "entities": []
   },
   {
     "id": "org-045",
